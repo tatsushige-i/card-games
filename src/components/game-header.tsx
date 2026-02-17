@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { GamePhase, BestScore } from "@/types/game";
@@ -34,7 +36,14 @@ export function GameHeader({
   return (
     <div className="glass rounded-2xl p-4 sm:p-6 shadow-lg mb-4 sm:mb-6">
       {/* タイトル */}
-      <div className="text-center mb-4">
+      <div className="relative text-center mb-4">
+        <Link
+          href="/"
+          className="absolute left-0 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+          aria-label="ホームに戻る"
+        >
+          <ArrowLeft className="size-5" />
+        </Link>
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-800">
           神経衰弱
         </h1>

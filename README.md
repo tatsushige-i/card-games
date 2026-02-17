@@ -46,9 +46,11 @@ npm run build
 ```
 src/
 ├── app/
+│   ├── concentration/
+│   │   └── page.tsx         # 神経衰弱ページ
 │   ├── globals.css          # テーマ・背景・アニメーション
 │   ├── layout.tsx           # ルートレイアウト
-│   └── page.tsx             # メインページ
+│   └── page.tsx             # ホーム（ゲーム選択）
 ├── components/
 │   ├── ui/                  # shadcn/ui（自動生成）
 │   ├── game-board.tsx       # ゲーム盤面全体

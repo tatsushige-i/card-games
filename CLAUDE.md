@@ -24,11 +24,16 @@ Uses a **useReducer pattern** with a pure reducer (`src/lib/game-reducer.ts`). T
 - Match delay — 800ms `setTimeout` after 2 cards flipped before `CHECK_MATCH`
 - Best score persistence — `useSyncExternalStore` with a **cached snapshot** of localStorage (critical: `getSnapshot` must return stable references to avoid infinite re-render loops)
 
-### Component Hierarchy
+### Routing
+
+- `/` — Home (game selection screen, Server Component)
+- `/concentration` — 神経衰弱 game
+
+### Component Hierarchy (神経衰弱)
 
 ```
 GameBoard (client component, calls useGame)
-├── GameHeader (score, timer, best score, control buttons)
+├── GameHeader (score, timer, best score, back link, control buttons)
 ├── CardGrid (4x4 grid, conditionally rendered when phase !== "idle")
 │   └── GameCard (3D flip animation, accessibility labels)
 └── GameCompleteDialog (shadcn Dialog, shown on phase === "complete")
@@ -36,6 +41,8 @@ GameBoard (client component, calls useGame)
 
 ### Key Files
 
+- `src/app/page.tsx` — Home page with game selection links
+- `src/app/concentration/page.tsx` — 神経衰弱 entry point
 - `src/types/game.ts` — All type definitions (`Card`, `GameState`, `GameAction`, `BestScore`)
 - `src/lib/cards.ts` — Card generation with Fisher-Yates shuffle
 - `src/lib/storage.ts` — localStorage read/write for best scores
