@@ -13,7 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Architecture
 
-Memory card matching game (神経衰弱) built with Next.js App Router + TypeScript.
+Collection of card games built with Next.js App Router + TypeScript. Currently includes 神経衰弱 (memory matching).
 
 ### State Management
 

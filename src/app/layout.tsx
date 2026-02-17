@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "神経衰弱ゲーム",
-  description: "カードをめくってペアを見つけるメモリーマッチングゲーム",
+  title: "カードゲーム",
+  description: "さまざまなカードゲームが遊べるWebアプリ",
 };
 
 export default function RootLayout({
