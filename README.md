@@ -79,6 +79,16 @@ npm run test:run
 npm run build
 ```
 
+## Claude Code スキル
+
+このプロジェクトでは [Claude Code](https://claude.ai/code) のカスタムスキル（スラッシュコマンド）を活用しています。
+
+| コマンド | 説明 |
+|----------|------|
+| `/add-game [ゲーム名]` | 新しいカードゲームの追加を自動化。既存パターンに従い、型定義・ロジック・テスト・UI・ページを一貫して実装する |
+
+スキル定義: `.claude/skills/add-game/SKILL.md`
+
 ## プロジェクト構成
 
 ```
@@ -121,6 +131,12 @@ src/
 │   └── blackjack.ts             # ブラックジャック: 型定義
 └── test/
     └── setup.ts                 # テストセットアップ
+
+.claude/
+├── rules/                       # Claude Code ルールファイル
+├── tasks/                       # ゲームごとの要件定義
+└── skills/
+    └── add-game/SKILL.md        # 新ゲーム追加スキル
 ```
 
 ## 設計

@@ -80,6 +80,16 @@ BlackjackBoard → useBlackjack
 
 主要ファイル: `src/types/blackjack.ts`, `src/lib/blackjack-reducer.ts`, `src/lib/blackjack-cards.ts`, `src/lib/blackjack-storage.ts`, `src/hooks/useBlackjack.ts`
 
+## スキル（Claude Code カスタムコマンド）
+
+`.claude/skills/` 配下にプロジェクト固有のスラッシュコマンドを定義している。
+
+| スキル | コマンド | 説明 |
+|--------|----------|------|
+| add-game | `/add-game [ゲーム名]` | 新ゲーム追加の全工程を自動化（要件整理→設計→実装→テスト→ホーム登録→ドキュメント更新） |
+
+スキルファイル: `.claude/skills/<skill-name>/SKILL.md`
+
 ## 共有リソース
 
 - `src/app/page.tsx` — ホームページ（`games` 配列でゲーム一覧を管理）
