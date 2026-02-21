@@ -1,34 +1,72 @@
 # アーキテクチャ
 
-## 状態管理
+## ゲーム追加パターン
 
-**useReducer パターン**を採用し、純粋な reducer（`src/lib/game-reducer.ts`）で状態遷移を管理する。`useGame` フック（`src/hooks/useGame.ts`）が以下を統括:
+各ゲームは以下の構成で独立したファイル群を持つ。ゲーム間でコードは共有しない（`shuffle` 等の小さなユーティリティも各ゲームに複製）。
 
-- `gameReducer` — 判別共用体アクションによる純粋な状態遷移: `START_GAME`, `FLIP_CARD`, `CHECK_MATCH`, `TICK`, `SET_NEW_BEST`, `RESET`
-- タイマー — `useEffect`（`phase` をキーとする）内で `setInterval` により毎秒 `TICK` をディスパッチ
-- マッチ判定遅延 — カードが2枚めくられた後、800ms の `setTimeout` を経て `CHECK_MATCH` を実行
-- ベストスコア永続化 — `useSyncExternalStore` と localStorage の**キャッシュ済みスナップショット**を使用（重要: `getSnapshot` は安定した参照を返す必要がある。詳細は `pitfalls.md` を参照）
+```
+src/
+├── types/<game>.ts              — 型定義（カード、状態、アクション、ベストスコア）
+├── lib/<game>-cards.ts          — カード生成・シャッフル・定数
+├── lib/<game>-reducer.ts        — 純粋 Reducer（判別共用体アクション）
+├── lib/<game>-storage.ts        — localStorage ベストスコア永続化
+├── lib/__tests__/<game>-*.ts    — ライブラリのテスト
+├── hooks/use<Game>.ts           — useReducer + useEffect + useSyncExternalStore
+├── components/<game>/           — ゲーム固有コンポーネント群
+│   ├── <game>-board.tsx         — メインクライアントコンポーネント（フック呼び出し）
+│   ├── <game>-header.tsx        — スコア・操作ボタン・戻るリンク
+│   ├── ...その他ゲーム固有UI
+│   └── __tests__/               — コンポーネントのテスト
+└── app/<game>/page.tsx          — ルートエントリーポイント（Server Component）
+```
+
+### 共通パターン
+
+- **状態管理**: `useReducer` + 純粋 Reducer（判別共用体アクション）
+- **遅延処理**: `useEffect` 内の `setTimeout`（phase をキーとする）で結果表示の遅延を実装
+- **ベストスコア永続化**: `useSyncExternalStore` + キャッシュ済みスナップショット（`pitfalls.md` 参照）
+- **localStorage キー**: `"<game>-best-score"` の命名規則
+- **ホーム画面登録**: `src/app/page.tsx` の `games` 配列にエントリ追加
 
 ## ルーティング
 
 - `/` — ホーム（ゲーム選択画面、Server Component）
-- `/concentration` — 神経衰弱ゲーム
+- `/concentration` — 神経衰弱
+- `/high-and-low` — ハイ＆ロー
 
-## コンポーネント階層（神経衰弱）
+## 収録ゲーム
+
+### 神経衰弱（concentration）
+
+カードをめくってペアを見つけるゲーム。
 
 ```
-GameBoard（クライアントコンポーネント、useGame を呼び出す）
-├── GameHeader（スコア、タイマー、ベストスコア、戻るリンク、操作ボタン）
-├── CardGrid（4x4 グリッド、phase !== "idle" のとき条件付きレンダリング）
-│   └── GameCard（3D フリップアニメーション、アクセシビリティラベル）
-└── GameCompleteDialog（shadcn Dialog、phase === "complete" のとき表示）
+GameBoard → useGame
+├── GameHeader（試行回数、タイマー、ペア数、ベストスコア）
+├── CardGrid（4x4 グリッド）
+│   └── GameCard（3D フリップ、アクセシビリティラベル）
+└── GameCompleteDialog
 ```
 
-## 主要ファイル
+主要ファイル: `src/types/game.ts`, `src/lib/game-reducer.ts`, `src/lib/cards.ts`, `src/lib/storage.ts`, `src/hooks/useGame.ts`
 
-- `src/app/page.tsx` — ホームページ（ゲーム選択リンク）
-- `src/app/concentration/page.tsx` — 神経衰弱エントリーポイント
-- `src/types/game.ts` — 全型定義（`Card`, `GameState`, `GameAction`, `BestScore`）
-- `src/lib/cards.ts` — カード生成（Fisher-Yates シャッフル）
-- `src/lib/storage.ts` — localStorage によるベストスコアの読み書き
-- `src/app/globals.css` — カスタム CSS クラス: グラスモーフィズム（`.glass`）、3D カードフリップ（`.card-inner`, `.card-face`, `.card-back`）、グラデーション背景（`.game-background`）
+### ハイ＆ロー（high-and-low）
+
+次のトランプカードが現在より高いか低いかを予想するゲーム。初期3点、10点で勝利、0点で敗北。同値は引き分け（±0）。連勝中はカードが横に積み重なる視覚演出。
+
+```
+HighAndLowBoard → useHighAndLow
+├── HighAndLowHeader（スコア、連勝数、枚数、ベストスコア）
+├── HighAndLowCard（トランプ表示、スート色分け、3Dフリップ再利用）
+├── HighAndLowResult（正解/不正解/引き分け表示）
+└── HighAndLowGameOverDialog（勝利/敗北）
+```
+
+主要ファイル: `src/types/high-and-low.ts`, `src/lib/high-and-low-reducer.ts`, `src/lib/high-and-low-cards.ts`, `src/lib/high-and-low-storage.ts`, `src/hooks/useHighAndLow.ts`
+
+## 共有リソース
+
+- `src/app/page.tsx` — ホームページ（`games` 配列でゲーム一覧を管理）
+- `src/app/globals.css` — 共有 CSS: `.game-background`（3層グラデーション背景）、`.glass`（グラスモーフィズム）、`.card-container` / `.card-inner` / `.card-face` / `.card-back`（3Dカードフリップ）、`.celebrate`（勝利アニメーション）
+- `src/components/ui/` — shadcn/ui コンポーネント（Button, Dialog, Badge）
+- `src/lib/utils.ts` — `cn()` ユーティリティ
