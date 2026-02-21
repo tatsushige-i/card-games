@@ -40,6 +40,14 @@
 - **shadcn/ui** (Button, Dialog, Badge)
 - **Vitest** + React Testing Library
 
+## CI
+
+GitHub Actions により、`main` ブランチへの push および PR 時に以下を自動実行します。
+
+- **Lint** — `npm run lint`
+- **テスト** — `npm run test:run`
+- **ビルド** — `npm run build`
+
 ## 開発
 
 ```bash
