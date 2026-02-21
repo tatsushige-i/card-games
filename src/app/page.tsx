@@ -1,20 +1,4 @@
-import Link from "next/link";
-
-/** 収録ゲームの定義 */
-const games = [
-  {
-    id: "concentration",
-    title: "神経衰弱",
-    description: "カードをめくってペアを見つけよう",
-    emoji: "🃏",
-  },
-  {
-    id: "high-and-low",
-    title: "ハイ＆ロー",
-    description: "次のカードは高い？低い？",
-    emoji: "🔮",
-  },
-];
+import { GameList } from "@/components/home/game-list";
 
 export default function Home() {
   return (
@@ -29,23 +13,7 @@ export default function Home() {
         </div>
 
         {/* ゲーム一覧 */}
-        <div className="flex flex-col gap-4">
-          {games.map((game) => (
-            <Link
-              key={game.id}
-              href={`/${game.id}`}
-              className="glass rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow"
-            >
-              <div className="flex items-center gap-4">
-                <span className="text-4xl">{game.emoji}</span>
-                <div>
-                  <h2 className="text-xl font-bold text-gray-800">{game.title}</h2>
-                  <p className="text-sm text-gray-500 mt-1">{game.description}</p>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+        <GameList />
       </div>
     </div>
   );
