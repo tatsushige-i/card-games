@@ -8,6 +8,12 @@ const games = [
     description: "カードをめくってペアを見つけよう",
     emoji: "🃏",
   },
+  {
+    id: "high-and-low",
+    title: "ハイ＆ロー",
+    description: "次のカードは高い？低い？",
+    emoji: "🔮",
+  },
 ];
 
 export default function Home() {
