@@ -104,3 +104,4 @@ src/
 - **useSyncExternalStore** でlocalStorageのベストスコアを購読
 - レスポンシブデザイン（モバイル対応）
 - Glassmorphism UI + グラデーション背景
+check
