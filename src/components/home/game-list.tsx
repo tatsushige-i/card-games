@@ -5,6 +5,7 @@ import { useSyncExternalStore } from "react";
 
 import type { BestScore } from "@/types/game";
 import type { HighAndLowBestScore } from "@/types/high-and-low";
+import type { BlackjackBestScore } from "@/types/blackjack";
 
 /** ゲーム定義 */
 const games = [
@@ -21,6 +22,13 @@ const games = [
     description: "次のカードは高い？低い？",
     emoji: "🔮",
     storageKey: "high-and-low-best-score",
+  },
+  {
+    id: "blackjack",
+    title: "ブラックジャック",
+    description: "21に近づけ！ディーラーに勝とう",
+    emoji: "🂡",
+    storageKey: "blackjack-best-score",
   },
 ] as const;
 
@@ -44,6 +52,16 @@ function formatHighAndLowBest(data: string): string | null {
   }
 }
 
+/** ブラックジャックのベストスコアをフォーマット */
+function formatBlackjackBest(data: string): string | null {
+  try {
+    const best = JSON.parse(data) as BlackjackBestScore;
+    return `最大${best.maxWins}連勝`;
+  } catch {
+    return null;
+  }
+}
+
 /** ゲームIDに応じたベストスコア表示文字列を返す */
 function formatBestScore(gameId: string, data: string): string | null {
   switch (gameId) {
@@ -51,6 +69,8 @@ function formatBestScore(gameId: string, data: string): string | null {
       return formatConcentrationBest(data);
     case "high-and-low":
       return formatHighAndLowBest(data);
+    case "blackjack":
+      return formatBlackjackBest(data);
     default:
       return null;
   }

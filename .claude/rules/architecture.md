@@ -33,6 +33,7 @@ src/
 - `/` — ホーム（ゲーム選択画面、Server Component）
 - `/concentration` — 神経衰弱
 - `/high-and-low` — ハイ＆ロー
+- `/blackjack` — ブラックジャック
 
 ## 収録ゲーム
 
@@ -63,6 +64,21 @@ HighAndLowBoard → useHighAndLow
 ```
 
 主要ファイル: `src/types/high-and-low.ts`, `src/lib/high-and-low-reducer.ts`, `src/lib/high-and-low-cards.ts`, `src/lib/high-and-low-storage.ts`, `src/hooks/useHighAndLow.ts`
+
+### ブラックジャック（blackjack）
+
+プレイヤー vs ディーラーの1対1カードゲーム。手札合計を21に近づける。A=1or11自動調整、J/Q/K=10。ラウンド制で連勝を継続可能。
+
+```
+BlackjackBoard → useBlackjack
+├── BlackjackHeader（連勝数、ラウンド数、ベストスコア）
+├── BlackjackHand（手札表示、合計値、ホールカード裏向き）
+│   └── BlackjackCard（トランプ表示、3Dフリップ再利用）
+├── BlackjackResult（勝ち/負け/引き分け/ブラックジャック表示）
+└── BlackjackGameOverDialog（結果・統計、次のラウンド/最初から）
+```
+
+主要ファイル: `src/types/blackjack.ts`, `src/lib/blackjack-reducer.ts`, `src/lib/blackjack-cards.ts`, `src/lib/blackjack-storage.ts`, `src/hooks/useBlackjack.ts`
 
 ## 共有リソース
 

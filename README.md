@@ -32,6 +32,18 @@
 - 連勝中はカードが横に積み重なる視覚演出
 - 最大連勝数のベストスコア保存
 
+### ブラックジャック
+
+プレイヤー vs ディーラーの1対1カードゲーム。
+
+- 手札の合計を21に近づけてディーラーに勝つ
+- A=1or11（自動調整）、J/Q/K=10
+- ヒット（カードを引く）/スタンド（止める）を選択
+- ディーラーは17以上になるまで自動でカードを引く
+- ナチュラルブラックジャック（初期2枚で21）は特別勝利
+- ラウンド制: 勝利後に連勝を継続可能
+- 最大連勝数のベストスコア保存
+
 ## 技術スタック
 
 - **Next.js** (App Router)
@@ -72,6 +84,7 @@ npm run build
 ```
 src/
 ├── app/
+│   ├── blackjack/               # ブラックジャックページ
 │   ├── concentration/           # 神経衰弱ページ
 │   ├── high-and-low/            # ハイ＆ローページ
 │   ├── globals.css              # テーマ・背景・アニメーション
@@ -85,10 +98,12 @@ src/
 │   ├── game-card.tsx            # 神経衰弱: 個別カード
 │   ├── game-header.tsx          # 神経衰弱: ヘッダー
 │   ├── game-complete-dialog.tsx # 神経衰弱: 完了モーダル
-│   └── high-and-low/            # ハイ＆ロー: コンポーネント群
+│   ├── high-and-low/            # ハイ＆ロー: コンポーネント群
+│   └── blackjack/               # ブラックジャック: コンポーネント群
 ├── hooks/
 │   ├── useGame.ts               # 神経衰弱: ゲームロジックフック
-│   └── useHighAndLow.ts         # ハイ＆ロー: ゲームロジックフック
+│   ├── useHighAndLow.ts         # ハイ＆ロー: ゲームロジックフック
+│   └── useBlackjack.ts          # ブラックジャック: ゲームロジックフック
 ├── lib/
 │   ├── cards.ts                 # 神経衰弱: カード生成・シャッフル
 │   ├── game-reducer.ts          # 神経衰弱: Reducer
@@ -96,10 +111,14 @@ src/
 │   ├── high-and-low-cards.ts    # ハイ＆ロー: デッキ生成
 │   ├── high-and-low-reducer.ts  # ハイ＆ロー: Reducer
 │   ├── high-and-low-storage.ts  # ハイ＆ロー: localStorage操作
+│   ├── blackjack-cards.ts       # ブラックジャック: デッキ・手札計算
+│   ├── blackjack-reducer.ts     # ブラックジャック: Reducer
+│   ├── blackjack-storage.ts     # ブラックジャック: localStorage操作
 │   └── utils.ts                 # shadcn cn()
 ├── types/
 │   ├── game.ts                  # 神経衰弱: 型定義
-│   └── high-and-low.ts          # ハイ＆ロー: 型定義
+│   ├── high-and-low.ts          # ハイ＆ロー: 型定義
+│   └── blackjack.ts             # ブラックジャック: 型定義
 └── test/
     └── setup.ts                 # テストセットアップ
 ```
