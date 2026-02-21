@@ -13,7 +13,7 @@
 
 ## アーキテクチャ概要
 
-Next.js App Router + TypeScript で構築されたカードゲーム集。現在は神経衰弱を収録。
+Next.js App Router + TypeScript で構築されたカードゲーム集。
 
 詳細は `.claude/rules/` 配下のルールファイルを参照:
 
