@@ -14,6 +14,16 @@
 - ベストスコアのlocalStorage保存
 - ゲーム完了時のクリアダイアログ
 
+### ハイ＆ロー
+
+次のトランプカードが現在より高いか低いかを予想するゲーム。
+
+- 52枚のトランプデッキを使用（スート・ランク表示）
+- 初期スコア3点、10点到達で勝利、0点で敗北
+- 同値は引き分け（スコア±0）
+- 連勝中はカードが横に積み重なる視覚演出
+- 最大連勝数のベストスコア保存
+
 ## 技術スタック
 
 - **Next.js** (App Router)
@@ -46,34 +56,40 @@ npm run build
 ```
 src/
 ├── app/
-│   ├── concentration/
-│   │   └── page.tsx         # 神経衰弱ページ
-│   ├── globals.css          # テーマ・背景・アニメーション
-│   ├── layout.tsx           # ルートレイアウト
-│   └── page.tsx             # ホーム（ゲーム選択）
+│   ├── concentration/           # 神経衰弱ページ
+│   ├── high-and-low/            # ハイ＆ローページ
+│   ├── globals.css              # テーマ・背景・アニメーション
+│   ├── layout.tsx               # ルートレイアウト
+│   └── page.tsx                 # ホーム（ゲーム選択）
 ├── components/
-│   ├── ui/                  # shadcn/ui（自動生成）
-│   ├── game-board.tsx       # ゲーム盤面全体
-│   ├── card-grid.tsx        # カードグリッド
-│   ├── game-card.tsx        # 個別カード
-│   ├── game-header.tsx      # ヘッダー（スコア等）
-│   └── game-complete-dialog.tsx  # 完了モーダル
+│   ├── ui/                      # shadcn/ui（自動生成）
+│   ├── game-board.tsx           # 神経衰弱: ゲーム盤面
+│   ├── card-grid.tsx            # 神経衰弱: カードグリッド
+│   ├── game-card.tsx            # 神経衰弱: 個別カード
+│   ├── game-header.tsx          # 神経衰弱: ヘッダー
+│   ├── game-complete-dialog.tsx # 神経衰弱: 完了モーダル
+│   └── high-and-low/            # ハイ＆ロー: コンポーネント群
 ├── hooks/
-│   └── useGame.ts           # ゲームロジックフック
+│   ├── useGame.ts               # 神経衰弱: ゲームロジックフック
+│   └── useHighAndLow.ts         # ハイ＆ロー: ゲームロジックフック
 ├── lib/
-│   ├── cards.ts             # カード生成・シャッフル
-│   ├── game-reducer.ts      # ゲームReducer
-│   ├── storage.ts           # localStorage操作
-│   └── utils.ts             # shadcn cn()
+│   ├── cards.ts                 # 神経衰弱: カード生成・シャッフル
+│   ├── game-reducer.ts          # 神経衰弱: Reducer
+│   ├── storage.ts               # 神経衰弱: localStorage操作
+│   ├── high-and-low-cards.ts    # ハイ＆ロー: デッキ生成
+│   ├── high-and-low-reducer.ts  # ハイ＆ロー: Reducer
+│   ├── high-and-low-storage.ts  # ハイ＆ロー: localStorage操作
+│   └── utils.ts                 # shadcn cn()
 ├── types/
-│   └── game.ts              # 型定義
+│   ├── game.ts                  # 神経衰弱: 型定義
+│   └── high-and-low.ts          # ハイ＆ロー: 型定義
 └── test/
-    └── setup.ts             # テストセットアップ
+    └── setup.ts                 # テストセットアップ
 ```
 
 ## 設計
 
-- **useReducer** でゲーム状態を一元管理
+- **useReducer** でゲーム状態を一元管理（各ゲームが独立した Reducer を持つ）
 - **Fisher-Yates** アルゴリズムによるカードシャッフル
 - **CSS 3D Transform** でカードフリップ（GPU加速）
 - **useSyncExternalStore** でlocalStorageのベストスコアを購読
