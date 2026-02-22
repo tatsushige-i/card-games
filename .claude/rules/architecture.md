@@ -107,6 +107,16 @@ PokerBoard → usePoker
 
 スキルファイル: `.claude/skills/<skill-name>/SKILL.md`
 
+## エージェント（サブエージェント）
+
+`.claude/agents/` 配下に特定タスクを委任する専用エージェントを定義している。
+
+| エージェント | 説明 | モデル |
+|-------------|------|--------|
+| quality-checker | lint・テスト・ビルドを実行し結果を要約（修正は行わない） | haiku |
+
+エージェントファイル: `.claude/agents/<agent-name>.md`
+
 ## 共有リソース
 
 - `src/app/page.tsx` — ホームページ（`games` 配列でゲーム一覧を管理）

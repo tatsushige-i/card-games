@@ -100,6 +100,16 @@ npm run build
 
 スキル定義: `.claude/skills/add-game/SKILL.md`
 
+## Claude Code エージェント
+
+特定タスクを委任するサブエージェントを定義しています。
+
+| エージェント | 説明 |
+|-------------|------|
+| `quality-checker` | lint・テスト・ビルドを実行し結果のみ報告（haiku モデルで高速・低コスト） |
+
+エージェント定義: `.claude/agents/quality-checker.md`
+
 ## プロジェクト構成
 
 ```
@@ -151,6 +161,8 @@ src/
     └── setup.ts                 # テストセットアップ
 
 .claude/
+├── agents/                      # Claude Code サブエージェント
+│   └── quality-checker.md       # 品質チェックエージェント
 ├── rules/                       # Claude Code ルールファイル
 ├── tasks/                       # ゲームごとの要件定義
 └── skills/
