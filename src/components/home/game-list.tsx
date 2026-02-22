@@ -6,6 +6,7 @@ import { useSyncExternalStore } from "react";
 import type { BestScore } from "@/types/game";
 import type { HighAndLowBestScore } from "@/types/high-and-low";
 import type { BlackjackBestScore } from "@/types/blackjack";
+import type { PokerBestScore } from "@/types/poker";
 
 /** ゲーム定義 */
 const games = [
@@ -29,6 +30,13 @@ const games = [
     description: "21に近づけ！ディーラーに勝とう",
     emoji: "🂡",
     storageKey: "blackjack-best-score",
+  },
+  {
+    id: "poker",
+    title: "ビデオポーカー",
+    description: "役を揃えてスコアを稼ごう",
+    emoji: "🃑",
+    storageKey: "poker-best-score",
   },
 ] as const;
 
@@ -62,6 +70,16 @@ function formatBlackjackBest(data: string): string | null {
   }
 }
 
+/** ビデオポーカーのベストスコアをフォーマット */
+function formatPokerBest(data: string): string | null {
+  try {
+    const best = JSON.parse(data) as PokerBestScore;
+    return `最高${best.maxScore}pt`;
+  } catch {
+    return null;
+  }
+}
+
 /** ゲームIDに応じたベストスコア表示文字列を返す */
 function formatBestScore(gameId: string, data: string): string | null {
   switch (gameId) {
@@ -71,6 +89,8 @@ function formatBestScore(gameId: string, data: string): string | null {
       return formatHighAndLowBest(data);
     case "blackjack":
       return formatBlackjackBest(data);
+    case "poker":
+      return formatPokerBest(data);
     default:
       return null;
   }
@@ -104,6 +124,9 @@ function getServerSnapshot(): Record<string, string | null> {
 
 /** storageイベント・focusイベントで変更を検知して再読み込み */
 function subscribe(callback: () => void) {
+  // コンポーネント再マウント時にキャッシュを最新化（ナビゲーション後の反映）
+  cachedScores = readAllBestScores();
+
   const onStorage = (e: StorageEvent) => {
     if (games.some((g) => g.storageKey === e.key)) {
       cachedScores = readAllBestScores();
