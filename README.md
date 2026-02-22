@@ -44,6 +44,17 @@
 - ラウンド制: 勝利後に連勝を継続可能
 - 最大連勝数のベストスコア保存
 
+### ビデオポーカー
+
+Jacks or Better 形式の1人用ビデオポーカー。
+
+- 52枚のデッキから5枚を配布
+- カードタップでホールド（保持）を選択、ドローで交換
+- 最終手札でポーカーの役を判定（ロイヤルフラッシュ〜ノーハンド）
+- 10ラウンド制: 各ラウンドで役に応じたポイントを獲得（中間ラウンドは自動進行）
+- ペイテーブル表示・現在の役ハイライト
+- 合計スコアのベストスコア保存
+
 ## 技術スタック
 
 - **Next.js** (App Router)
@@ -97,6 +108,7 @@ src/
 │   ├── blackjack/               # ブラックジャックページ
 │   ├── concentration/           # 神経衰弱ページ
 │   ├── high-and-low/            # ハイ＆ローページ
+│   ├── poker/                   # ビデオポーカーページ
 │   ├── globals.css              # テーマ・背景・アニメーション
 │   ├── layout.tsx               # ルートレイアウト
 │   └── page.tsx                 # ホーム（ゲーム選択）
@@ -109,11 +121,13 @@ src/
 │   ├── game-header.tsx          # 神経衰弱: ヘッダー
 │   ├── game-complete-dialog.tsx # 神経衰弱: 完了モーダル
 │   ├── high-and-low/            # ハイ＆ロー: コンポーネント群
-│   └── blackjack/               # ブラックジャック: コンポーネント群
+│   ├── blackjack/               # ブラックジャック: コンポーネント群
+│   └── poker/                   # ビデオポーカー: コンポーネント群
 ├── hooks/
 │   ├── useGame.ts               # 神経衰弱: ゲームロジックフック
 │   ├── useHighAndLow.ts         # ハイ＆ロー: ゲームロジックフック
-│   └── useBlackjack.ts          # ブラックジャック: ゲームロジックフック
+│   ├── useBlackjack.ts          # ブラックジャック: ゲームロジックフック
+│   └── usePoker.ts              # ビデオポーカー: ゲームロジックフック
 ├── lib/
 │   ├── cards.ts                 # 神経衰弱: カード生成・シャッフル
 │   ├── game-reducer.ts          # 神経衰弱: Reducer
@@ -124,11 +138,15 @@ src/
 │   ├── blackjack-cards.ts       # ブラックジャック: デッキ・手札計算
 │   ├── blackjack-reducer.ts     # ブラックジャック: Reducer
 │   ├── blackjack-storage.ts     # ブラックジャック: localStorage操作
+│   ├── poker-cards.ts           # ビデオポーカー: デッキ・役判定
+│   ├── poker-reducer.ts         # ビデオポーカー: Reducer
+│   ├── poker-storage.ts         # ビデオポーカー: localStorage操作
 │   └── utils.ts                 # shadcn cn()
 ├── types/
 │   ├── game.ts                  # 神経衰弱: 型定義
 │   ├── high-and-low.ts          # ハイ＆ロー: 型定義
-│   └── blackjack.ts             # ブラックジャック: 型定義
+│   ├── blackjack.ts             # ブラックジャック: 型定義
+│   └── poker.ts                 # ビデオポーカー: 型定義
 └── test/
     └── setup.ts                 # テストセットアップ
 

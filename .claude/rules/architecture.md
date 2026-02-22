@@ -26,7 +26,7 @@ src/
 - **遅延処理**: `useEffect` 内の `setTimeout`（phase をキーとする）で結果表示の遅延を実装
 - **ベストスコア永続化**: `useSyncExternalStore` + キャッシュ済みスナップショット（`pitfalls.md` 参照）
 - **localStorage キー**: `"<game>-best-score"` の命名規則
-- **ホーム画面登録**: `src/app/page.tsx` の `games` 配列にエントリ追加
+- **ホーム画面登録**: `src/components/home/game-list.tsx` の `games` 配列にエントリ追加
 
 ## ルーティング
 
@@ -34,6 +34,7 @@ src/
 - `/concentration` — 神経衰弱
 - `/high-and-low` — ハイ＆ロー
 - `/blackjack` — ブラックジャック
+- `/poker` — ビデオポーカー
 
 ## 収録ゲーム
 
@@ -79,6 +80,22 @@ BlackjackBoard → useBlackjack
 ```
 
 主要ファイル: `src/types/blackjack.ts`, `src/lib/blackjack-reducer.ts`, `src/lib/blackjack-cards.ts`, `src/lib/blackjack-storage.ts`, `src/hooks/useBlackjack.ts`
+
+### ビデオポーカー（poker）
+
+Jacks or Better 形式のビデオポーカー。5枚配布→ホールド選択→交換→役判定。10ラウンド制で合計スコアを競う。
+
+```
+PokerBoard → usePoker
+├── PokerHeader（ラウンド、スコア、ベストスコア、操作ボタン）
+├── PokerPayTable（配当表、現在の役ハイライト）
+├── PokerHand（5枚のカード横一列）
+│   └── PokerCard（3Dフリップ、ホールド状態の視覚表現）
+├── PokerResult（役名の大きな表示）
+└── PokerGameOverDialog（最終スコア、統計、新記録表示）
+```
+
+主要ファイル: `src/types/poker.ts`, `src/lib/poker-reducer.ts`, `src/lib/poker-cards.ts`, `src/lib/poker-storage.ts`, `src/hooks/usePoker.ts`
 
 ## スキル（Claude Code カスタムコマンド）
 
