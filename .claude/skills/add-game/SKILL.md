@@ -19,6 +19,11 @@ argument-hint: "[ゲーム名(英語kebab-case)]"
 
 以下の順序で実装する。各ステップで既存ゲーム（`high-and-low`, `blackjack`）の該当ファイルを参考にすること。
 
+### Step 0: ブランチ準備
+
+1. `main` ブランチで `git pull` を実行し、最新状態にする
+2. `feature/create-$ARGUMENTS` ブランチを作成して切り替える
+
 ### Step 1: 要件整理
 
 1. `.claude/tasks/$ARGUMENTS.md` を作成し、ゲームの機能要件を記載する
