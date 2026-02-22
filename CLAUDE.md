@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-このファイルは Claude Code (claude.ai/code) がこのリポジトリで作業する際のガイダンスを提供します。
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## コマンド
 
@@ -17,8 +17,8 @@ Next.js App Router + TypeScript で構築されたカードゲーム集。
 
 詳細は `.claude/rules/` 配下のルールファイルを参照:
 
-- `architecture.md` — アーキテクチャ詳細（状態管理・ルーティング・コンポーネント構成・主要ファイル）
-- `conventions.md` — コーディング規約
+- `architecture.md` — ゲーム追加パターン・ファイル構成・コンポーネントツリー・共有リソース
+- `conventions.md` — コーディング規約・デザイン要件・実装プロセス
 - `pitfalls.md` — 既知の注意点
 
 ## スキル（カスタムスラッシュコマンド）
