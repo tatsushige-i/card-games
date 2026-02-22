@@ -26,3 +26,9 @@ Next.js App Router + TypeScript で構築されたカードゲーム集。
 `.claude/skills/` 配下にプロジェクト固有のスキルを定義:
 
 - `/add-game [ゲーム名]` — 新しいカードゲームを追加する（型定義・ロジック・テスト・UI・ページを一貫して実装）
+
+## エージェント（サブエージェント）
+
+`.claude/agents/` 配下に専用エージェントを定義:
+
+- `quality-checker` — lint・テスト・ビルドを実行し結果を要約する（model: haiku）
