@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { getBestScore, saveBestScore, updateBestScore } from "../storage";
+import { getBestScore, saveBestScore, updateBestScore } from "../concentration-storage";
 
 /** localStorageのモックを作成する */
 function createLocalStorageMock() {

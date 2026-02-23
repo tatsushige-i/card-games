@@ -1,14 +1,14 @@
 "use client";
 
-import { useGame } from "@/hooks/useGame";
-import { GameHeader } from "./game-header";
-import { CardGrid } from "./card-grid";
-import { GameCompleteDialog } from "./game-complete-dialog";
+import { useConcentration } from "@/hooks/useConcentration";
+import { ConcentrationHeader } from "./concentration-header";
+import { ConcentrationCardGrid } from "./concentration-card-grid";
+import { ConcentrationCompleteDialog } from "./concentration-complete-dialog";
 import { cn } from "@/lib/utils";
 
 /** ゲーム全体をまとめるクライアントコンポーネント */
-export function GameBoard() {
-  const { state, bestScore, startGame, flipCard, dismissDialog } = useGame();
+export function ConcentrationBoard() {
+  const { state, bestScore, startGame, flipCard, dismissDialog } = useConcentration();
 
   // 2枚めくられている間はカード操作を無効化
   const isLocked = state.flippedIds.length >= 2;
@@ -21,7 +21,7 @@ export function GameBoard() {
       )}
     >
       <div className="w-full max-w-lg">
-        <GameHeader
+        <ConcentrationHeader
           moves={state.moves}
           elapsedTime={state.elapsedTime}
           matchedPairs={state.matchedPairs}
@@ -32,7 +32,7 @@ export function GameBoard() {
         />
 
         {state.phase !== "idle" && (
-          <CardGrid
+          <ConcentrationCardGrid
             cards={state.cards}
             onFlip={flipCard}
             disabled={isLocked}
@@ -40,7 +40,7 @@ export function GameBoard() {
         )}
       </div>
 
-      <GameCompleteDialog
+      <ConcentrationCompleteDialog
         open={state.dialogOpen}
         moves={state.moves}
         elapsedTime={state.elapsedTime}

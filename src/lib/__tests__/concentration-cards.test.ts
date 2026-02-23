@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { shuffle, createCards, TOTAL_PAIRS } from "../cards";
+import { shuffle, createCards, TOTAL_PAIRS } from "../concentration-cards";
 
 describe("shuffle", () => {
   it("配列の長さを変えない", () => {

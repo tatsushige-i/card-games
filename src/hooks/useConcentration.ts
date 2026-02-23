@@ -1,14 +1,14 @@
 "use client";
 
 import { useReducer, useEffect, useCallback, useRef, useSyncExternalStore } from "react";
-import { gameReducer, initialGameState } from "@/lib/game-reducer";
-import { createCards } from "@/lib/cards";
-import { getBestScore, updateBestScore } from "@/lib/storage";
-import type { BestScore, GamePhase } from "@/types/game";
+import { concentrationReducer, initialConcentrationState } from "@/lib/concentration-reducer";
+import { createCards } from "@/lib/concentration-cards";
+import { getBestScore, updateBestScore } from "@/lib/concentration-storage";
+import type { ConcentrationBestScore, ConcentrationPhase } from "@/types/concentration";
 
 /** localStorageのベストスコアを購読するストア（キャッシュ付き） */
 let bestScoreListeners: Array<() => void> = [];
-let cachedBestScore: BestScore | null = null;
+let cachedBestScore: ConcentrationBestScore | null = null;
 let cacheInitialized = false;
 
 function subscribeBestScore(callback: () => void) {
@@ -19,7 +19,7 @@ function subscribeBestScore(callback: () => void) {
 }
 
 /** キャッシュ済みのスナップショットを返す（参照安定） */
-function getSnapshotBestScore(): BestScore | null {
+function getSnapshotBestScore(): ConcentrationBestScore | null {
   if (!cacheInitialized) {
     cachedBestScore = getBestScore();
     cacheInitialized = true;
@@ -27,7 +27,7 @@ function getSnapshotBestScore(): BestScore | null {
   return cachedBestScore;
 }
 
-function getServerSnapshotBestScore(): BestScore | null {
+function getServerSnapshotBestScore(): ConcentrationBestScore | null {
   return null;
 }
 
@@ -38,9 +38,9 @@ function notifyBestScoreChange() {
 }
 
 /** ゲーム全体のロジックを管理するカスタムフック */
-export function useGame() {
-  const [state, dispatch] = useReducer(gameReducer, initialGameState);
-  const prevPhaseRef = useRef<GamePhase>("idle");
+export function useConcentration() {
+  const [state, dispatch] = useReducer(concentrationReducer, initialConcentrationState);
+  const prevPhaseRef = useRef<ConcentrationPhase>("idle");
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // useSyncExternalStoreでlocalStorageのベストスコアを購読

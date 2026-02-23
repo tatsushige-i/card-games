@@ -1,16 +1,16 @@
 "use client";
 
-import type { Card } from "@/types/game";
+import type { ConcentrationCard as ConcentrationCardType } from "@/types/concentration";
 import { cn } from "@/lib/utils";
 
-type GameCardProps = {
-  card: Card;
+type ConcentrationCardProps = {
+  card: ConcentrationCardType;
   onFlip: (cardId: number) => void;
   disabled: boolean;
 };
 
 /** 3Dフリップアニメーション付きカードコンポーネント */
-export function GameCard({ card, onFlip, disabled }: GameCardProps) {
+export function ConcentrationCard({ card, onFlip, disabled }: ConcentrationCardProps) {
   const isRevealed = card.status === "flipped" || card.status === "matched";
   const isClickable = card.status === "hidden" && !disabled;
 

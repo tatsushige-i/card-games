@@ -1,5 +1,5 @@
-import { GameBoard } from "@/components/game-board";
+import { ConcentrationBoard } from "@/components/concentration/concentration-board";
 
 export default function ConcentrationPage() {
-  return <GameBoard />;
+  return <ConcentrationBoard />;
 }

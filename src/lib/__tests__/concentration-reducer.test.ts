@@ -1,9 +1,9 @@
 import { describe, it, expect } from "vitest";
-import { gameReducer, initialGameState } from "../game-reducer";
-import type { Card, GameState } from "@/types/game";
+import { concentrationReducer, initialConcentrationState } from "../concentration-reducer";
+import type { ConcentrationCard, ConcentrationState } from "@/types/concentration";
 
 /** テスト用のカード配列を作成する */
-function createTestCards(): Card[] {
+function createTestCards(): ConcentrationCard[] {
   return [
     { id: 0, emoji: "🍎", status: "hidden" },
     { id: 1, emoji: "🍎", status: "hidden" },
@@ -13,9 +13,9 @@ function createTestCards(): Card[] {
 }
 
 /** テスト用のゲーム状態を作成する */
-function createPlayingState(overrides?: Partial<GameState>): GameState {
+function createPlayingState(overrides?: Partial<ConcentrationState>): ConcentrationState {
   return {
-    ...initialGameState,
+    ...initialConcentrationState,
     cards: createTestCards(),
     phase: "playing",
     totalPairs: 2,
@@ -23,11 +23,11 @@ function createPlayingState(overrides?: Partial<GameState>): GameState {
   };
 }
 
-describe("gameReducer", () => {
+describe("concentrationReducer", () => {
   describe("START_GAME", () => {
     it("カードをセットしてplaying状態にする", () => {
       const cards = createTestCards();
-      const state = gameReducer(initialGameState, {
+      const state = concentrationReducer(initialConcentrationState, {
         type: "START_GAME",
         cards,
       });
@@ -41,7 +41,7 @@ describe("gameReducer", () => {
   describe("FLIP_CARD", () => {
     it("hidden状態のカードをflippedにする", () => {
       const state = createPlayingState();
-      const next = gameReducer(state, { type: "FLIP_CARD", cardId: 0 });
+      const next = concentrationReducer(state, { type: "FLIP_CARD", cardId: 0 });
       expect(next.cards[0].status).toBe("flipped");
       expect(next.flippedIds).toEqual([0]);
     });
@@ -54,7 +54,7 @@ describe("gameReducer", () => {
         ],
         flippedIds: [0],
       });
-      const next = gameReducer(state, { type: "FLIP_CARD", cardId: 0 });
+      const next = concentrationReducer(state, { type: "FLIP_CARD", cardId: 0 });
       expect(next.flippedIds).toEqual([0]);
     });
 
@@ -62,13 +62,13 @@ describe("gameReducer", () => {
       const state = createPlayingState({
         flippedIds: [0, 2],
       });
-      const next = gameReducer(state, { type: "FLIP_CARD", cardId: 1 });
+      const next = concentrationReducer(state, { type: "FLIP_CARD", cardId: 1 });
       expect(next.flippedIds).toEqual([0, 2]);
     });
 
     it("idle状態では無視する", () => {
       const state = { ...createPlayingState(), phase: "idle" as const };
-      const next = gameReducer(state, { type: "FLIP_CARD", cardId: 0 });
+      const next = concentrationReducer(state, { type: "FLIP_CARD", cardId: 0 });
       expect(next.flippedIds).toEqual([]);
     });
   });
@@ -85,7 +85,7 @@ describe("gameReducer", () => {
         flippedIds: [0, 1],
       });
 
-      const next = gameReducer(state, { type: "CHECK_MATCH" });
+      const next = concentrationReducer(state, { type: "CHECK_MATCH" });
       expect(next.cards[0].status).toBe("matched");
       expect(next.cards[1].status).toBe("matched");
       expect(next.matchedPairs).toBe(1);
@@ -104,7 +104,7 @@ describe("gameReducer", () => {
         flippedIds: [0, 2],
       });
 
-      const next = gameReducer(state, { type: "CHECK_MATCH" });
+      const next = concentrationReducer(state, { type: "CHECK_MATCH" });
       expect(next.cards[0].status).toBe("hidden");
       expect(next.cards[1].status).toBe("hidden");
       expect(next.matchedPairs).toBe(0);
@@ -123,7 +123,7 @@ describe("gameReducer", () => {
         matchedPairs: 1,
       });
 
-      const next = gameReducer(state, { type: "CHECK_MATCH" });
+      const next = concentrationReducer(state, { type: "CHECK_MATCH" });
       expect(next.phase).toBe("complete");
       expect(next.matchedPairs).toBe(2);
       expect(next.dialogOpen).toBe(true);
@@ -133,13 +133,13 @@ describe("gameReducer", () => {
   describe("TICK", () => {
     it("playing中は経過時間を+1する", () => {
       const state = createPlayingState({ elapsedTime: 5 });
-      const next = gameReducer(state, { type: "TICK" });
+      const next = concentrationReducer(state, { type: "TICK" });
       expect(next.elapsedTime).toBe(6);
     });
 
     it("idle状態では変化しない", () => {
-      const state = { ...initialGameState, elapsedTime: 0 };
-      const next = gameReducer(state, { type: "TICK" });
+      const state = { ...initialConcentrationState, elapsedTime: 0 };
+      const next = concentrationReducer(state, { type: "TICK" });
       expect(next.elapsedTime).toBe(0);
     });
   });
@@ -152,7 +152,7 @@ describe("gameReducer", () => {
         moves: 5,
         matchedPairs: 2,
       });
-      const next = gameReducer(state, { type: "DISMISS_DIALOG" });
+      const next = concentrationReducer(state, { type: "DISMISS_DIALOG" });
       expect(next.dialogOpen).toBe(false);
       expect(next.phase).toBe("complete");
       expect(next.moves).toBe(5);
@@ -162,7 +162,7 @@ describe("gameReducer", () => {
   describe("SET_NEW_BEST", () => {
     it("isNewBestフラグを更新する", () => {
       const state = createPlayingState();
-      const next = gameReducer(state, { type: "SET_NEW_BEST", isNewBest: true });
+      const next = concentrationReducer(state, { type: "SET_NEW_BEST", isNewBest: true });
       expect(next.isNewBest).toBe(true);
     });
   });
@@ -170,8 +170,8 @@ describe("gameReducer", () => {
   describe("RESET", () => {
     it("初期状態に戻す", () => {
       const state = createPlayingState({ moves: 10, elapsedTime: 30 });
-      const next = gameReducer(state, { type: "RESET" });
-      expect(next).toEqual(initialGameState);
+      const next = concentrationReducer(state, { type: "RESET" });
+      expect(next).toEqual(initialConcentrationState);
     });
   });
 });

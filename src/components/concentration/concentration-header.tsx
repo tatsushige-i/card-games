@@ -4,15 +4,15 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import type { GamePhase, BestScore } from "@/types/game";
+import type { ConcentrationPhase, ConcentrationBestScore } from "@/types/concentration";
 
-type GameHeaderProps = {
+type ConcentrationHeaderProps = {
   moves: number;
   elapsedTime: number;
   matchedPairs: number;
   totalPairs: number;
-  phase: GamePhase;
-  bestScore: BestScore | null;
+  phase: ConcentrationPhase;
+  bestScore: ConcentrationBestScore | null;
   onStart: () => void;
 };
 
@@ -24,7 +24,7 @@ function formatTime(seconds: number): string {
 }
 
 /** ゲームヘッダー（スコア・タイマー・操作ボタン） */
-export function GameHeader({
+export function ConcentrationHeader({
   moves,
   elapsedTime,
   matchedPairs,
@@ -32,7 +32,7 @@ export function GameHeader({
   phase,
   bestScore,
   onStart,
-}: GameHeaderProps) {
+}: ConcentrationHeaderProps) {
   return (
     <div className="glass rounded-2xl p-4 sm:p-6 shadow-lg mb-4 sm:mb-6">
       {/* タイトル */}

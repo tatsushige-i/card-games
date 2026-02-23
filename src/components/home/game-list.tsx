@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useSyncExternalStore } from "react";
 
-import type { BestScore } from "@/types/game";
+import type { ConcentrationBestScore } from "@/types/concentration";
 import type { HighAndLowBestScore } from "@/types/high-and-low";
 import type { BlackjackBestScore } from "@/types/blackjack";
 import type { PokerBestScore } from "@/types/poker";
@@ -43,7 +43,7 @@ const games = [
 /** 神経衰弱のベストスコアをフォーマット */
 function formatConcentrationBest(data: string): string | null {
   try {
-    const best = JSON.parse(data) as BestScore;
+    const best = JSON.parse(data) as ConcentrationBestScore;
     return `${best.moves}回 / ${best.time}秒`;
   } catch {
     return null;

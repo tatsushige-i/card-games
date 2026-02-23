@@ -1,23 +1,23 @@
 /** カードの状態 */
-export type CardStatus = "hidden" | "flipped" | "matched";
+export type ConcentrationCardStatus = "hidden" | "flipped" | "matched";
 
 /** カード1枚の型 */
-export type Card = {
+export type ConcentrationCard = {
   /** 一意のID */
   id: number;
   /** 絵文字（ペアのマッチングに使用） */
   emoji: string;
   /** カードの現在の状態 */
-  status: CardStatus;
+  status: ConcentrationCardStatus;
 };
 
 /** ゲームのフェーズ */
-export type GamePhase = "idle" | "playing" | "complete";
+export type ConcentrationPhase = "idle" | "playing" | "complete";
 
 /** ゲームの状態 */
-export type GameState = {
+export type ConcentrationState = {
   /** カードの配列 */
-  cards: Card[];
+  cards: ConcentrationCard[];
   /** 現在めくられているカードのID（最大2枚） */
   flippedIds: number[];
   /** 試行回数 */
@@ -27,7 +27,7 @@ export type GameState = {
   /** 総ペア数 */
   totalPairs: number;
   /** ゲームのフェーズ */
-  phase: GamePhase;
+  phase: ConcentrationPhase;
   /** 経過時間（秒） */
   elapsedTime: number;
   /** ベストスコアを更新したか */
@@ -37,7 +37,7 @@ export type GameState = {
 };
 
 /** ベストスコア */
-export type BestScore = {
+export type ConcentrationBestScore = {
   /** 最少試行回数 */
   moves: number;
   /** 最短時間（秒） */
@@ -45,8 +45,8 @@ export type BestScore = {
 };
 
 /** Reducerアクション */
-export type GameAction =
-  | { type: "START_GAME"; cards: Card[] }
+export type ConcentrationAction =
+  | { type: "START_GAME"; cards: ConcentrationCard[] }
   | { type: "FLIP_CARD"; cardId: number }
   | { type: "CHECK_MATCH" }
   | { type: "TICK" }

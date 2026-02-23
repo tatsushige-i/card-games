@@ -1,21 +1,21 @@
-import type { BestScore } from "@/types/game";
+import type { ConcentrationBestScore } from "@/types/concentration";
 
 const STORAGE_KEY = "concentration-best-score";
 
 /** ベストスコアをlocalStorageから取得する */
-export function getBestScore(): BestScore | null {
+export function getBestScore(): ConcentrationBestScore | null {
   if (typeof window === "undefined") return null;
   try {
     const data = localStorage.getItem(STORAGE_KEY);
     if (!data) return null;
-    return JSON.parse(data) as BestScore;
+    return JSON.parse(data) as ConcentrationBestScore;
   } catch {
     return null;
   }
 }
 
 /** ベストスコアをlocalStorageに保存する */
-export function saveBestScore(score: BestScore): void {
+export function saveBestScore(score: ConcentrationBestScore): void {
   if (typeof window === "undefined") return;
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(score));
