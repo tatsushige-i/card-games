@@ -98,6 +98,7 @@ npm run build
 |----------|------|
 | `/add-game [ゲーム名]` | 新しいカードゲームの追加を自動化。既存パターンに従い、型定義・ロジック・テスト・UI・ページを一貫して実装する |
 | `/pr [コミットメッセージ]` | feature ブランチのコミット・プッシュ・PR 作成・ローカルブランチ削除を一括実行 |
+| `/update-docs` | ソースコードの実態とドキュメント（README.md, CLAUDE.md, architecture.md）の整合性を検証・更新 |
 
 スキル定義: `.claude/skills/<skill-name>/SKILL.md`
 
@@ -164,7 +165,8 @@ src/
 ├── tasks/                       # ゲームごとの要件定義
 └── skills/
     ├── add-game/SKILL.md        # 新ゲーム追加スキル
-    └── pr/SKILL.md              # PR作成スキル
+    ├── pr/SKILL.md              # PR作成スキル
+    └── update-docs/SKILL.md     # ドキュメント横展開スキル
 ```
 
 ## 設計
