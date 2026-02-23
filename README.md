@@ -97,6 +97,7 @@ npm run build
 | コマンド | 説明 |
 |----------|------|
 | `/add-game [ゲーム名]` | 新しいカードゲームの追加を自動化。既存パターンに従い、型定義・ロジック・テスト・UI・ページを一貫して実装する |
+| `/refactor-game [ゲーム名]` | 指定ゲームの規約準拠をチェックし、違反があればリファクタリングを行う |
 | `/pr [コミットメッセージ]` | feature ブランチのコミット・プッシュ・PR 作成・ローカルブランチ削除を一括実行 |
 | `/update-docs` | ソースコードの実態とドキュメント（README.md, CLAUDE.md, architecture.md）の整合性を検証・更新 |
 
@@ -165,6 +166,7 @@ src/
 ├── tasks/                       # ゲームごとの要件定義
 └── skills/
     ├── add-game/SKILL.md        # 新ゲーム追加スキル
+    ├── refactor-game/SKILL.md   # ゲームリファクタリングスキル
     ├── pr/SKILL.md              # PR作成スキル
     └── update-docs/SKILL.md     # ドキュメント横展開スキル
 ```
