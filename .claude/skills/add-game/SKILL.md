@@ -146,9 +146,8 @@ npm run build
 
 ### Step 12: ドキュメント更新
 
-1. `.claude/rules/architecture.md` — ルーティング・収録ゲームセクションに追加
-2. `README.md` — ゲーム説明・ファイル構成に追加
-3. `.claude/tasks/$ARGUMENTS.md` — フィードバックがあれば最新化
+1. `.claude/tasks/$ARGUMENTS.md` — フィードバックがあれば最新化
+2. `.claude/skills/update-docs/SKILL.md` を読み、その手順に従って README.md・CLAUDE.md・architecture.md を更新する
 
 ## 参考ファイル
 

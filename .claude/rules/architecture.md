@@ -105,6 +105,7 @@ PokerBoard → usePoker
 |--------|----------|------|
 | add-game | `/add-game [ゲーム名]` | 新ゲーム追加の全工程を自動化（要件整理→設計→実装→テスト→ホーム登録→ドキュメント更新） |
 | pr | `/pr [コミットメッセージ]` | feature ブランチのコミット・プッシュ・PR 作成・ローカルブランチ削除を一括実行 |
+| update-docs | `/update-docs` | ソースコードの実態とドキュメント（README.md, CLAUDE.md, architecture.md）の整合性を検証・更新 |
 
 スキルファイル: `.claude/skills/<skill-name>/SKILL.md`
 

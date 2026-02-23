@@ -43,6 +43,7 @@ Next.js App Router + TypeScript で構築されたカードゲーム集。各ゲ
 
 - `/add-game [ゲーム名]` — 新しいカードゲームを追加する（型定義・ロジック・テスト・UI・ページを一貫して実装）
 - `/pr [コミットメッセージ]` — feature ブランチのコミット・プッシュ・PR 作成・ローカルブランチ削除を一括実行
+- `/update-docs` — ソースコードの実態とドキュメント（README.md, CLAUDE.md, architecture.md）の整合性を検証・更新
 
 ## エージェント（サブエージェント）
 
