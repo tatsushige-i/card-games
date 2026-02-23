@@ -42,6 +42,7 @@ Next.js App Router + TypeScript で構築されたカードゲーム集。各ゲ
 `.claude/skills/` 配下にプロジェクト固有のスキルを定義:
 
 - `/add-game [ゲーム名]` — 新しいカードゲームを追加する（型定義・ロジック・テスト・UI・ページを一貫して実装）
+- `/refactor-game [ゲーム名]` — 指定ゲームの規約準拠をチェックし、違反があればリファクタリングを行う
 - `/pr [コミットメッセージ]` — feature ブランチのコミット・プッシュ・PR 作成・ローカルブランチ削除を一括実行
 - `/update-docs` — ソースコードの実態とドキュメント（README.md, CLAUDE.md, architecture.md）の整合性を検証・更新
 
