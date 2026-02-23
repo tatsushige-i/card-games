@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-type GameCompleteDialogProps = {
+type ConcentrationCompleteDialogProps = {
   open: boolean;
   moves: number;
   elapsedTime: number;
@@ -26,14 +26,14 @@ function formatTime(seconds: number): string {
 }
 
 /** ゲーム完了モーダル */
-export function GameCompleteDialog({
+export function ConcentrationCompleteDialog({
   open,
   moves,
   elapsedTime,
   isNewBest,
   onPlayAgain,
   onClose,
-}: GameCompleteDialogProps) {
+}: ConcentrationCompleteDialogProps) {
   return (
     <Dialog open={open} onOpenChange={(isOpen) => { if (!isOpen) onClose(); }}>
       <DialogContent className="sm:max-w-md rounded-2xl" aria-describedby="game-complete-description">

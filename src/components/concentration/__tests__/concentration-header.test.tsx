@@ -1,9 +1,9 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { GameHeader } from "../game-header";
+import { ConcentrationHeader } from "../concentration-header";
 
-describe("GameHeader", () => {
+describe("ConcentrationHeader", () => {
   const defaultProps = {
     moves: 0,
     elapsedTime: 0,
@@ -15,13 +15,13 @@ describe("GameHeader", () => {
   };
 
   it("idle状態で「ゲーム開始」ボタンを表示する", () => {
-    render(<GameHeader {...defaultProps} />);
+    render(<ConcentrationHeader {...defaultProps} />);
     expect(screen.getByText("ゲーム開始")).toBeInTheDocument();
   });
 
   it("playing状態で「やり直す」ボタンとスコアを表示する", () => {
     render(
-      <GameHeader
+      <ConcentrationHeader
         {...defaultProps}
         phase="playing"
         moves={5}
@@ -36,13 +36,13 @@ describe("GameHeader", () => {
   });
 
   it("complete状態で「もう一度遊ぶ」ボタンを表示する", () => {
-    render(<GameHeader {...defaultProps} phase="complete" />);
+    render(<ConcentrationHeader {...defaultProps} phase="complete" />);
     expect(screen.getByText("もう一度遊ぶ")).toBeInTheDocument();
   });
 
   it("ベストスコアを表示する", () => {
     render(
-      <GameHeader
+      <ConcentrationHeader
         {...defaultProps}
         bestScore={{ moves: 10, time: 45 }}
       />
@@ -53,7 +53,7 @@ describe("GameHeader", () => {
   it("ゲーム開始ボタンクリックでonStartが呼ばれる", async () => {
     const user = userEvent.setup();
     const onStart = vi.fn();
-    render(<GameHeader {...defaultProps} onStart={onStart} />);
+    render(<ConcentrationHeader {...defaultProps} onStart={onStart} />);
     await user.click(screen.getByText("ゲーム開始"));
     expect(onStart).toHaveBeenCalledTimes(1);
   });

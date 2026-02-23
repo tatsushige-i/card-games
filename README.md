@@ -125,23 +125,19 @@ src/
 ├── components/
 │   ├── ui/                      # shadcn/ui（自動生成）
 │   ├── home/                    # ホーム: ゲーム一覧・ベストスコア表示
-│   ├── game-board.tsx           # 神経衰弱: ゲーム盤面
-│   ├── card-grid.tsx            # 神経衰弱: カードグリッド
-│   ├── game-card.tsx            # 神経衰弱: 個別カード
-│   ├── game-header.tsx          # 神経衰弱: ヘッダー
-│   ├── game-complete-dialog.tsx # 神経衰弱: 完了モーダル
+│   ├── concentration/           # 神経衰弱: コンポーネント群
 │   ├── high-and-low/            # ハイ＆ロー: コンポーネント群
 │   ├── blackjack/               # ブラックジャック: コンポーネント群
 │   └── poker/                   # ビデオポーカー: コンポーネント群
 ├── hooks/
-│   ├── useGame.ts               # 神経衰弱: ゲームロジックフック
+│   ├── useConcentration.ts      # 神経衰弱: ゲームロジックフック
 │   ├── useHighAndLow.ts         # ハイ＆ロー: ゲームロジックフック
 │   ├── useBlackjack.ts          # ブラックジャック: ゲームロジックフック
 │   └── usePoker.ts              # ビデオポーカー: ゲームロジックフック
 ├── lib/
-│   ├── cards.ts                 # 神経衰弱: カード生成・シャッフル
-│   ├── game-reducer.ts          # 神経衰弱: Reducer
-│   ├── storage.ts               # 神経衰弱: localStorage操作
+│   ├── concentration-cards.ts   # 神経衰弱: カード生成・シャッフル
+│   ├── concentration-reducer.ts # 神経衰弱: Reducer
+│   ├── concentration-storage.ts # 神経衰弱: localStorage操作
 │   ├── high-and-low-cards.ts    # ハイ＆ロー: デッキ生成
 │   ├── high-and-low-reducer.ts  # ハイ＆ロー: Reducer
 │   ├── high-and-low-storage.ts  # ハイ＆ロー: localStorage操作
@@ -153,7 +149,7 @@ src/
 │   ├── poker-storage.ts         # ビデオポーカー: localStorage操作
 │   └── utils.ts                 # shadcn cn()
 ├── types/
-│   ├── game.ts                  # 神経衰弱: 型定義
+│   ├── concentration.ts         # 神経衰弱: 型定義
 │   ├── high-and-low.ts          # ハイ＆ロー: 型定義
 │   ├── blackjack.ts             # ブラックジャック: 型定義
 │   └── poker.ts                 # ビデオポーカー: 型定義

@@ -1,4 +1,4 @@
-import type { Card } from "@/types/game";
+import type { ConcentrationCard } from "@/types/concentration";
 
 /** ゲームに使用する絵文字一覧 */
 const EMOJIS = ["🍎", "🌸", "🐬", "🌙", "⭐", "🎵", "💎", "🔥"];
@@ -20,7 +20,7 @@ export function shuffle<T>(array: T[]): T[] {
  * ゲーム用のカード配列を生成する
  * 各絵文字が2枚ずつ、シャッフルされた状態で返す
  */
-export function createCards(): Card[] {
+export function createCards(): ConcentrationCard[] {
   const pairs = EMOJIS.flatMap((emoji, index) => [
     { id: index * 2, emoji, status: "hidden" as const },
     { id: index * 2 + 1, emoji, status: "hidden" as const },

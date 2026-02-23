@@ -43,14 +43,14 @@ src/
 カードをめくってペアを見つけるゲーム。
 
 ```
-GameBoard → useGame
-├── GameHeader（試行回数、タイマー、ペア数、ベストスコア）
-├── CardGrid（4x4 グリッド）
-│   └── GameCard（3D フリップ、アクセシビリティラベル）
-└── GameCompleteDialog
+ConcentrationBoard → useConcentration
+├── ConcentrationHeader（試行回数、タイマー、ペア数、ベストスコア）
+├── ConcentrationCardGrid（4x4 グリッド）
+│   └── ConcentrationCard（3D フリップ、アクセシビリティラベル）
+└── ConcentrationCompleteDialog
 ```
 
-主要ファイル: `src/types/game.ts`, `src/lib/game-reducer.ts`, `src/lib/cards.ts`, `src/lib/storage.ts`, `src/hooks/useGame.ts`
+主要ファイル: `src/types/concentration.ts`, `src/lib/concentration-reducer.ts`, `src/lib/concentration-cards.ts`, `src/lib/concentration-storage.ts`, `src/hooks/useConcentration.ts`
 
 ### ハイ＆ロー（high-and-low）
 

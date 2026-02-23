@@ -1,8 +1,8 @@
-import type { GameState, GameAction } from "@/types/game";
-import { TOTAL_PAIRS } from "./cards";
+import type { ConcentrationState, ConcentrationAction } from "@/types/concentration";
+import { TOTAL_PAIRS } from "./concentration-cards";
 
 /** ゲーム状態の初期値 */
-export const initialGameState: GameState = {
+export const initialConcentrationState: ConcentrationState = {
   cards: [],
   flippedIds: [],
   moves: 0,
@@ -15,11 +15,11 @@ export const initialGameState: GameState = {
 };
 
 /** ゲーム状態を管理する純粋なReducer */
-export function gameReducer(state: GameState, action: GameAction): GameState {
+export function concentrationReducer(state: ConcentrationState, action: ConcentrationAction): ConcentrationState {
   switch (action.type) {
     case "START_GAME":
       return {
-        ...initialGameState,
+        ...initialConcentrationState,
         cards: action.cards,
         phase: "playing",
       };
@@ -91,7 +91,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       return { ...state, dialogOpen: false };
 
     case "RESET":
-      return initialGameState;
+      return initialConcentrationState;
 
     default:
       return state;
