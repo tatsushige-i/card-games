@@ -1,61 +1,61 @@
-# カードゲーム
+# Card Games
 
-さまざまなカードゲームが遊べるWebアプリです。
+A web app where you can play various card games.
 
-> **Note:** このプロジェクトは [Claude Code](https://claude.ai/code) の練習用として作成しています。コーディングはすべて Claude Code が行い、人間はレビューとフィードバックのみを担当しています。
+> **Note:** This project was created as a practice exercise for [Claude Code](https://claude.ai/code). All coding is done by Claude Code, and humans are responsible only for review and feedback.
 
-## ホーム画面
+## Home Screen
 
-- 収録ゲームをカード形式で一覧表示
-- 各ゲームのベストスコアをlocalStorageから読み取り表示（未プレイ時は非表示）
-- ゲームから戻った際にベストスコアが自動で最新化
+- Displays available games in a card-style list
+- Reads and shows best scores from localStorage for each game (hidden if unplayed)
+- Best scores auto-refresh when returning from a game
 
-## 収録ゲーム
+## Games
 
-### 神経衰弱
+### Concentration
 
-カードをめくってペアを見つけるメモリーマッチングゲーム。
+A memory matching game where you flip cards to find pairs.
 
-- 4x4グリッド（8ペア・16枚）のカードマッチング
-- 3Dフリップアニメーション付きカード
-- 試行回数・経過時間の記録
-- ベストスコアのlocalStorage保存
-- ゲーム完了時のクリアダイアログ
+- 4x4 grid (8 pairs, 16 cards) card matching
+- Cards with 3D flip animation
+- Tracks number of attempts and elapsed time
+- Best score saved to localStorage
+- Completion dialog on game clear
 
-### ハイ＆ロー
+### High & Low
 
-次のトランプカードが現在より高いか低いかを予想するゲーム。
+A game where you guess whether the next playing card is higher or lower than the current one.
 
-- 52枚のトランプデッキを使用（スート・ランク表示）
-- 初期スコア3点、10点到達で勝利、0点で敗北
-- 同値は引き分け（スコア±0）
-- 連勝中はカードが横に積み重なる視覚演出
-- 最大連勝数のベストスコア保存
+- Uses a standard 52-card deck (with suit and rank display)
+- Starting score of 3 points; win at 10, lose at 0
+- Ties result in a draw (score ±0)
+- Cards stack horizontally during win streaks as a visual effect
+- Best win streak saved
 
-### ブラックジャック
+### Blackjack
 
-プレイヤー vs ディーラーの1対1カードゲーム。
+A 1-on-1 card game: Player vs Dealer.
 
-- 手札の合計を21に近づけてディーラーに勝つ
-- A=1or11（自動調整）、J/Q/K=10
-- ヒット（カードを引く）/スタンド（止める）を選択
-- ディーラーは17以上になるまで自動でカードを引く
-- ナチュラルブラックジャック（初期2枚で21）は特別勝利
-- ラウンド制: 勝利後に連勝を継続可能
-- 最大連勝数のベストスコア保存
+- Get your hand total as close to 21 as possible to beat the dealer
+- A = 1 or 11 (auto-adjusted), J/Q/K = 10
+- Choose to Hit (draw a card) or Stand (hold)
+- Dealer automatically draws until reaching 17 or above
+- Natural Blackjack (21 with initial 2 cards) is a special win
+- Round-based: continue win streaks after each victory
+- Best win streak saved
 
-### ビデオポーカー
+### Video Poker
 
-Jacks or Better 形式の1人用ビデオポーカー。
+A single-player Jacks or Better video poker game.
 
-- 52枚のデッキから5枚を配布
-- カードタップでホールド（保持）を選択、ドローで交換
-- 最終手札でポーカーの役を判定（ロイヤルフラッシュ〜ノーハンド）
-- 10ラウンド制: 各ラウンドで役に応じたポイントを獲得（中間ラウンドは自動進行）
-- ペイテーブル表示・現在の役ハイライト
-- 合計スコアのベストスコア保存
+- 5 cards dealt from a 52-card deck
+- Tap cards to Hold, then Draw to exchange
+- Final hand evaluated for poker hands (Royal Flush to No Hand)
+- 10-round format: earn points based on hand rank each round (intermediate rounds auto-advance)
+- Pay table display with current hand highlighted
+- Best total score saved
 
-## 技術スタック
+## Tech Stack
 
 - **Next.js** (App Router)
 - **TypeScript**
@@ -65,117 +65,117 @@ Jacks or Better 形式の1人用ビデオポーカー。
 
 ## CI
 
-GitHub Actions により、`main` ブランチへの push および PR 時に以下を自動実行します。
+GitHub Actions automatically runs the following on push to `main` and on PRs:
 
 - **Lint** — `npm run lint`
-- **テスト** — `npm run test:run`
-- **ビルド** — `npm run build`
+- **Test** — `npm run test:run`
+- **Build** — `npm run build`
 
-## 開発
+## Development
 
 ```bash
-# 依存関係のインストール
+# Install dependencies
 npm install
 
-# 開発サーバーの起動
+# Start development server
 npm run dev
 
-# リント
+# Lint
 npm run lint
 
-# テスト実行
+# Run tests
 npm run test:run
 
-# ビルド
+# Build
 npm run build
 ```
 
-## Claude Code スキル
+## Claude Code Skills
 
-このプロジェクトでは [Claude Code](https://claude.ai/code) のカスタムスキル（スラッシュコマンド）を活用しています。
+This project uses [Claude Code](https://claude.ai/code) custom skills (slash commands).
 
-| コマンド | 説明 |
-|----------|------|
-| `/add-game [ゲーム名]` | 新しいカードゲームの追加を自動化。既存パターンに従い、型定義・ロジック・テスト・UI・ページを一貫して実装する |
-| `/refactor-game [ゲーム名]` | 指定ゲームの規約準拠をチェックし、違反があればリファクタリングを行う |
-| `/pr [コミットメッセージ]` | feature ブランチのコミット・プッシュ・PR 作成・ローカルブランチ削除を一括実行 |
-| `/update-docs` | ソースコードの実態とドキュメント（README.md, CLAUDE.md, architecture.md）の整合性を検証・更新 |
+| Command | Description |
+|---------|-------------|
+| `/add-game [game-name]` | Automates adding a new card game. Implements types, logic, tests, UI, and pages following existing patterns |
+| `/refactor-game [game-name]` | Checks convention compliance for a specified game and refactors any violations |
+| `/pr [commit-message]` | Commits, pushes the feature branch, creates a PR, and deletes the local branch in one step |
+| `/update-docs` | Verifies consistency between source code and docs (README.md, CLAUDE.md, architecture.md), updating as needed |
 
-スキル定義: `.claude/skills/<skill-name>/SKILL.md`
+Skill definitions: `.claude/skills/<skill-name>/SKILL.md`
 
-## Claude Code エージェント
+## Claude Code Agents
 
-特定タスクを委任するサブエージェントを定義しています。
+Specialized sub-agents defined for delegating specific tasks.
 
-| エージェント | 説明 |
-|-------------|------|
-| `quality-checker` | lint・テスト・ビルドを実行し結果のみ報告（haiku モデルで高速・低コスト） |
+| Agent | Description |
+|-------|-------------|
+| `quality-checker` | Runs lint, tests, and build, reporting results only (fast and low-cost using the haiku model) |
 
-エージェント定義: `.claude/agents/quality-checker.md`
+Agent definitions: `.claude/agents/quality-checker.md`
 
-## プロジェクト構成
+## Project Structure
 
 ```
 src/
 ├── app/
-│   ├── blackjack/               # ブラックジャックページ
-│   ├── concentration/           # 神経衰弱ページ
-│   ├── high-and-low/            # ハイ＆ローページ
-│   ├── poker/                   # ビデオポーカーページ
-│   ├── globals.css              # テーマ・背景・アニメーション
-│   ├── layout.tsx               # ルートレイアウト
-│   └── page.tsx                 # ホーム（ゲーム選択）
+│   ├── blackjack/               # Blackjack page
+│   ├── concentration/           # Concentration page
+│   ├── high-and-low/            # High & Low page
+│   ├── poker/                   # Video Poker page
+│   ├── globals.css              # Theme, backgrounds, animations
+│   ├── layout.tsx               # Root layout
+│   └── page.tsx                 # Home (game selection)
 ├── components/
-│   ├── ui/                      # shadcn/ui（自動生成）
-│   ├── home/                    # ホーム: ゲーム一覧・ベストスコア表示
-│   ├── concentration/           # 神経衰弱: コンポーネント群
-│   ├── high-and-low/            # ハイ＆ロー: コンポーネント群
-│   ├── blackjack/               # ブラックジャック: コンポーネント群
-│   └── poker/                   # ビデオポーカー: コンポーネント群
+│   ├── ui/                      # shadcn/ui (auto-generated)
+│   ├── home/                    # Home: game list & best score display
+│   ├── concentration/           # Concentration: components
+│   ├── high-and-low/            # High & Low: components
+│   ├── blackjack/               # Blackjack: components
+│   └── poker/                   # Video Poker: components
 ├── hooks/
-│   ├── useConcentration.ts      # 神経衰弱: ゲームロジックフック
-│   ├── useHighAndLow.ts         # ハイ＆ロー: ゲームロジックフック
-│   ├── useBlackjack.ts          # ブラックジャック: ゲームロジックフック
-│   └── usePoker.ts              # ビデオポーカー: ゲームロジックフック
+│   ├── useConcentration.ts      # Concentration: game logic hook
+│   ├── useHighAndLow.ts         # High & Low: game logic hook
+│   ├── useBlackjack.ts          # Blackjack: game logic hook
+│   └── usePoker.ts              # Video Poker: game logic hook
 ├── lib/
-│   ├── concentration-cards.ts   # 神経衰弱: カード生成・シャッフル
-│   ├── concentration-reducer.ts # 神経衰弱: Reducer
-│   ├── concentration-storage.ts # 神経衰弱: localStorage操作
-│   ├── high-and-low-cards.ts    # ハイ＆ロー: デッキ生成
-│   ├── high-and-low-reducer.ts  # ハイ＆ロー: Reducer
-│   ├── high-and-low-storage.ts  # ハイ＆ロー: localStorage操作
-│   ├── blackjack-cards.ts       # ブラックジャック: デッキ・手札計算
-│   ├── blackjack-reducer.ts     # ブラックジャック: Reducer
-│   ├── blackjack-storage.ts     # ブラックジャック: localStorage操作
-│   ├── poker-cards.ts           # ビデオポーカー: デッキ・役判定
-│   ├── poker-reducer.ts         # ビデオポーカー: Reducer
-│   ├── poker-storage.ts         # ビデオポーカー: localStorage操作
+│   ├── concentration-cards.ts   # Concentration: card generation & shuffle
+│   ├── concentration-reducer.ts # Concentration: Reducer
+│   ├── concentration-storage.ts # Concentration: localStorage operations
+│   ├── high-and-low-cards.ts    # High & Low: deck generation
+│   ├── high-and-low-reducer.ts  # High & Low: Reducer
+│   ├── high-and-low-storage.ts  # High & Low: localStorage operations
+│   ├── blackjack-cards.ts       # Blackjack: deck & hand calculation
+│   ├── blackjack-reducer.ts     # Blackjack: Reducer
+│   ├── blackjack-storage.ts     # Blackjack: localStorage operations
+│   ├── poker-cards.ts           # Video Poker: deck & hand evaluation
+│   ├── poker-reducer.ts         # Video Poker: Reducer
+│   ├── poker-storage.ts         # Video Poker: localStorage operations
 │   └── utils.ts                 # shadcn cn()
 ├── types/
-│   ├── concentration.ts         # 神経衰弱: 型定義
-│   ├── high-and-low.ts          # ハイ＆ロー: 型定義
-│   ├── blackjack.ts             # ブラックジャック: 型定義
-│   └── poker.ts                 # ビデオポーカー: 型定義
+│   ├── concentration.ts         # Concentration: type definitions
+│   ├── high-and-low.ts          # High & Low: type definitions
+│   ├── blackjack.ts             # Blackjack: type definitions
+│   └── poker.ts                 # Video Poker: type definitions
 └── test/
-    └── setup.ts                 # テストセットアップ
+    └── setup.ts                 # Test setup
 
 .claude/
-├── agents/                      # Claude Code サブエージェント
-│   └── quality-checker.md       # 品質チェックエージェント
-├── rules/                       # Claude Code ルールファイル
-├── tasks/                       # ゲームごとの要件定義
+├── agents/                      # Claude Code sub-agents
+│   └── quality-checker.md       # Quality check agent
+├── rules/                       # Claude Code rule files
+├── tasks/                       # Game requirement specs
 └── skills/
-    ├── add-game/SKILL.md        # 新ゲーム追加スキル
-    ├── refactor-game/SKILL.md   # ゲームリファクタリングスキル
-    ├── pr/SKILL.md              # PR作成スキル
-    └── update-docs/SKILL.md     # ドキュメント横展開スキル
+    ├── add-game/SKILL.md        # Add game skill
+    ├── refactor-game/SKILL.md   # Game refactoring skill
+    ├── pr/SKILL.md              # PR creation skill
+    └── update-docs/SKILL.md     # Doc sync skill
 ```
 
-## 設計
+## Design
 
-- **useReducer** でゲーム状態を一元管理（各ゲームが独立した Reducer を持つ）
-- **Fisher-Yates** アルゴリズムによるカードシャッフル
-- **CSS 3D Transform** でカードフリップ（GPU加速）
-- **useSyncExternalStore** でlocalStorageのベストスコアを購読
-- レスポンシブデザイン（モバイル対応）
-- Glassmorphism UI + グラデーション背景
+- **useReducer** for centralized game state management (each game has its own independent Reducer)
+- **Fisher-Yates** algorithm for card shuffling
+- **CSS 3D Transform** for card flipping (GPU-accelerated)
+- **useSyncExternalStore** for subscribing to localStorage best scores
+- Responsive design (mobile-friendly)
+- Glassmorphism UI + gradient backgrounds

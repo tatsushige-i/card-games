@@ -30,6 +30,7 @@
 ## コード
 
 - **コード内のコメントはすべて日本語で記述する**
+- **README.md は英語で記述する**（README.md 以外のドキュメント・指示書・ルールファイルは日本語）
 - **ライトモードのみ対応** — ダークモードは非対応
 - shadcn/ui コンポーネント: Button, Dialog, Badge（スタイル: "new-york"）
 - Tailwind CSS 4.x 形式: `@import "tailwindcss"`, `@theme inline` ブロック
