@@ -98,6 +98,7 @@ This project uses [Claude Code](https://claude.ai/code) custom skills (slash com
 |---------|-------------|
 | `/add-game [game-name]` | Automates adding a new card game. Implements types, logic, tests, UI, and pages following existing patterns |
 | `/refactor-game [game-name]` | Checks convention compliance for a specified game and refactors any violations |
+| `/playground [game-name]` | Interactively operates a game's reducer to debug state transitions |
 | `/pr [commit-message]` | Commits, pushes the feature branch, creates a PR, and deletes the local branch in one step |
 | `/update-docs` | Verifies consistency between source code and docs (README.md, CLAUDE.md, architecture.md), updating as needed |
 
@@ -166,6 +167,7 @@ src/
 ├── tasks/                       # Game requirement specs
 └── skills/
     ├── add-game/SKILL.md        # Add game skill
+    ├── playground/SKILL.md      # Reducer playground skill
     ├── refactor-game/SKILL.md   # Game refactoring skill
     ├── pr/SKILL.md              # PR creation skill
     └── update-docs/SKILL.md     # Doc sync skill
