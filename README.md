@@ -71,7 +71,9 @@ GitHub Actions automatically runs the following on push to `main` and on PRs:
 - **Test** — `npm run test:run`
 - **Build** — `npm run build`
 
-## Development
+## Getting Started
+
+### Development
 
 ```bash
 # Install dependencies
@@ -89,6 +91,14 @@ npm run test:run
 # Build
 npm run build
 ```
+
+### Prerequisites
+
+- **Node.js** (v18+)
+- **GitHub CLI** (`gh`) — Required for the `/pr` skill
+  ```bash
+  brew install gh
+  ```
 
 ## Claude Code Skills
 
