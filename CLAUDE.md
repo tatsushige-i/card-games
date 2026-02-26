@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## ドキュメント保守ルール
+
+- `.claude/rules/` に記載済みの情報を CLAUDE.md に重複させない（rules/ は自動的にコンテキストに読み込まれるため）
+
 ## コマンド
 
 - `npm run dev` — 開発サーバー起動
@@ -44,3 +48,4 @@ Next.js App Router + TypeScript で構築されたカードゲーム集。各ゲ
 `.claude/agents/` 配下に専用エージェントを定義:
 
 - `quality-checker` — lint・テスト・ビルドを実行し結果を要約する（model: haiku）
+
