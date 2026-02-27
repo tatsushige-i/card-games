@@ -21,8 +21,14 @@
 
 ## Git 運用
 
+- **原則 Issue を作成してから PR を作成する**（`Closes #N` で紐付け）
+  - 例外: 変更行数 10 行以下かつ 1 ファイルのみの軽微な変更は Issue なしで直接 PR 可
 - **ファイルに変更を加える場合は、main ブランチで直接行わず、必ず `git pull` で main を最新化してから feature ブランチを作成して作業を開始する**
 - **コミット・プッシュはユーザーの明示的な指示があるまで行わない**
+- **ブランチ名はラベルに対応するプレフィックスを付ける**:
+  - `enhancement` → `feature/` （例: `feature/add-poker-game`）
+  - `bug` → `fix/` （例: `fix/score-calculation`）
+  - `documentation` → `docs/` （例: `docs/shorten-readme`）
 
 ## デザイン要件（Apple 風デザインシステム準拠）
 
