@@ -1,6 +1,6 @@
 ---
 name: Documentation
-description: ルール変更・設定・ドキュメントの更新
+about: ルール変更・設定・ドキュメントの更新
 labels: ["documentation"]
 ---
 
