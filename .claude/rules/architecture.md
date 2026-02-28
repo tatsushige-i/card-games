@@ -107,6 +107,7 @@ PokerBoard → usePoker
 | refactor-game | `/refactor-game [ゲーム名]` | 指定ゲームの規約準拠チェック＋自動リファクタリング |
 | playground | `/playground [ゲーム名]` | ゲームの reducer を対話的に操作し、状態遷移をデバッグする |
 | pr | `/pr [コミットメッセージ]` | feature ブランチのコミット・プッシュ・PR 作成・ローカルブランチ削除を一括実行 |
+| start-issue | `/start-issue [Issue番号]` | GitHub Issue を取得し、ラベルに応じた feature ブランチを作成して作業を開始する |
 | update-docs | `/update-docs` | ソースコードの実態とドキュメント（README.md, CLAUDE.md, architecture.md）の整合性を検証・更新 |
 
 スキルファイル: `.claude/skills/<skill-name>/SKILL.md`
