@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  eol-check:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,7 +20,7 @@ jobs:
 
       - run: npm ci
 
-      # EOL チェック: Node.js ランタイムのサポート期限を確認
+      # Node.js ランタイムのサポート期限を確認
       - name: Check Node.js EOL
         run: |
           NODE_MAJOR=$(node -v | cut -d'.' -f1 | tr -d 'v')
@@ -31,10 +31,22 @@ jobs:
           fi
           echo "Node.js ${NODE_MAJOR} is supported (EOL: ${EOL_DATE})"
 
-      # EOL チェック: 本番依存パッケージの既知の脆弱性を検出
+      # 本番依存パッケージの既知の脆弱性を検出
       - name: Check npm audit
         run: npm audit --omit=dev --audit-level=moderate
 
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
       - run: npm run lint
       - run: npm run test:run
       - run: npm run build
