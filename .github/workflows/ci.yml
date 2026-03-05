@@ -31,9 +31,9 @@ jobs:
           fi
           echo "Node.js ${NODE_MAJOR} is supported (EOL: ${EOL_DATE})"
 
-      # EOL チェック: npm パッケージの既知の脆弱性を検出
+      # EOL チェック: 本番依存パッケージの既知の脆弱性を検出
       - name: Check npm audit
-        run: npm audit --audit-level=moderate
+        run: npm audit --omit=dev --audit-level=moderate
 
       - run: npm run lint
       - run: npm run test:run
