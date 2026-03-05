@@ -19,6 +19,22 @@ jobs:
           cache: npm
 
       - run: npm ci
+
+      # EOL チェック: Node.js ランタイムのサポート期限を確認
+      - name: Check Node.js EOL
+        run: |
+          NODE_MAJOR=$(node -v | cut -d'.' -f1 | tr -d 'v')
+          EOL_DATE=$(curl -s "https://endoflife.date/api/nodejs/${NODE_MAJOR}.json" | jq -r '.eol')
+          if [[ "$(date +%Y-%m-%d)" > "$EOL_DATE" ]]; then
+            echo "::error::Node.js ${NODE_MAJOR} reached EOL on ${EOL_DATE}"
+            exit 1
+          fi
+          echo "Node.js ${NODE_MAJOR} is supported (EOL: ${EOL_DATE})"
+
+      # EOL チェック: npm パッケージの既知の脆弱性を検出
+      - name: Check npm audit
+        run: npm audit --audit-level=moderate
+
       - run: npm run lint
       - run: npm run test:run
       - run: npm run build
