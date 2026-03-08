@@ -40,7 +40,8 @@ Next.js App Router + TypeScript で構築されたカードゲーム集。各ゲ
 - `/add-game [ゲーム名]` — 新しいカードゲームを追加する（型定義・ロジック・テスト・UI・ページを一貫して実装）
 - `/refactor-game [ゲーム名]` — 指定ゲームの規約準拠をチェックし、違反があればリファクタリングを行う
 - `/playground [ゲーム名]` — ゲームの reducer を対話的に操作し、状態遷移をデバッグする
-- `/pr [コミットメッセージ]` — feature ブランチのコミット・プッシュ・PR 作成・ローカルブランチ削除を一括実行
+- `/post-merge` — PR マージ後にローカルの feature ブランチを削除し、main を最新化する
+- `/pr [コミットメッセージ]` — feature ブランチのコミット・プッシュ・PR 作成を一括実行
 - `/start-issue [Issue番号]` — GitHub Issue を取得し、ラベルに応じた feature ブランチを作成して作業を開始する
 - `/update-docs` — ソースコードの実態とドキュメント（README.md, CLAUDE.md, architecture.md）の整合性を検証・更新
 
