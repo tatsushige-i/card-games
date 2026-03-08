@@ -10,7 +10,11 @@ Concentration / High & Low / Blackjack / Video Poker
 
 ## Tech Stack
 
-Next.js (App Router) · TypeScript · Tailwind CSS 4 · shadcn/ui · Vitest
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS 4
+- shadcn/ui
+- Vitest
 
 ## Setup
 
