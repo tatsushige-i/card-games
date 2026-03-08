@@ -3,7 +3,7 @@
 import { useReducer, useEffect, useCallback, useRef, useSyncExternalStore } from "react";
 import { concentrationReducer, initialConcentrationState } from "@/lib/concentration-reducer";
 import { createCards } from "@/lib/concentration-cards";
-import { getBestScore, updateBestScore } from "@/lib/concentration-storage";
+import { getConcentrationBestScore, updateConcentrationBestScore } from "@/lib/concentration-storage";
 import type { ConcentrationBestScore, ConcentrationPhase } from "@/types/concentration";
 
 /** localStorageのベストスコアを購読するストア（キャッシュ付き） */
@@ -21,7 +21,7 @@ function subscribeBestScore(callback: () => void) {
 /** キャッシュ済みのスナップショットを返す（参照安定） */
 function getSnapshotBestScore(): ConcentrationBestScore | null {
   if (!cacheInitialized) {
-    cachedBestScore = getBestScore();
+    cachedBestScore = getConcentrationBestScore();
     cacheInitialized = true;
   }
   return cachedBestScore;
@@ -33,7 +33,7 @@ function getServerSnapshotBestScore(): ConcentrationBestScore | null {
 
 /** キャッシュを更新してリスナーに通知する */
 function notifyBestScoreChange() {
-  cachedBestScore = getBestScore();
+  cachedBestScore = getConcentrationBestScore();
   bestScoreListeners.forEach((l) => l());
 }
 
@@ -53,7 +53,7 @@ export function useConcentration() {
   // ゲーム完了時のベストスコア更新
   useEffect(() => {
     if (state.phase === "complete" && prevPhaseRef.current !== "complete") {
-      const updated = updateBestScore(state.moves, state.elapsedTime);
+      const updated = updateConcentrationBestScore(state.moves, state.elapsedTime);
       dispatch({ type: "SET_NEW_BEST", isNewBest: updated });
       if (updated) {
         notifyBestScoreChange();
