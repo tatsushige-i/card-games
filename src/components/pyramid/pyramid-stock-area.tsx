@@ -31,12 +31,12 @@ export function PyramidStockArea({
   const canRecycle = stock.length === 0 && waste.length > 0 && stockRecycles < MAX_RECYCLES;
 
   return (
-    <div className="flex justify-center gap-6 sm:gap-8">
+    <div className="flex justify-center gap-6 sm:gap-8 select-none">
       {/* 山札 */}
       <div className="flex flex-col items-center gap-1">
         {stock.length > 0 ? (
           <div
-            className="card-container w-14 h-20 sm:w-16 sm:h-22 cursor-pointer"
+            className="card-container w-14 h-20 sm:w-16 sm:h-22 cursor-pointer select-none"
             onClick={onDrawStock}
           >
             <div
@@ -61,7 +61,7 @@ export function PyramidStockArea({
           </div>
         ) : canRecycle ? (
           <div
-            className="w-14 h-20 sm:w-16 sm:h-22 rounded-2xl border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer hover:border-gray-400 transition-colors"
+            className="w-14 h-20 sm:w-16 sm:h-22 rounded-2xl border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer select-none hover:border-gray-400 transition-colors"
             onClick={onRecycleStock}
             role="button"
             aria-label="山札をリサイクル"
