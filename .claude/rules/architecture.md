@@ -124,6 +124,7 @@ PyramidBoard → usePyramid
 | playground | `/playground [ゲーム名]` | ゲームの reducer を対話的に操作し、状態遷移をデバッグする |
 | post-merge | `/post-merge` | PR マージ後にローカルの feature ブランチを削除し、main を最新化する |
 | pr | `/pr [コミットメッセージ]` | feature ブランチのコミット・プッシュ・PR 作成を一括実行 |
+| review-respond | `/review-respond [PR番号]` | PR レビューコメントのトリアージ→修正→品質チェック→プッシュ→返信を一括実行 |
 | start-issue | `/start-issue [Issue番号]` | GitHub Issue を取得し、ラベルに応じた feature ブランチを作成して作業を開始する |
 | update-docs | `/update-docs` | ソースコードの実態とドキュメント（README.md, CLAUDE.md, architecture.md）の整合性を検証・更新 |
 
