@@ -92,6 +92,9 @@ function formatPokerBest(data: string): string | null {
 function formatPyramidBest(data: string): string | null {
   try {
     const best = JSON.parse(data) as PyramidBestScore;
+    if (typeof best.bestTime !== "number" || !Number.isFinite(best.bestTime)) {
+      return null;
+    }
     const m = Math.floor(best.bestTime / 60);
     const s = best.bestTime % 60;
     return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;

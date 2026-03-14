@@ -28,6 +28,28 @@ export function PyramidCardComponent({
   const suitSymbol = SUIT_SYMBOLS[card.suit];
   const isClickable = exposed && onClick;
 
+  /** カードの表面コンテンツ */
+  const cardContent = (
+    <div className="flex flex-col items-center justify-center gap-0">
+      <span
+        className={cn(
+          "text-xl sm:text-2xl font-bold select-none leading-tight",
+          suitColor === "red" ? "text-red-600" : "text-gray-800"
+        )}
+      >
+        {card.rank}
+      </span>
+      <span
+        className={cn(
+          "text-base sm:text-lg select-none leading-tight",
+          suitColor === "red" ? "text-red-600" : "text-gray-800"
+        )}
+      >
+        {suitSymbol}
+      </span>
+    </div>
+  );
+
   return (
     <div
       className={cn(
@@ -35,19 +57,8 @@ export function PyramidCardComponent({
         invalid && "animate-shake"
       )}
     >
-      <div
-        className={cn(
-          "card-inner w-full h-full",
-          exposed && "flipped"
-        )}
-        role="img"
-        aria-label={
-          exposed
-            ? `${SUIT_SYMBOLS[card.suit]}${card.rank}`
-            : "裏向きのカード"
-        }
-      >
-        {/* 裏面 */}
+      <div className="card-inner w-full h-full flipped">
+        {/* 裏面（常にflippedのため非表示） */}
         <div
           className={cn(
             "card-face glass shadow-md",
@@ -70,24 +81,7 @@ export function PyramidCardComponent({
           onClick={onClick}
           aria-label={`${SUIT_SYMBOLS[card.suit]}${card.rank}`}
         >
-          <div className="flex flex-col items-center justify-center gap-0">
-            <span
-              className={cn(
-                "text-xl sm:text-2xl font-bold select-none leading-tight",
-                suitColor === "red" ? "text-red-600" : "text-gray-800"
-              )}
-            >
-              {card.rank}
-            </span>
-            <span
-              className={cn(
-                "text-base sm:text-lg select-none leading-tight",
-                suitColor === "red" ? "text-red-600" : "text-gray-800"
-              )}
-            >
-              {suitSymbol}
-            </span>
-          </div>
+          {cardContent}
         </button>
         ) : (
         <div
@@ -98,24 +92,7 @@ export function PyramidCardComponent({
             !exposed && "opacity-60"
           )}
         >
-          <div className="flex flex-col items-center justify-center gap-0">
-            <span
-              className={cn(
-                "text-xl sm:text-2xl font-bold select-none leading-tight",
-                suitColor === "red" ? "text-red-600" : "text-gray-800"
-              )}
-            >
-              {card.rank}
-            </span>
-            <span
-              className={cn(
-                "text-base sm:text-lg select-none leading-tight",
-                suitColor === "red" ? "text-red-600" : "text-gray-800"
-              )}
-            >
-              {suitSymbol}
-            </span>
-          </div>
+          {cardContent}
         </div>
         )}
       </div>
