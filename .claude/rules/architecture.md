@@ -35,6 +35,7 @@ src/
 - `/high-and-low` — ハイ＆ロー
 - `/blackjack` — ブラックジャック
 - `/poker` — ビデオポーカー
+- `/pyramid` — ピラミッド
 
 ## 収録ゲーム
 
@@ -96,6 +97,21 @@ PokerBoard → usePoker
 ```
 
 主要ファイル: `src/types/poker.ts`, `src/lib/poker-reducer.ts`, `src/lib/poker-cards.ts`, `src/lib/poker-storage.ts`, `src/hooks/usePoker.ts`
+
+### ピラミッド（pyramid）
+
+52枚から28枚を7段ピラミッドに配置し、合計13になるペアを除去するソリティアゲーム。K（値13）は単独除去。山札は1回リサイクル可能。タイム制（クリアタイムがベストスコア）。
+
+```
+PyramidBoard → usePyramid
+├── PyramidHeader（タイム、除去数、ベストタイム）
+├── PyramidGrid（7段ピラミッドレイアウト）
+│   └── PyramidCardComponent（選択/露出/不正ペア状態の視覚表現）
+├── PyramidStockArea（山札・捨て札エリア）
+└── PyramidGameOverDialog（クリア/手詰まり）
+```
+
+主要ファイル: `src/types/pyramid.ts`, `src/lib/pyramid-reducer.ts`, `src/lib/pyramid-cards.ts`, `src/lib/pyramid-storage.ts`, `src/hooks/usePyramid.ts`
 
 ## スキル（Claude Code カスタムコマンド）
 

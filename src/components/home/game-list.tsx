@@ -7,6 +7,7 @@ import type { ConcentrationBestScore } from "@/types/concentration";
 import type { HighAndLowBestScore } from "@/types/high-and-low";
 import type { BlackjackBestScore } from "@/types/blackjack";
 import type { PokerBestScore } from "@/types/poker";
+import type { PyramidBestScore } from "@/types/pyramid";
 
 /** ゲーム定義 */
 const games = [
@@ -37,6 +38,13 @@ const games = [
     description: "役を揃えてスコアを稼ごう",
     emoji: "🃑",
     storageKey: "poker-best-score",
+  },
+  {
+    id: "pyramid",
+    title: "ピラミッド",
+    description: "合計13のペアを見つけて除去しよう",
+    emoji: "🔺",
+    storageKey: "pyramid-best-score",
   },
 ] as const;
 
@@ -80,6 +88,21 @@ function formatPokerBest(data: string): string | null {
   }
 }
 
+/** ピラミッドのベストスコアをフォーマット */
+function formatPyramidBest(data: string): string | null {
+  try {
+    const best = JSON.parse(data) as PyramidBestScore;
+    if (typeof best.bestTime !== "number" || !Number.isFinite(best.bestTime)) {
+      return null;
+    }
+    const m = Math.floor(best.bestTime / 60);
+    const s = best.bestTime % 60;
+    return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  } catch {
+    return null;
+  }
+}
+
 /** ゲームIDに応じたベストスコア表示文字列を返す */
 function formatBestScore(gameId: string, data: string): string | null {
   switch (gameId) {
@@ -91,6 +114,8 @@ function formatBestScore(gameId: string, data: string): string | null {
       return formatBlackjackBest(data);
     case "poker":
       return formatPokerBest(data);
+    case "pyramid":
+      return formatPyramidBest(data);
     default:
       return null;
   }
