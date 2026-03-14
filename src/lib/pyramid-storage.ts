@@ -8,7 +8,13 @@ export function getPyramidBestScore(): PyramidBestScore | null {
   try {
     const data = localStorage.getItem(STORAGE_KEY);
     if (!data) return null;
-    return JSON.parse(data) as PyramidBestScore;
+    const parsed = JSON.parse(data);
+    // 旧形式（maxScore）のデータは無効として扱う
+    if (typeof parsed.bestTime !== "number") {
+      localStorage.removeItem(STORAGE_KEY);
+      return null;
+    }
+    return parsed as PyramidBestScore;
   } catch {
     return null;
   }

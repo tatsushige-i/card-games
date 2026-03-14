@@ -13,6 +13,9 @@ const localStorageMock = (() => {
     setItem: vi.fn((key: string, value: string) => {
       store[key] = value;
     }),
+    removeItem: vi.fn((key: string) => {
+      delete store[key];
+    }),
     clear: () => {
       store = {};
     },
@@ -37,6 +40,15 @@ describe("getPyramidBestScore", () => {
       JSON.stringify({ bestTime: 120 })
     );
     expect(getPyramidBestScore()).toEqual({ bestTime: 120 });
+  });
+
+  it("旧形式（maxScore）のデータはnullを返しlocalStorageから削除する", () => {
+    localStorageMock.setItem(
+      "pyramid-best-score",
+      JSON.stringify({ maxScore: 310 })
+    );
+    expect(getPyramidBestScore()).toBeNull();
+    expect(localStorageMock.getItem("pyramid-best-score")).toBeNull();
   });
 
   it("不正なJSONの場合はnullを返す", () => {
