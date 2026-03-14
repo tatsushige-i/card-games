@@ -175,18 +175,20 @@ export function isStuck(
     }
   }
 
-  // 3. 露出カードと捨て札トップで合計13 → 手詰まりではない
+  // 3. 捨て札トップがK（単独除去可能） → 手詰まりではない
+  // 4. 露出カードと捨て札トップで合計13 → 手詰まりではない
   if (waste.length > 0) {
     const wasteTop = waste[waste.length - 1];
+    if (wasteTop.value === TARGET_SUM) return false;
     if (exposed.some((c) => c.value + wasteTop.value === TARGET_SUM)) {
       return false;
     }
   }
 
-  // 4. 山札が残っている → ドロー可能 → 手詰まりではない
+  // 5. 山札が残っている → ドロー可能 → 手詰まりではない
   if (stock.length > 0) return false;
 
-  // 5. 山札が空で捨て札があり、リサイクル回数 < 1 → リサイクル可能
+  // 6. 山札が空で捨て札があり、リサイクル回数 < 1 → リサイクル可能
   if (stock.length === 0 && waste.length > 0 && stockRecycles < MAX_RECYCLES) {
     return false;
   }

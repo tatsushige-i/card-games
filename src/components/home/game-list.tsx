@@ -94,7 +94,7 @@ function formatPyramidBest(data: string): string | null {
     const best = JSON.parse(data) as PyramidBestScore;
     const m = Math.floor(best.bestTime / 60);
     const s = best.bestTime % 60;
-    return `${m}:${String(s).padStart(2, "0")}`;
+    return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
   } catch {
     return null;
   }

@@ -17,7 +17,7 @@ export const initialPyramidState: PyramidState = {
   phase: "idle",
   result: null,
   elapsedTime: 0,
-  removedPairs: 0,
+  removedCount: 0,
   stockRecycles: 0,
   invalidPair: null,
   isNewBest: false,
@@ -72,7 +72,7 @@ export function pyramidReducer(
           const newPyramid = state.pyramid.map((c) =>
             c.id === cardId ? { ...c, removed: true } : c
           );
-          const newRemovedPairs = state.removedPairs + 1;
+          const newRemovedPairs = state.removedCount + 1;
 
           // クリア判定
           if (isPyramidCleared(newPyramid)) {
@@ -83,7 +83,7 @@ export function pyramidReducer(
               selectedSource: null,
               phase: "complete",
               result: "win",
-              removedPairs: newRemovedPairs,
+              removedCount: newRemovedPairs,
               dialogOpen: true,
             };
           }
@@ -95,7 +95,7 @@ export function pyramidReducer(
             selectedCardId: null,
             selectedSource: null,
             phase: "removing",
-            removedPairs: newRemovedPairs,
+            removedCount: newRemovedPairs,
           };
         }
         // 捨て札のKも除去可能
@@ -106,7 +106,7 @@ export function pyramidReducer(
           selectedCardId: null,
           selectedSource: null,
           phase: "removing",
-          removedPairs: state.removedPairs + 1,
+          removedCount: state.removedCount + 1,
         };
       }
 
@@ -168,7 +168,7 @@ export function pyramidReducer(
           newWaste = newWaste.filter((c) => c.id !== cardId);
         }
 
-        const newRemovedPairs = state.removedPairs + 1;
+        const newRemovedPairs = state.removedCount + 1;
 
         // クリア判定
         if (isPyramidCleared(newPyramid)) {
@@ -180,7 +180,7 @@ export function pyramidReducer(
             selectedSource: null,
             phase: "complete",
             result: "win",
-            removedPairs: newRemovedPairs,
+            removedCount: newRemovedPairs,
             dialogOpen: true,
           };
         }
@@ -193,7 +193,7 @@ export function pyramidReducer(
           selectedCardId: null,
           selectedSource: null,
           phase: "removing",
-          removedPairs: newRemovedPairs,
+          removedCount: newRemovedPairs,
         };
       }
 

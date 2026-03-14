@@ -71,8 +71,8 @@ export type PyramidState = {
   result: PyramidGameResult | null;
   /** 経過時間（秒） */
   elapsedTime: number;
-  /** 除去したペア数 */
-  removedPairs: number;
+  /** 除去回数（ペア除去 + K単独除去） */
+  removedCount: number;
   /** 山札のリサイクル回数（最大1回） */
   stockRecycles: number;
   /** 不正ペアのカードID（shakeアニメ用） */

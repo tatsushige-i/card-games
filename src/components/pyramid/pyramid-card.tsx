@@ -58,15 +58,45 @@ export function PyramidCardComponent({
         </div>
 
         {/* 表面 */}
+        {isClickable ? (
+        <button
+          type="button"
+          className={cn(
+            "card-face card-back glass shadow-lg transition-all duration-200",
+            "cursor-pointer hover:shadow-xl hover:-translate-y-0.5",
+            selected && "ring-2 ring-blue-500 ring-offset-1",
+            invalid && "ring-2 ring-red-500 ring-offset-1"
+          )}
+          onClick={onClick}
+          aria-label={`${SUIT_SYMBOLS[card.suit]}${card.rank}`}
+        >
+          <div className="flex flex-col items-center justify-center gap-0">
+            <span
+              className={cn(
+                "text-xl sm:text-2xl font-bold select-none leading-tight",
+                suitColor === "red" ? "text-red-600" : "text-gray-800"
+              )}
+            >
+              {card.rank}
+            </span>
+            <span
+              className={cn(
+                "text-base sm:text-lg select-none leading-tight",
+                suitColor === "red" ? "text-red-600" : "text-gray-800"
+              )}
+            >
+              {suitSymbol}
+            </span>
+          </div>
+        </button>
+        ) : (
         <div
           className={cn(
             "card-face card-back glass shadow-lg transition-all duration-200",
-            isClickable && "cursor-pointer hover:shadow-xl hover:-translate-y-0.5",
             selected && "ring-2 ring-blue-500 ring-offset-1",
             invalid && "ring-2 ring-red-500 ring-offset-1",
             !exposed && "opacity-60"
           )}
-          onClick={isClickable ? onClick : undefined}
         >
           <div className="flex flex-col items-center justify-center gap-0">
             <span
@@ -87,6 +117,7 @@ export function PyramidCardComponent({
             </span>
           </div>
         </div>
+        )}
       </div>
     </div>
   );

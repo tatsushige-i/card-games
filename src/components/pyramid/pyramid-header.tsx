@@ -8,7 +8,7 @@ import type { PyramidPhase, PyramidBestScore } from "@/types/pyramid";
 
 type PyramidHeaderProps = {
   elapsedTime: number;
-  removedPairs: number;
+  removedCount: number;
   phase: PyramidPhase;
   bestScore: PyramidBestScore | null;
   onStart: () => void;
@@ -19,13 +19,13 @@ type PyramidHeaderProps = {
 function formatTime(seconds: number): string {
   const m = Math.floor(seconds / 60);
   const s = seconds % 60;
-  return `${m}:${String(s).padStart(2, "0")}`;
+  return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
 }
 
 /** ピラミッドソリティアのゲームヘッダー */
 export function PyramidHeader({
   elapsedTime,
-  removedPairs,
+  removedCount,
   phase,
   bestScore,
   onStart,
@@ -65,7 +65,7 @@ export function PyramidHeader({
             variant="secondary"
             className="text-sm px-3 py-1.5 rounded-xl"
           >
-            🃏 除去: {removedPairs}ペア
+            🃏 除去: {removedCount}回
           </Badge>
         </div>
       )}

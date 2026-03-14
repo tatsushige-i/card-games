@@ -91,7 +91,7 @@ describe("initialPyramidState", () => {
       phase: "idle",
       result: null,
       elapsedTime: 0,
-      removedPairs: 0,
+      removedCount: 0,
       stockRecycles: 0,
       invalidPair: null,
       isNewBest: false,
@@ -131,7 +131,7 @@ describe("SELECT_CARD", () => {
       source: "pyramid",
     });
     expect(next.pyramid[0].removed).toBe(true);
-    expect(next.removedPairs).toBe(1);
+    expect(next.removedCount).toBe(1);
     expect(next.phase).toBe("removing");
   });
 
@@ -186,7 +186,7 @@ describe("SELECT_CARD", () => {
     });
     expect(next.pyramid[0].removed).toBe(true);
     expect(next.pyramid[1].removed).toBe(true);
-    expect(next.removedPairs).toBe(1);
+    expect(next.removedCount).toBe(1);
     expect(next.phase).toBe("removing");
   });
 
@@ -209,7 +209,7 @@ describe("SELECT_CARD", () => {
     });
     expect(next.pyramid[0].removed).toBe(true);
     expect(next.waste).toHaveLength(0);
-    expect(next.removedPairs).toBe(1);
+    expect(next.removedCount).toBe(1);
     expect(next.phase).toBe("removing");
   });
 
@@ -285,7 +285,7 @@ describe("SELECT_CARD", () => {
       source: "waste",
     });
     expect(next.waste).toHaveLength(0);
-    expect(next.removedPairs).toBe(1);
+    expect(next.removedCount).toBe(1);
   });
 });
 

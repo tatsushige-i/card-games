@@ -27,7 +27,6 @@ export function PyramidGrid({
             key={row}
             className="flex justify-center"
             style={{
-              // 各段を半カード分ずつ右にオフセット
               gap: "0.25rem",
             }}
           >

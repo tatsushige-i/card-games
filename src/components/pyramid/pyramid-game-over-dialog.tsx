@@ -14,7 +14,7 @@ type PyramidGameOverDialogProps = {
   open: boolean;
   result: PyramidGameResult | null;
   elapsedTime: number;
-  removedPairs: number;
+  removedCount: number;
   isNewBest: boolean;
   onPlayAgain: () => void;
   onClose: () => void;
@@ -24,7 +24,7 @@ type PyramidGameOverDialogProps = {
 function formatTime(seconds: number): string {
   const m = Math.floor(seconds / 60);
   const s = seconds % 60;
-  return `${m}:${String(s).padStart(2, "0")}`;
+  return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
 }
 
 /** ゲーム終了ダイアログ */
@@ -32,7 +32,7 @@ export function PyramidGameOverDialog({
   open,
   result,
   elapsedTime,
-  removedPairs,
+  removedCount,
   isNewBest,
   onPlayAgain,
   onClose,
@@ -80,8 +80,8 @@ export function PyramidGameOverDialog({
               <p className="text-sm text-gray-500">タイム</p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-gray-800">{removedPairs}</p>
-              <p className="text-sm text-gray-500">除去ペア</p>
+              <p className="text-3xl font-bold text-gray-800">{removedCount}</p>
+              <p className="text-sm text-gray-500">除去回数</p>
             </div>
           </div>
           {isNewBest && (

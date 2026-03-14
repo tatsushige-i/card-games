@@ -236,6 +236,12 @@ describe("isStuck", () => {
     expect(isStuck(pyramid, [], waste, 0)).toBe(false);
   });
 
+  it("捨て札トップがKなら手詰まりでない", () => {
+    const pyramid = [pyramidCard("2", 6, 0, false, 1)];
+    const waste = [card("K", "heart", 2)];
+    expect(isStuck(pyramid, [], waste, 1)).toBe(false);
+  });
+
   it("山札があれば手詰まりでない", () => {
     const pyramid = [pyramidCard("2", 6, 0, false, 1)];
     const stock = [card("3", "heart", 2)];

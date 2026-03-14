@@ -35,17 +35,13 @@ export function PyramidStockArea({
       {/* 山札 */}
       <div className="flex flex-col items-center gap-1">
         {stock.length > 0 ? (
-          <div
+          <button
+            type="button"
             className="card-container w-14 h-20 sm:w-16 sm:h-22 cursor-pointer select-none"
             onClick={onDrawStock}
+            aria-label={`山札（残り${stock.length}枚）`}
           >
-            <div
-              className={cn(
-                "card-inner w-full h-full"
-              )}
-              role="button"
-              aria-label={`山札（残り${stock.length}枚）`}
-            >
+            <div className="card-inner w-full h-full">
               <div
                 className={cn(
                   "card-face glass shadow-md",
@@ -58,16 +54,16 @@ export function PyramidStockArea({
                 </span>
               </div>
             </div>
-          </div>
+          </button>
         ) : canRecycle ? (
-          <div
+          <button
+            type="button"
             className="w-14 h-20 sm:w-16 sm:h-22 rounded-2xl border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer select-none hover:border-gray-400 transition-colors"
             onClick={onRecycleStock}
-            role="button"
             aria-label="山札をリサイクル"
           >
             <span className="text-xl text-gray-400">↻</span>
-          </div>
+          </button>
         ) : (
           <div className="w-14 h-20 sm:w-16 sm:h-22 rounded-2xl border-2 border-dashed border-gray-200 flex items-center justify-center">
             <span className="text-xs text-gray-300">空</span>

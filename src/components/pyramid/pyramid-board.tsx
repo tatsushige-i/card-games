@@ -33,7 +33,7 @@ export function PyramidBoard() {
       <div className="w-full max-w-2xl">
         <PyramidHeader
           elapsedTime={state.elapsedTime}
-          removedPairs={state.removedPairs}
+          removedCount={state.removedCount}
           phase={state.phase}
           bestScore={bestScore}
           onStart={startGame}
@@ -69,7 +69,7 @@ export function PyramidBoard() {
         open={state.dialogOpen}
         result={state.result}
         elapsedTime={state.elapsedTime}
-        removedPairs={state.removedPairs}
+        removedCount={state.removedCount}
         isNewBest={state.isNewBest}
         onPlayAgain={() => {
           resetGame();
