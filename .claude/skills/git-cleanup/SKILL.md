@@ -1,5 +1,5 @@
 ---
-name: post-merge
+name: git-cleanup
 description: PR マージ後にローカルの feature ブランチを削除し、main を最新化する。
 ---
 

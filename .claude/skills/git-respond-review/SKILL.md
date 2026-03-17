@@ -1,5 +1,5 @@
 ---
-name: review-respond
+name: git-respond-review
 description: PR のレビューコメントを取得し、対応要否を判断した上で、コード修正→品質チェック→プッシュ→コメント返信を一括実行する。
 argument-hint: "[PR番号(省略可)]"
 ---
