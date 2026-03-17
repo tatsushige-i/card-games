@@ -70,7 +70,6 @@ export type GolfAction =
   | { type: "START_GAME"; deck: PlayingCard[] }
   | { type: "DRAW" }
   | { type: "REMOVE_CARD"; columnIndex: number }
-  | { type: "CHECK_STUCK" }
   | { type: "TICK" }
   | { type: "SET_NEW_BEST"; isNewBest: boolean }
   | { type: "DISMISS_DIALOG" }

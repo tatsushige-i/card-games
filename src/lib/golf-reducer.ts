@@ -121,21 +121,6 @@ export function golfReducer(
       };
     }
 
-    case "CHECK_STUCK": {
-      if (state.phase !== "playing") return state;
-
-      if (isStuck(state.columns, state.stock, state.waste)) {
-        return {
-          ...state,
-          phase: "stuck",
-          result: "lose",
-          dialogOpen: true,
-        };
-      }
-
-      return state;
-    }
-
     case "TICK":
       if (state.phase !== "playing") return state;
       return { ...state, elapsedTime: state.elapsedTime + 1 };
