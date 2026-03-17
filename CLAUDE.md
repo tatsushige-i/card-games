@@ -24,6 +24,7 @@ Next.js App Router + TypeScript で構築されたカードゲーム集。各ゲ
 - `architecture.md` — ゲーム追加パターン・ファイル構成・コンポーネントツリー・共有リソース
 - `conventions.md` — コーディング規約・デザイン要件・実装プロセス
 - `pitfalls.md` — 既知の注意点
+- `security.md` — セキュリティルール（機密情報の取り扱い）
 
 ### ホーム画面へのゲーム登録
 
