@@ -26,9 +26,9 @@ argument-hint: "[ゲーム名(英語kebab-case)]"
 
 ### Step 1: 要件整理
 
-1. `.claude/tasks/$ARGUMENTS.md` を作成し、ゲームの機能要件を記載する
+1. ゲームの機能要件を会話内で整理する
 2. 要件が不明確な場合はユーザーに質問して確定させる
-3. **要件（何を作るか）のみ**を記載し、設計（どう作るか）は含めない
+3. **要件（何を作るか）のみ**を整理し、設計（どう作るか）は含めない
 
 ### Step 2: 設計（Plan Mode）
 
@@ -146,8 +146,7 @@ npm run build
 
 ### Step 12: ドキュメント更新
 
-1. `.claude/tasks/$ARGUMENTS.md` — フィードバックがあれば最新化
-2. `.claude/skills/docs-sync/SKILL.md` を読み、その手順に従って README.md・CLAUDE.md・architecture.md を更新する
+1. `.claude/skills/docs-sync/SKILL.md` を読み、その手順に従って README.md・CLAUDE.md・architecture.md を更新する
 
 ## 参考ファイル
 
