@@ -1,5 +1,5 @@
 ---
-name: git-create-pr
+name: git-pr-create
 description: 変更をコミットし、feature ブランチをプッシュして PR を作成する。
 argument-hint: "[コミットメッセージ(省略可)]"
 ---

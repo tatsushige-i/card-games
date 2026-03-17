@@ -135,14 +135,14 @@ GolfBoard → useGolf
 
 | スキル | コマンド | 説明 |
 |--------|----------|------|
-| game-add | `/game-add [ゲーム名]` | 新ゲーム追加の全工程を自動化（要件整理→設計→実装→テスト→ホーム登録→ドキュメント更新） |
-| game-refactor | `/game-refactor [ゲーム名]` | 指定ゲームの規約準拠チェック＋自動リファクタリング |
-| game-debug | `/game-debug [ゲーム名]` | ゲームの reducer を対話的に操作し、状態遷移をデバッグする |
-| git-cleanup | `/git-cleanup` | PR マージ後にローカルの feature ブランチを削除し、main を最新化する |
-| git-create-pr | `/git-create-pr [コミットメッセージ]` | feature ブランチのコミット・プッシュ・PR 作成を一括実行 |
-| git-respond-review | `/git-respond-review [PR番号]` | PR レビューコメントのトリアージ→修正→品質チェック→プッシュ→返信を一括実行 |
-| git-start-issue | `/git-start-issue [Issue番号]` | GitHub Issue を取得し、ラベルに応じた feature ブランチを作成して作業を開始する |
 | docs-sync | `/docs-sync` | ソースコードの実態とドキュメント（README.md, CLAUDE.md, architecture.md）の整合性を検証・更新 |
+| game-add | `/game-add [ゲーム名]` | 新ゲーム追加の全工程を自動化（要件整理→設計→実装→テスト→ホーム登録→ドキュメント更新） |
+| game-debug | `/game-debug [ゲーム名]` | ゲームの reducer を対話的に操作し、状態遷移をデバッグする |
+| game-refactor | `/game-refactor [ゲーム名]` | 指定ゲームの規約準拠チェック＋自動リファクタリング |
+| git-branch-cleanup | `/git-branch-cleanup` | PR マージ後にローカルの feature ブランチを削除し、main を最新化する |
+| git-issue-start | `/git-issue-start [Issue番号]` | GitHub Issue を取得し、ラベルに応じた feature ブランチを作成して作業を開始する |
+| git-pr-create | `/git-pr-create [コミットメッセージ]` | feature ブランチのコミット・プッシュ・PR 作成を一括実行 |
+| git-review-respond | `/git-review-respond [PR番号]` | PR レビューコメントのトリアージ→修正→品質チェック→プッシュ→返信を一括実行 |
 
 スキルファイル: `.claude/skills/<skill-name>/SKILL.md`
 
