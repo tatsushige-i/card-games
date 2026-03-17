@@ -57,6 +57,7 @@ export function GolfBoard() {
             <GolfStockArea
               stock={state.stock}
               waste={state.waste}
+              phase={state.phase}
               onDraw={draw}
             />
           </div>
@@ -71,7 +72,6 @@ export function GolfBoard() {
         elapsedTime={state.elapsedTime}
         isNewBest={state.isNewBest}
         onPlayAgain={() => {
-          resetGame();
           startGame();
         }}
         onClose={dismissDialog}

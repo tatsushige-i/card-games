@@ -2,11 +2,12 @@
 
 import { cn } from "@/lib/utils";
 import { GolfCard } from "./golf-card";
-import type { PlayingCard } from "@/types/golf";
+import type { PlayingCard, GolfPhase } from "@/types/golf";
 
 type GolfStockAreaProps = {
   stock: PlayingCard[];
   waste: PlayingCard[];
+  phase: GolfPhase;
   onDraw: () => void;
 };
 
@@ -14,9 +15,11 @@ type GolfStockAreaProps = {
 export function GolfStockArea({
   stock,
   waste,
+  phase,
   onDraw,
 }: GolfStockAreaProps) {
   const wasteTop = waste.length > 0 ? waste[waste.length - 1] : null;
+  const canDraw = phase === "playing" && stock.length > 0;
 
   return (
     <div className="flex justify-center gap-6 sm:gap-8 select-none">
@@ -25,8 +28,12 @@ export function GolfStockArea({
         {stock.length > 0 ? (
           <button
             type="button"
-            className="card-container w-14 h-20 sm:w-16 sm:h-22 cursor-pointer select-none"
-            onClick={onDraw}
+            className={cn(
+              "card-container w-14 h-20 sm:w-16 sm:h-22 select-none",
+              canDraw ? "cursor-pointer" : "cursor-not-allowed opacity-50"
+            )}
+            onClick={canDraw ? onDraw : undefined}
+            disabled={!canDraw}
             aria-label={`山札（残り${stock.length}枚）`}
           >
             <div className="card-inner w-full h-full">

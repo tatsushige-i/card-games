@@ -17,7 +17,7 @@ export function GolfColumns({
   onRemoveCard,
 }: GolfColumnsProps) {
   return (
-    <div className="flex justify-center gap-1.5 sm:gap-2">
+    <div className="flex justify-center gap-1.5 sm:gap-2 overflow-x-auto max-w-full px-1">
       {columns.map((column, colIndex) => (
         <div key={colIndex} className="flex flex-col items-center">
           {column.length === 0 ? (

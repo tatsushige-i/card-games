@@ -99,6 +99,8 @@ export function GolfCard({
           </button>
         ) : (
           <div
+            role="img"
+            aria-label={`${SUIT_SYMBOLS[card.suit]}${card.rank}`}
             className={cn(
               "card-face card-back shadow-lg transition-all duration-200",
               cardBg
