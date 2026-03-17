@@ -1,5 +1,5 @@
 ---
-name: playground
+name: game-debug
 description: ゲームの reducer をインタラクティブに操作し、状態遷移をデバッグする。
 argument-hint: "[ゲーム名(英語kebab-case)]"
 ---

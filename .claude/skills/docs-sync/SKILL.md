@@ -1,5 +1,5 @@
 ---
-name: update-docs
+name: docs-sync
 description: ソースコードの実態とドキュメント（README.md, CLAUDE.md, architecture.md）の整合性を検証し、差分があれば更新する。
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: add-game
+name: game-add
 description: 新しいカードゲームをプロジェクトに追加する。既存のアーキテクチャパターンに従い、型定義・ロジック・テスト・UI・ページを一貫して実装する。
 argument-hint: "[ゲーム名(英語kebab-case)]"
 ---
@@ -147,7 +147,7 @@ npm run build
 ### Step 12: ドキュメント更新
 
 1. `.claude/tasks/$ARGUMENTS.md` — フィードバックがあれば最新化
-2. `.claude/skills/update-docs/SKILL.md` を読み、その手順に従って README.md・CLAUDE.md・architecture.md を更新する
+2. `.claude/skills/docs-sync/SKILL.md` を読み、その手順に従って README.md・CLAUDE.md・architecture.md を更新する
 
 ## 参考ファイル
 

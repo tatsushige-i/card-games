@@ -37,14 +37,14 @@ Next.js App Router + TypeScript で構築されたカードゲーム集。各ゲ
 
 `.claude/skills/` 配下にプロジェクト固有のスキルを定義:
 
-- `/add-game [ゲーム名]` — 新しいカードゲームを追加する（型定義・ロジック・テスト・UI・ページを一貫して実装）
-- `/refactor-game [ゲーム名]` — 指定ゲームの規約準拠をチェックし、違反があればリファクタリングを行う
-- `/playground [ゲーム名]` — ゲームの reducer を対話的に操作し、状態遷移をデバッグする
-- `/post-merge` — PR マージ後にローカルの feature ブランチを削除し、main を最新化する
-- `/pr [コミットメッセージ]` — feature ブランチのコミット・プッシュ・PR 作成を一括実行
-- `/review-respond [PR番号]` — PR のレビューコメントを取得・トリアージし、修正→品質チェック→プッシュ→返信を一括実行
-- `/start-issue [Issue番号]` — GitHub Issue を取得し、ラベルに応じた feature ブランチを作成して作業を開始する
-- `/update-docs` — ソースコードの実態とドキュメント（README.md, CLAUDE.md, architecture.md）の整合性を検証・更新
+- `/game-add [ゲーム名]` — 新しいカードゲームを追加する（型定義・ロジック・テスト・UI・ページを一貫して実装）
+- `/game-refactor [ゲーム名]` — 指定ゲームの規約準拠をチェックし、違反があればリファクタリングを行う
+- `/game-debug [ゲーム名]` — ゲームの reducer を対話的に操作し、状態遷移をデバッグする
+- `/git-cleanup` — PR マージ後にローカルの feature ブランチを削除し、main を最新化する
+- `/git-create-pr [コミットメッセージ]` — feature ブランチのコミット・プッシュ・PR 作成を一括実行
+- `/git-respond-review [PR番号]` — PR のレビューコメントを取得・トリアージし、修正→品質チェック→プッシュ→返信を一括実行
+- `/git-start-issue [Issue番号]` — GitHub Issue を取得し、ラベルに応じた feature ブランチを作成して作業を開始する
+- `/docs-sync` — ソースコードの実態とドキュメント（README.md, CLAUDE.md, architecture.md）の整合性を検証・更新
 
 ## エージェント（サブエージェント）
 

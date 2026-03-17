@@ -1,5 +1,5 @@
 ---
-name: refactor-game
+name: game-refactor
 description: 指定ゲームの規約準拠をチェックし、違反があればリファクタリングを行う。
 argument-hint: "[ゲーム名(英語kebab-case)]"
 ---

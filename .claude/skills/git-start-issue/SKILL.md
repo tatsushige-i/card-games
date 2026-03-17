@@ -1,5 +1,5 @@
 ---
-name: start-issue
+name: git-start-issue
 description: GitHub Issue を取得し、ラベルに応じた feature ブランチを作成して作業を開始する。
 argument-hint: "[Issue番号]"
 ---
@@ -18,7 +18,7 @@ GitHub Issue の内容を取得し、ラベルに応じたブランチ名で fea
 
 ### Step 1: 引数チェック
 
-1. `$ARGUMENTS` が空の場合は **エラーとして中止** し、`/start-issue 36` のように Issue 番号を指定するよう案内する
+1. `$ARGUMENTS` が空の場合は **エラーとして中止** し、`/git-start-issue 36` のように Issue 番号を指定するよう案内する
 
 ### Step 2: 状態確認
 
@@ -52,4 +52,4 @@ GitHub Issue の内容を取得し、ラベルに応じたブランチ名で fea
 1. Issue 番号・タイトル・ラベル
 2. Issue 本文の要約
 3. 作成したブランチ名
-4. 次のステップの案内（作業完了後は `/pr` でPR作成できること）
+4. 次のステップの案内（作業完了後は `/git-create-pr` でPR作成できること）
