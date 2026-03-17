@@ -36,6 +36,7 @@ src/
 - `/blackjack` — ブラックジャック
 - `/poker` — ビデオポーカー
 - `/pyramid` — ピラミッド
+- `/golf` — ゴルフソリティア
 
 ## 収録ゲーム
 
@@ -112,6 +113,21 @@ PyramidBoard → usePyramid
 ```
 
 主要ファイル: `src/types/pyramid.ts`, `src/lib/pyramid-reducer.ts`, `src/lib/pyramid-cards.ts`, `src/lib/pyramid-storage.ts`, `src/hooks/usePyramid.ts`
+
+### ゴルフソリティア（golf）
+
+山札から1枚ずつカードを出し、場の7列のカードを±1の連続で取り除いていくソリティア。K→Aのラップアラウンドなし。ベストスコアは残りカード数（少ないほど良い）。
+
+```
+GolfBoard → useGolf
+├── GolfHeader（残りカード数、タイマー、ベストスコア）
+├── GolfColumns（7列のカード配置）
+│   └── GolfCard（選択可能状態の視覚表現）
+├── GolfStockArea（山札・捨て札エリア）
+└── GolfGameOverDialog（クリア/手詰まり）
+```
+
+主要ファイル: `src/types/golf.ts`, `src/lib/golf-reducer.ts`, `src/lib/golf-cards.ts`, `src/lib/golf-storage.ts`, `src/hooks/useGolf.ts`
 
 ## スキル（Claude Code カスタムコマンド）
 
