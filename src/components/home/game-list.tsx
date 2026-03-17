@@ -8,6 +8,7 @@ import type { HighAndLowBestScore } from "@/types/high-and-low";
 import type { BlackjackBestScore } from "@/types/blackjack";
 import type { PokerBestScore } from "@/types/poker";
 import type { PyramidBestScore } from "@/types/pyramid";
+import type { GolfBestScore } from "@/types/golf";
 
 /** ゲーム定義 */
 const games = [
@@ -45,6 +46,13 @@ const games = [
     description: "合計13のペアを見つけて除去しよう",
     emoji: "🔺",
     storageKey: "pyramid-best-score",
+  },
+  {
+    id: "golf",
+    title: "ゴルフ",
+    description: "±1のカードを連続で取り除こう",
+    emoji: "⛳",
+    storageKey: "golf-best-score",
   },
 ] as const;
 
@@ -103,6 +111,16 @@ function formatPyramidBest(data: string): string | null {
   }
 }
 
+/** ゴルフのベストスコアをフォーマット */
+function formatGolfBest(data: string): string | null {
+  try {
+    const best = JSON.parse(data) as GolfBestScore;
+    return `残り${best.remainingCards}枚`;
+  } catch {
+    return null;
+  }
+}
+
 /** ゲームIDに応じたベストスコア表示文字列を返す */
 function formatBestScore(gameId: string, data: string): string | null {
   switch (gameId) {
@@ -116,6 +134,8 @@ function formatBestScore(gameId: string, data: string): string | null {
       return formatPokerBest(data);
     case "pyramid":
       return formatPyramidBest(data);
+    case "golf":
+      return formatGolfBest(data);
     default:
       return null;
   }
