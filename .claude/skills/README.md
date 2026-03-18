@@ -22,9 +22,9 @@ Interactively operates a game's reducer to debug state transitions. Simulates ac
 
 ### `/game-refactor [game-name]`
 
-Audits a specified game for adherence to project conventions and automatically refactors any violations found (naming, file structure, patterns).
+Audits games for adherence to project conventions and automatically refactors any violations found (naming, file structure, patterns). Without arguments, checks all games.
 
-- **Argument**: Game name in English kebab-case (e.g., `blackjack`)
+- **Argument** (optional): Game name in English kebab-case (e.g., `blackjack`). If omitted, all games are checked.
 
 ### `/git-branch-cleanup`
 
