@@ -30,6 +30,17 @@
           }
         ]
       }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'リマインダー: useSyncExternalStore の getSnapshot はキャッシュ済み参照を返すこと。JSON.parse 直接呼び出しは無限ループの原因。詳細は .claude/rules/pitfalls.md を参照。'"
+          }
+        ]
+      }
     ]
   }
 }
