@@ -20,6 +20,82 @@ src/
 └── app/<game>/page.tsx          — ルートエントリーポイント（Server Component）
 ```
 
+### 実装プロセス
+
+以下の順序で実装する。各ステップで既存ゲーム（`blackjack`, `high-and-low` 等）の該当ファイルを参考にすること。
+
+#### Step 1: 要件整理
+
+ゲームの機能要件を整理する。不明確な場合はユーザーに質問して確定させる。**要件（何を作るか）のみ**を整理し、設計（どう作るか）は含めない。
+
+#### Step 2: 設計（Plan Mode）
+
+EnterPlanMode で以下を決定する:
+
+- Phase 遷移図（`idle` → ... → `gameOver`）
+- State の構造（`<Game>State` 型）
+- Action の一覧（`<Game>Action` 型）
+- ベストスコアの判定基準（`<Game>BestScore` 型）
+- コンポーネントツリー
+- ファイル一覧
+
+#### Step 3: 型定義
+
+`src/types/<game>.ts` — カード型、Phase 型（判別共用体）、GameResult 型、State 型、Action 型（判別共用体）、BestScore 型
+
+#### Step 4: カードユーティリティ + テスト
+
+`src/lib/<game>-cards.ts` — カード生成・シャッフル（Fisher-Yates）、ゲーム固有の計算ロジック、定数、表示用ヘルパー（`getCardLabel`, `SUIT_SYMBOLS`, `SUIT_COLORS`）
+
+`src/lib/__tests__/<game>-cards.test.ts`
+
+#### Step 5: Storage + テスト
+
+`src/lib/<game>-storage.ts` — localStorage キー `"<game>-best-score"`、`get/save/update<Game>BestScore()`、`typeof window === "undefined"` ガード
+
+`src/lib/__tests__/<game>-storage.test.ts` — localStorage モックパターン（`vi.fn()` + `Object.defineProperty`）
+
+#### Step 6: Reducer + テスト
+
+`src/lib/<game>-reducer.ts` — `initial<Game>State` 定数、純粋 Reducer 関数（switch 文、判別共用体アクション）、各 Phase 遷移のロジック
+
+`src/lib/__tests__/<game>-reducer.test.ts`
+
+#### Step 7: カスタムフック
+
+`src/hooks/use<Game>.ts` — `useReducer` で状態管理、`useSyncExternalStore` でベストスコア管理（**キャッシュ済みスナップショット必須**）、`useEffect` で Phase ベースの遅延処理（`setTimeout`）、`prevPhaseRef` で Phase 遷移検出・ベストスコア更新
+
+#### Step 8: コンポーネント群
+
+`src/components/<game>/` 配下に作成:
+
+| ファイル | 役割 |
+|---------|------|
+| `<game>-board.tsx` | `"use client"`, フック呼び出し、全体統合 |
+| `<game>-header.tsx` | スコア・Badge・操作ボタン・戻るリンク |
+| `<game>-card.tsx` | カード表示（3D フリップ CSS 再利用） |
+| `<game>-result.tsx` | ラウンド結果表示 |
+| `<game>-game-over-dialog.tsx` | ゲーム終了ダイアログ |
+| その他ゲーム固有 UI | 必要に応じて追加 |
+
+テスト: `src/components/<game>/__tests__/` 配下
+
+#### Step 9: ページ
+
+`src/app/<game>/page.tsx` — Server Component、`<Game>Board` をレンダリング
+
+#### Step 10: ホーム画面登録
+
+`src/components/home/game-list.tsx` を更新: `games` 配列にエントリ追加、`format<Game>Best()` 関数を追加、`formatBestScore()` の switch に case 追加、BestScore 型の import 追加
+
+#### Step 11: 品質チェック
+
+`npm run lint` / `npm run test:run` / `npm run build` をすべてパスさせる
+
+#### Step 12: ドキュメント更新
+
+`/docs-sync` スキルの手順に従い README.md・CLAUDE.md・architecture.md を更新する
+
 ### 共通パターン
 
 - **状態管理**: `useReducer` + 純粋 Reducer（判別共用体アクション）
@@ -136,11 +212,10 @@ GolfBoard → useGolf
 | スキル | コマンド | 説明 |
 |--------|----------|------|
 | docs-sync | `/docs-sync` | ソースコードの実態とドキュメント（README.md, CLAUDE.md, architecture.md）の整合性を検証・更新 |
-| game-add | `/game-add [ゲーム名]` | 新ゲーム追加の全工程を自動化（要件整理→設計→実装→テスト→ホーム登録→ドキュメント更新） |
 | game-debug | `/game-debug [ゲーム名]` | ゲームの reducer を対話的に操作し、状態遷移をデバッグする |
 | game-refactor | `/game-refactor [ゲーム名]` | 指定ゲームの規約準拠チェック＋自動リファクタリング |
 | git-branch-cleanup | `/git-branch-cleanup` | PR マージ後にローカルの feature ブランチを削除し、main を最新化する |
-| git-issue-start | `/git-issue-start [Issue番号]` | GitHub Issue を取得し、ラベルに応じた feature ブランチを作成して作業を開始する |
+| git-issue-start | `/git-issue-start [Issue番号]` | GitHub Issue を取得し、ブランチ作成。ゲーム追加 Issue は実装も開始 |
 | git-pr-create | `/git-pr-create [コミットメッセージ]` | feature ブランチのコミット・プッシュ・PR 作成を一括実行 |
 | git-review-respond | `/git-review-respond [PR番号]` | PR レビューコメントのトリアージ→修正→品質チェック→プッシュ→返信を一括実行 |
 

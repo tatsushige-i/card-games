@@ -14,12 +14,6 @@ Custom slash commands for Claude Code, defined in `.claude/skills/`. Each skill 
 
 Verifies consistency between source code and documentation (README.md, CLAUDE.md, architecture.md), then updates any outdated sections.
 
-### `/game-add [game-name]`
-
-Adds a new card game to the project. Follows the existing architecture pattern to implement type definitions, logic, tests, UI components, and page routing in a consistent manner.
-
-- **Argument**: Game name in English kebab-case (e.g., `solitaire`)
-
 ### `/game-debug [game-name]`
 
 Interactively operates a game's reducer to debug state transitions. Simulates actions in real-time without modifying any files.
@@ -38,7 +32,7 @@ Cleans up after a PR merge: deletes the local feature branch and updates main to
 
 ### `/git-issue-start [issue-number]`
 
-Fetches a GitHub Issue, determines the branch prefix based on labels (`bug` → `fix/`, `enhancement` → `feature/`, `documentation` → `docs/`), pulls the latest main, and creates the feature branch.
+Fetches a GitHub Issue, determines the branch prefix based on labels (`bug` → `fix/`, `enhancement` → `feature/`, `documentation` → `docs/`), pulls the latest main, and creates the feature branch. For game-addition issues, also starts the implementation following the architecture patterns.
 
 - **Argument**: GitHub Issue number (e.g., `42`)
 
