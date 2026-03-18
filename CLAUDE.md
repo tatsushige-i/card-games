@@ -40,7 +40,7 @@ Next.js App Router + TypeScript で構築されたカードゲーム集。各ゲ
 
 - `/docs-sync` — ソースコードの実態とドキュメント（README.md, CLAUDE.md, architecture.md）の整合性を検証・更新
 - `/game-debug [ゲーム名]` — ゲームの reducer を対話的に操作し、状態遷移をデバッグする
-- `/game-refactor [ゲーム名]` — 指定ゲームの規約準拠をチェックし、違反があればリファクタリングを行う
+- `/game-refactor [ゲーム名]` — 指定ゲーム（または全ゲーム）の規約準拠をチェックし、違反があればリファクタリングを行う
 - `/git-branch-cleanup` — PR マージ後にローカルの feature ブランチを削除し、main を最新化する
 - `/git-issue-start [Issue番号]` — GitHub Issue を取得し、ラベルに応じた feature ブランチを作成。ゲーム追加 Issue の場合は実装も開始する
 - `/git-pr-create [コミットメッセージ]` — feature ブランチのコミット・プッシュ・PR 作成を一括実行

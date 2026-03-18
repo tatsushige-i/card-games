@@ -213,7 +213,7 @@ GolfBoard → useGolf
 |--------|----------|------|
 | docs-sync | `/docs-sync` | ソースコードの実態とドキュメント（README.md, CLAUDE.md, architecture.md）の整合性を検証・更新 |
 | game-debug | `/game-debug [ゲーム名]` | ゲームの reducer を対話的に操作し、状態遷移をデバッグする |
-| game-refactor | `/game-refactor [ゲーム名]` | 指定ゲームの規約準拠チェック＋自動リファクタリング |
+| game-refactor | `/game-refactor [ゲーム名]` | 指定ゲーム（または全ゲーム）の規約準拠チェック＋自動リファクタリング |
 | git-branch-cleanup | `/git-branch-cleanup` | PR マージ後にローカルの feature ブランチを削除し、main を最新化する |
 | git-issue-start | `/git-issue-start [Issue番号]` | GitHub Issue を取得し、ブランチ作成。ゲーム追加 Issue は実装も開始 |
 | git-pr-create | `/git-pr-create [コミットメッセージ]` | feature ブランチのコミット・プッシュ・PR 作成を一括実行 |
