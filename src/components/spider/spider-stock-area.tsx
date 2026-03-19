@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import type { SpiderPhase, SpiderCard } from "@/types/spider";
-import { canDealRow } from "@/lib/spider-cards";
+import { canDealRow, COLUMN_COUNT } from "@/lib/spider-cards";
 
 type SpiderStockAreaProps = {
   stock: SpiderCard[];
@@ -19,8 +19,8 @@ export function SpiderStockArea({
   onDeal,
 }: SpiderStockAreaProps) {
   const canDeal = phase === "playing" && canDealRow(columns, stock);
-  // 山札の残りセット数（10枚ずつ配布）
-  const remainingSets = Math.floor(stock.length / 10);
+  // 山札の残りセット数（列数分ずつ配布）
+  const remainingSets = Math.floor(stock.length / COLUMN_COUNT);
 
   return (
     <div className="flex justify-center select-none">

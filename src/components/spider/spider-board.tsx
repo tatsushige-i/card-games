@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { useSpider } from "@/hooks/useSpider";
 import { canDealRow } from "@/lib/spider-cards";
+import type { SpiderPhase } from "@/types/spider";
 import { SpiderHeader } from "./spider-header";
 import { SpiderColumns } from "./spider-columns";
 import { SpiderStockArea } from "./spider-stock-area";
@@ -11,7 +12,7 @@ import { cn } from "@/lib/utils";
 
 /** ゲーム状態に応じたナビゲーションメッセージを返す */
 function getHintMessage(
-  phase: string,
+  phase: SpiderPhase,
   selectedColumn: number | null,
   stockLength: number,
   hasEmptyColumns: boolean,

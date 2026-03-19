@@ -245,9 +245,9 @@ describe("removeCompleteSequence", () => {
 });
 
 describe("canDealRow", () => {
-  it("全列にカードがあり山札があればtrue", () => {
+  it("全列にカードがあり山札が列数以上あればtrue", () => {
     const columns = Array.from({ length: 10 }, (_, i) => [card("A", true, i)]);
-    const stock = [card("2", false, 100)];
+    const stock = Array.from({ length: 10 }, (_, i) => card("2", false, 100 + i));
     expect(canDealRow(columns, stock)).toBe(true);
   });
 
@@ -255,7 +255,7 @@ describe("canDealRow", () => {
     const columns = Array.from({ length: 10 }, (_, i) =>
       i === 0 ? [] : [card("A", true, i)]
     );
-    const stock = [card("2", false, 100)];
+    const stock = Array.from({ length: 10 }, (_, i) => card("2", false, 100 + i));
     expect(canDealRow(columns, stock)).toBe(false);
   });
 

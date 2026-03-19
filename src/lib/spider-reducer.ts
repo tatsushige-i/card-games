@@ -155,12 +155,13 @@ export function spiderReducer(
       if (state.phase !== "playing") return state;
       if (!canDealRow(state.columns, state.stock)) return state;
 
-      // 10枚を各列に1枚ずつ表向きで追加
+      // 各列に1枚ずつ表向きで追加
+      const columnCount = state.columns.length;
       const newColumns = state.columns.map((col, i) => [
         ...col,
         { ...state.stock[i], faceUp: true },
       ]);
-      const newStock = state.stock.slice(10);
+      const newStock = state.stock.slice(columnCount);
 
       // 配布後に完成列の検出・除去
       const result = checkAndRemoveComplete(newColumns, state.completedSets);

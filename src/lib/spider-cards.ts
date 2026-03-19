@@ -194,7 +194,7 @@ export function canDealRow(
   columns: SpiderCard[][],
   stock: SpiderCard[]
 ): boolean {
-  if (stock.length === 0) return false;
+  if (stock.length < columns.length) return false;
   return columns.every((col) => col.length > 0);
 }
 
