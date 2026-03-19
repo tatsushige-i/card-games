@@ -93,10 +93,15 @@ export function SpiderBoard() {
         {showBoard && (
           <div className="flex flex-col items-center gap-6">
             {/* ナビゲーションメッセージ（常にスペースを確保してレイアウトシフトを防止） */}
-            <div className={cn(
-              "glass rounded-xl px-4 py-2 shadow-sm transition-opacity duration-200",
-              hintMessage ? "opacity-100" : "opacity-0 pointer-events-none"
-            )}>
+            <div
+              className={cn(
+                "glass rounded-xl px-4 py-2 shadow-sm transition-opacity duration-200",
+                hintMessage ? "opacity-100" : "opacity-0 pointer-events-none"
+              )}
+              role="status"
+              aria-live="polite"
+              aria-hidden={!hintMessage}
+            >
               <p className="text-sm text-gray-600 text-center">
                 {hintMessage || "\u00A0"}
               </p>
