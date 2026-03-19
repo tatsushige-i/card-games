@@ -33,6 +33,9 @@ argument-hint: "[ゲーム名(英語kebab-case)]"
 | high-and-low | `highAndLowReducer` | `initialHighAndLowState` | `createDeck()` |
 | blackjack | `blackjackReducer` | `initialBlackjackState` | `createDeck()` |
 | poker | `pokerReducer` | `initialPokerState` | `createDeck()` |
+| golf | `golfReducer` | `initialGolfState` | `createDeck()` |
+| pyramid | `pyramidReducer` | `initialPyramidState` | `createDeck()` |
+| spider | `spiderReducer` | `initialSpiderState` | `createDeck()` |
 
 指定されたゲームが上記に含まれない場合は、エラーを表示して終了する。
 
