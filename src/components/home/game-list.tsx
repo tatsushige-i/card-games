@@ -10,6 +10,7 @@ import type { PokerBestScore } from "@/types/poker";
 import type { PyramidBestScore } from "@/types/pyramid";
 import type { GolfBestScore } from "@/types/golf";
 import type { SpiderBestScore } from "@/types/spider";
+import type { TenPlayBestScore } from "@/types/ten-play";
 
 /** ゲーム定義 */
 const games = [
@@ -61,6 +62,13 @@ const games = [
     description: "K〜Aの列を8組完成させよう",
     emoji: "🕷️",
     storageKey: "spider-best-score",
+  },
+  {
+    id: "ten-play",
+    title: "テンプレイ",
+    description: "合計10のペアを見つけて除去しよう",
+    emoji: "🔟",
+    storageKey: "ten-play-best-score",
   },
 ] as const;
 
@@ -145,6 +153,21 @@ function formatSpiderBest(data: string): string | null {
   }
 }
 
+/** テンプレイのベストスコアをフォーマット */
+function formatTenPlayBest(data: string): string | null {
+  try {
+    const best = JSON.parse(data) as TenPlayBestScore;
+    if (typeof best.bestTime !== "number" || !Number.isFinite(best.bestTime)) {
+      return null;
+    }
+    const m = Math.floor(best.bestTime / 60);
+    const s = best.bestTime % 60;
+    return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  } catch {
+    return null;
+  }
+}
+
 /** ゲームIDに応じたベストスコア表示文字列を返す */
 function formatBestScore(gameId: string, data: string): string | null {
   switch (gameId) {
@@ -162,6 +185,8 @@ function formatBestScore(gameId: string, data: string): string | null {
       return formatGolfBest(data);
     case "spider":
       return formatSpiderBest(data);
+    case "ten-play":
+      return formatTenPlayBest(data);
     default:
       return null;
   }
