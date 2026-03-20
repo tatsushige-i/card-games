@@ -113,6 +113,7 @@ EnterPlanMode で以下を決定する:
 - `/poker` — ビデオポーカー
 - `/pyramid` — ピラミッド
 - `/golf` — ゴルフソリティア
+- `/tri-peaks` — トライピークス
 
 ## 収録ゲーム
 
@@ -204,6 +205,21 @@ GolfBoard → useGolf
 ```
 
 主要ファイル: `src/types/golf.ts`, `src/lib/golf-reducer.ts`, `src/lib/golf-cards.ts`, `src/lib/golf-storage.ts`, `src/hooks/useGolf.ts`
+
+### トライピークス（tri-peaks）
+
+3つのピラミッド状に28枚のカードを配置し、捨て札と±1のカードを連続で取り除いていくソリティア。K↔Aラップアラウンドあり。連続除去でコンボボーナス（1, 2, 3...と加算）。山札をめくるとコンボリセット。ベストスコアはスコア（高いほど良い）。
+
+```
+TriPeaksBoard → useTriPeaks
+├── TriPeaksHeader（スコア、コンボ、タイマー、除去数、ベストスコア）
+├── TriPeaksGrid（3つのピラミッドレイアウト、4行構成）
+│   └── TriPeaksCard（表/裏/除去状態の視覚表現）
+├── TriPeaksStockArea（山札・捨て札エリア）
+└── TriPeaksGameOverDialog（クリア/手詰まり、最終スコア）
+```
+
+主要ファイル: `src/types/tri-peaks.ts`, `src/lib/tri-peaks-reducer.ts`, `src/lib/tri-peaks-cards.ts`, `src/lib/tri-peaks-storage.ts`, `src/hooks/useTriPeaks.ts`
 
 ## スキル（Claude Code カスタムコマンド）
 
