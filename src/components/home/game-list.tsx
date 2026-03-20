@@ -28,7 +28,7 @@ const games = [
     description: "カードをめくってペアを見つけよう",
     emoji: "🃏",
     storageKey: "concentration-best-score",
-    category: "puzzle" as Category,
+    category: "puzzle",
   },
   {
     id: "high-and-low",
@@ -36,7 +36,7 @@ const games = [
     description: "次のカードは高い？低い？",
     emoji: "🔮",
     storageKey: "high-and-low-best-score",
-    category: "casino" as Category,
+    category: "casino",
   },
   {
     id: "blackjack",
@@ -44,7 +44,7 @@ const games = [
     description: "21に近づけ！ディーラーに勝とう",
     emoji: "🂡",
     storageKey: "blackjack-best-score",
-    category: "casino" as Category,
+    category: "casino",
   },
   {
     id: "poker",
@@ -52,7 +52,7 @@ const games = [
     description: "役を揃えてスコアを稼ごう",
     emoji: "🃑",
     storageKey: "poker-best-score",
-    category: "casino" as Category,
+    category: "casino",
   },
   {
     id: "pyramid",
@@ -60,7 +60,7 @@ const games = [
     description: "合計13のペアを見つけて除去しよう",
     emoji: "🔺",
     storageKey: "pyramid-best-score",
-    category: "puzzle" as Category,
+    category: "puzzle",
   },
   {
     id: "golf",
@@ -68,7 +68,7 @@ const games = [
     description: "±1のカードを連続で取り除こう",
     emoji: "⛳",
     storageKey: "golf-best-score",
-    category: "puzzle" as Category,
+    category: "puzzle",
   },
   {
     id: "spider",
@@ -76,7 +76,7 @@ const games = [
     description: "K〜Aの列を8組完成させよう",
     emoji: "🕷️",
     storageKey: "spider-best-score",
-    category: "puzzle" as Category,
+    category: "puzzle",
   },
   {
     id: "ten-play",
@@ -84,9 +84,16 @@ const games = [
     description: "合計10のペアを見つけて除去しよう",
     emoji: "🔟",
     storageKey: "ten-play-best-score",
-    category: "puzzle" as Category,
+    category: "puzzle",
   },
-] as const;
+] as const satisfies ReadonlyArray<{
+  id: string;
+  title: string;
+  description: string;
+  emoji: string;
+  storageKey: string;
+  category: Category;
+}>;
 
 /** 神経衰弱のベストスコアをフォーマット */
 function formatConcentrationBest(data: string): string | null {
@@ -290,9 +297,9 @@ export function GameList() {
                   <div className="flex items-center gap-4">
                     <span className="text-3xl">{game.emoji}</span>
                     <div className="min-w-0 flex-1">
-                      <h2 className="text-xl font-bold text-gray-800">
+                      <h3 className="text-xl font-bold text-gray-800">
                         {game.title}
-                      </h2>
+                      </h3>
                       <p className="text-sm text-gray-500 mt-1">
                         {game.description}
                       </p>
