@@ -12,6 +12,14 @@ import type { GolfBestScore } from "@/types/golf";
 import type { SpiderBestScore } from "@/types/spider";
 import type { TenPlayBestScore } from "@/types/ten-play";
 
+/** カテゴリ定義 */
+const categories = [
+  { id: "casino", label: "カジノ系", emoji: "🎰" },
+  { id: "puzzle", label: "パズル系", emoji: "🧩" },
+] as const;
+
+type Category = (typeof categories)[number]["id"];
+
 /** ゲーム定義 */
 const games = [
   {
@@ -20,6 +28,7 @@ const games = [
     description: "カードをめくってペアを見つけよう",
     emoji: "🃏",
     storageKey: "concentration-best-score",
+    category: "puzzle",
   },
   {
     id: "high-and-low",
@@ -27,6 +36,7 @@ const games = [
     description: "次のカードは高い？低い？",
     emoji: "🔮",
     storageKey: "high-and-low-best-score",
+    category: "casino",
   },
   {
     id: "blackjack",
@@ -34,6 +44,7 @@ const games = [
     description: "21に近づけ！ディーラーに勝とう",
     emoji: "🂡",
     storageKey: "blackjack-best-score",
+    category: "casino",
   },
   {
     id: "poker",
@@ -41,6 +52,7 @@ const games = [
     description: "役を揃えてスコアを稼ごう",
     emoji: "🃑",
     storageKey: "poker-best-score",
+    category: "casino",
   },
   {
     id: "pyramid",
@@ -48,6 +60,7 @@ const games = [
     description: "合計13のペアを見つけて除去しよう",
     emoji: "🔺",
     storageKey: "pyramid-best-score",
+    category: "puzzle",
   },
   {
     id: "golf",
@@ -55,6 +68,7 @@ const games = [
     description: "±1のカードを連続で取り除こう",
     emoji: "⛳",
     storageKey: "golf-best-score",
+    category: "puzzle",
   },
   {
     id: "spider",
@@ -62,6 +76,7 @@ const games = [
     description: "K〜Aの列を8組完成させよう",
     emoji: "🕷️",
     storageKey: "spider-best-score",
+    category: "puzzle",
   },
   {
     id: "ten-play",
@@ -69,8 +84,16 @@ const games = [
     description: "合計10のペアを見つけて除去しよう",
     emoji: "🔟",
     storageKey: "ten-play-best-score",
+    category: "puzzle",
   },
-] as const;
+] as const satisfies ReadonlyArray<{
+  id: string;
+  title: string;
+  description: string;
+  emoji: string;
+  storageKey: string;
+  category: Category;
+}>;
 
 /** 神経衰弱のベストスコアをフォーマット */
 function formatConcentrationBest(data: string): string | null {
@@ -256,27 +279,43 @@ export function GameList() {
   );
 
   return (
-    <div className="flex flex-col gap-4">
-      {games.map((game) => (
-        <Link
-          key={game.id}
-          href={`/${game.id}`}
-          className="glass rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow"
-        >
-          <div className="flex items-center gap-4">
-            <span className="text-4xl">{game.emoji}</span>
-            <div className="min-w-0 flex-1">
-              <h2 className="text-xl font-bold text-gray-800">{game.title}</h2>
-              <p className="text-sm text-gray-500 mt-1">{game.description}</p>
-              {bestScores[game.id] && (
-                <p className="text-xs text-amber-600 font-medium mt-1.5">
-                  🏆 ベスト: {bestScores[game.id]}
-                </p>
-              )}
+    <div className="space-y-8">
+      {categories.map((category) => {
+        const categoryGames = games.filter((g) => g.category === category.id);
+        return (
+          <section key={category.id}>
+            <h2 className="text-lg font-bold text-gray-700 mb-3">
+              {category.emoji} {category.label}
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {categoryGames.map((game) => (
+                <Link
+                  key={game.id}
+                  href={`/${game.id}`}
+                  className="glass rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow"
+                >
+                  <div className="flex items-center gap-4">
+                    <span className="text-3xl">{game.emoji}</span>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-xl font-bold text-gray-800">
+                        {game.title}
+                      </h3>
+                      <p className="text-sm text-gray-500 mt-1">
+                        {game.description}
+                      </p>
+                      {bestScores[game.id] && (
+                        <p className="text-xs text-amber-600 font-medium mt-1.5">
+                          🏆 ベスト: {bestScores[game.id]}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              ))}
             </div>
-          </div>
-        </Link>
-      ))}
+          </section>
+        );
+      })}
     </div>
   );
 }
