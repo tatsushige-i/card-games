@@ -113,7 +113,10 @@ EnterPlanMode で以下を決定する:
 - `/poker` — ビデオポーカー
 - `/pyramid` — ピラミッド
 - `/golf` — ゴルフソリティア
+- `/spider` — スパイダー
+- `/ten-play` — テンプレイ
 - `/tri-peaks` — トライピークス
+- `/war` — 戦争
 
 ## 収録ゲーム
 
@@ -206,6 +209,35 @@ GolfBoard → useGolf
 
 主要ファイル: `src/types/golf.ts`, `src/lib/golf-reducer.ts`, `src/lib/golf-cards.ts`, `src/lib/golf-storage.ts`, `src/hooks/useGolf.ts`
 
+### スパイダー（spider）
+
+52枚×2組（104枚）を10列に配置するソリティア。同じスートでK→Aの連続シーケンス8組を完成させるとクリア。山札から10枚ずつ配布可能（全列に最低1枚必須）。ベストスコアは最少手数と最速タイムを独立記録。
+
+```
+SpiderBoard → useSpider
+├── SpiderHeader（手数、完成セット数、タイマー、山札枚数、ベストスコア）
+├── SpiderColumns（10列のカード配置）
+│   └── SpiderCardComponent（選択/ドラッグ状態の視覚表現）
+├── SpiderStockArea（山札・配布ボタン）
+└── SpiderGameOverDialog（クリア/手詰まり、統計表示）
+```
+
+主要ファイル: `src/types/spider.ts`, `src/lib/spider-reducer.ts`, `src/lib/spider-cards.ts`, `src/lib/spider-storage.ts`, `src/hooks/useSpider.ts`
+
+### テンプレイ（ten-play）
+
+13スロット（7+6段）のタブローに配置されたカードから、合計10になるペアを選択して除去するソリティア。全カード除去でクリア。ベストスコアはクリアタイム（短いほど良い）。
+
+```
+TenPlayBoard → useTenPlay
+├── TenPlayHeader（タイマー、除去数、残りカード数、山札枚数、ベストスコア）
+├── TenPlayTableau（13スロット、7+6段構成）
+│   └── TenPlayCard（選択/不正状態の視覚表現）
+└── TenPlayGameOverDialog（クリア/手詰まり、統計表示）
+```
+
+主要ファイル: `src/types/ten-play.ts`, `src/lib/ten-play-reducer.ts`, `src/lib/ten-play-cards.ts`, `src/lib/ten-play-storage.ts`, `src/hooks/useTenPlay.ts`
+
 ### トライピークス（tri-peaks）
 
 3つのピラミッド状に28枚のカードを配置し、捨て札と±1のカードを連続で取り除いていくソリティア。K↔Aラップアラウンドあり。連続除去でコンボボーナス（1, 2, 3...と加算）。山札をめくるとコンボリセット。ベストスコアはスコア（高いほど良い）。
@@ -220,6 +252,21 @@ TriPeaksBoard → useTriPeaks
 ```
 
 主要ファイル: `src/types/tri-peaks.ts`, `src/lib/tri-peaks-reducer.ts`, `src/lib/tri-peaks-cards.ts`, `src/lib/tri-peaks-storage.ts`, `src/hooks/useTriPeaks.ts`
+
+### 戦争（war）
+
+52枚をプレイヤーとCPUに等分して配布し、毎ラウンドトップカードを比較して高い方が両方のカードを獲得するゲーム。同値の場合は戦争（各側3枚伏せ+1枚表開き）が発生。どちらかのデッキが空になれば終了。ベストスコアはプレイヤー勝利時のラウンド数（少ないほど良い）。
+
+```
+WarBoard → useWar
+├── WarHeader（ラウンド数、プレイヤーカード枚数、CPUカード枚数、ベストスコア）
+├── WarBattleField（対決エリア、山札表示、戦争パイル）
+│   └── WarCardComponent（プレイヤー/CPUカード表示）
+├── WarResult（ラウンド結果表示：勝利/敗北/戦争）
+└── WarGameOverDialog（最終勝者、ラウンド統計）
+```
+
+主要ファイル: `src/types/war.ts`, `src/lib/war-reducer.ts`, `src/lib/war-cards.ts`, `src/lib/war-storage.ts`, `src/hooks/useWar.ts`
 
 ## スキル（Claude Code カスタムコマンド）
 
