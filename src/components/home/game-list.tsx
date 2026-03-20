@@ -12,6 +12,7 @@ import type { GolfBestScore } from "@/types/golf";
 import type { SpiderBestScore } from "@/types/spider";
 import type { TenPlayBestScore } from "@/types/ten-play";
 import type { WarBestScore } from "@/types/war";
+import type { TriPeaksBestScore } from "@/types/tri-peaks";
 
 /** カテゴリ定義 */
 const categories = [
@@ -85,6 +86,14 @@ const games = [
     description: "合計10のペアを見つけて除去しよう",
     emoji: "🔟",
     storageKey: "ten-play-best-score",
+    category: "puzzle",
+  },
+  {
+    id: "tri-peaks",
+    title: "トライピークス",
+    description: "±1のカードを連続で取り除こう",
+    emoji: "🏔️",
+    storageKey: "tri-peaks-best-score",
     category: "puzzle",
   },
   {
@@ -200,6 +209,16 @@ function formatTenPlayBest(data: string): string | null {
   }
 }
 
+/** トライピークスのベストスコアをフォーマット */
+function formatTriPeaksBest(data: string): string | null {
+  try {
+    const best = JSON.parse(data) as TriPeaksBestScore;
+    return `最高${best.score}pt`;
+  } catch {
+    return null;
+  }
+}
+
 /** 戦争のベストスコアをフォーマット */
 function formatWarBest(data: string): string | null {
   try {
@@ -229,6 +248,8 @@ function formatBestScore(gameId: string, data: string): string | null {
       return formatSpiderBest(data);
     case "ten-play":
       return formatTenPlayBest(data);
+    case "tri-peaks":
+      return formatTriPeaksBest(data);
     case "war":
       return formatWarBest(data);
     default:
