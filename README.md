@@ -6,7 +6,7 @@ A web app where you can play various card games.
 
 ## Games
 
-Concentration / High & Low / Blackjack / Video Poker / Pyramid / Golf Solitaire / Tri Peaks
+Concentration / High & Low / Blackjack / Video Poker / Pyramid / Golf Solitaire / Spider / Ten Play / Tri Peaks / War
 
 ## Tech Stack
 
