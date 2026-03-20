@@ -85,7 +85,6 @@ export type WarAction =
   | { type: "START_WAR" }
   | { type: "REVEAL_WAR_CARDS" }
   | { type: "COLLECT_CARDS" }
-  | { type: "NEXT_ROUND" }
   | { type: "SET_NEW_BEST"; isNewBest: boolean }
   | { type: "DISMISS_DIALOG" }
   | { type: "RESTART"; playerDeck: WarCard[]; cpuDeck: WarCard[] };

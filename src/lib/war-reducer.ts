@@ -129,6 +129,7 @@ export function warReducer(state: WarState, action: WarAction): WarState {
         cpuCard,
         playerDeck: playerRest,
         cpuDeck: cpuRest,
+        roundCount: state.roundCount + 1,
       };
     }
 

@@ -215,7 +215,7 @@ describe("warReducer", () => {
   });
 
   describe("REVEAL_WAR_CARDS", () => {
-    it("戦争の表カードを出す", () => {
+    it("戦争の表カードを出し、roundCountをインクリメントする", () => {
       const pReveal = card("A");
       const cReveal = card("K");
       const state: WarState = {
@@ -224,6 +224,7 @@ describe("warReducer", () => {
         playerDeck: [pReveal, card("2")],
         cpuDeck: [cReveal, card("3")],
         warPile: [card("7"), card("7", "heart"), card("5"), card("8")],
+        roundCount: 3,
       };
       const next = dispatch(state, { type: "REVEAL_WAR_CARDS" });
 
@@ -232,6 +233,7 @@ describe("warReducer", () => {
       expect(next.cpuCard).toBe(cReveal);
       expect(next.playerDeck).toHaveLength(1);
       expect(next.cpuDeck).toHaveLength(1);
+      expect(next.roundCount).toBe(4);
     });
 
     it("プレイヤーのデッキが空ならCPU勝利", () => {
