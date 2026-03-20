@@ -11,6 +11,7 @@ import type { PyramidBestScore } from "@/types/pyramid";
 import type { GolfBestScore } from "@/types/golf";
 import type { SpiderBestScore } from "@/types/spider";
 import type { TenPlayBestScore } from "@/types/ten-play";
+import type { WarBestScore } from "@/types/war";
 
 /** カテゴリ定義 */
 const categories = [
@@ -85,6 +86,14 @@ const games = [
     emoji: "🔟",
     storageKey: "ten-play-best-score",
     category: "puzzle",
+  },
+  {
+    id: "war",
+    title: "戦争",
+    description: "カードを出して数値で勝負！",
+    emoji: "⚔️",
+    storageKey: "war-best-score",
+    category: "casino",
   },
 ] as const satisfies ReadonlyArray<{
   id: string;
@@ -191,6 +200,16 @@ function formatTenPlayBest(data: string): string | null {
   }
 }
 
+/** 戦争のベストスコアをフォーマット */
+function formatWarBest(data: string): string | null {
+  try {
+    const best = JSON.parse(data) as WarBestScore;
+    return `${best.rounds}ラウンドで勝利`;
+  } catch {
+    return null;
+  }
+}
+
 /** ゲームIDに応じたベストスコア表示文字列を返す */
 function formatBestScore(gameId: string, data: string): string | null {
   switch (gameId) {
@@ -210,6 +229,8 @@ function formatBestScore(gameId: string, data: string): string | null {
       return formatSpiderBest(data);
     case "ten-play":
       return formatTenPlayBest(data);
+    case "war":
+      return formatWarBest(data);
     default:
       return null;
   }
