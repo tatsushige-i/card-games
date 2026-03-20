@@ -3,7 +3,7 @@ import {
   triPeaksReducer,
   initialTriPeaksState,
 } from "../tri-peaks-reducer";
-import { createDeck, TABLEAU_CARD_COUNT } from "../tri-peaks-cards";
+import { createDeck, buildTableau, TABLEAU_CARD_COUNT } from "../tri-peaks-cards";
 import type { TriPeaksState, PlayingCard } from "@/types/tri-peaks";
 
 /** テスト用のゲーム開始状態を作成する */
@@ -13,6 +13,32 @@ function startGame(): TriPeaksState {
     type: "START_GAME",
     deck,
   });
+}
+
+/**
+ * 捨て札トップが value=5 で、Row 3 に隣接カード(value=4)と非隣接カード(value=10)がある
+ * 確定的なテスト用ゲーム状態を構築する
+ */
+function createFixedState(): TriPeaksState {
+  const deck = createDeck();
+  const { tableau, stock } = buildTableau(deck);
+  // Row 3 pos 0 を value=4（±1で隣接）に固定
+  const card0 = tableau.find((c) => c.row === 3 && c.pos === 0)!;
+  card0.value = 4;
+  card0.rank = "4";
+  // Row 3 pos 1 を value=10（非隣接）に固定
+  const card1 = tableau.find((c) => c.row === 3 && c.pos === 1)!;
+  card1.value = 10;
+  card1.rank = "10";
+  // 捨て札トップを value=5 に固定
+  const wasteCard: PlayingCard = { id: 99, suit: "heart", rank: "5", value: 5 };
+  return {
+    ...initialTriPeaksState,
+    tableau,
+    stock: stock.slice(1),
+    waste: [wasteCard],
+    phase: "playing",
+  };
 }
 
 describe("START_GAME", () => {
@@ -66,76 +92,44 @@ describe("DRAW", () => {
 
 describe("REMOVE_CARD", () => {
   it("露出カードで±1なら除去できる", () => {
-    const state = startGame();
-    const wasteTop = state.waste[state.waste.length - 1];
-    // Row 3（底段）の露出カードから±1のものを探す
-    const target = state.tableau.find(
-      (c) =>
-        c.row === 3 &&
-        !c.removed &&
-        (Math.abs(c.value - wasteTop.value) === 1 ||
-          Math.abs(c.value - wasteTop.value) === 12)
-    );
-    if (!target) return; // ランダムデッキなので見つからない可能性あり
+    // 捨て札トップ=5、Row 3 pos 0=4（隣接）の固定状態
+    const state = createFixedState();
 
     const result = triPeaksReducer(state, {
       type: "REMOVE_CARD",
-      row: target.row,
-      pos: target.pos,
+      row: 3,
+      pos: 0,
     });
     expect(result.removedCount).toBe(1);
     expect(result.combo).toBe(1);
     expect(result.score).toBe(1);
     const removedCard = result.tableau.find(
-      (c) => c.row === target.row && c.pos === target.pos
+      (c) => c.row === 3 && c.pos === 0
     );
     expect(removedCard?.removed).toBe(true);
   });
 
   it("コンボが加算されスコアに反映される", () => {
-    const state = startGame();
-    // コンボ2の状態をシミュレート
-    const stateWithCombo = {
-      ...state,
-      combo: 2,
-      score: 3, // 1+2=3
-    };
-    const wasteTop = stateWithCombo.waste[stateWithCombo.waste.length - 1];
-    const target = stateWithCombo.tableau.find(
-      (c) =>
-        c.row === 3 &&
-        !c.removed &&
-        (Math.abs(c.value - wasteTop.value) === 1 ||
-          Math.abs(c.value - wasteTop.value) === 12)
-    );
-    if (!target) return;
+    // 捨て札トップ=5、Row 3 pos 0=4（隣接）の固定状態にコンボ2を設定
+    const state = { ...createFixedState(), combo: 2, score: 3 };
 
-    const result = triPeaksReducer(stateWithCombo, {
+    const result = triPeaksReducer(state, {
       type: "REMOVE_CARD",
-      row: target.row,
-      pos: target.pos,
+      row: 3,
+      pos: 0,
     });
     expect(result.combo).toBe(3);
     expect(result.score).toBe(6); // 3 + 3 = 6
   });
 
   it("±1でないカードは除去できない", () => {
-    const state = startGame();
-    const wasteTop = state.waste[state.waste.length - 1];
-    // ±1でないRow 3カードを探す
-    const nonAdjacent = state.tableau.find(
-      (c) =>
-        c.row === 3 &&
-        !c.removed &&
-        Math.abs(c.value - wasteTop.value) !== 1 &&
-        Math.abs(c.value - wasteTop.value) !== 12
-    );
-    if (!nonAdjacent) return;
+    // 捨て札トップ=5、Row 3 pos 1=10（非隣接）の固定状態
+    const state = createFixedState();
 
     const result = triPeaksReducer(state, {
       type: "REMOVE_CARD",
-      row: nonAdjacent.row,
-      pos: nonAdjacent.pos,
+      row: 3,
+      pos: 1,
     });
     expect(result).toBe(state);
   });
