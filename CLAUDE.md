@@ -23,4 +23,4 @@ Next.js App Router + TypeScript で構築されたカードゲーム集。各ゲ
 ## スキル・エージェント
 
 - スキル一覧: `.claude/skills/README.md`
-- エージェント: `.claude/agents/` 配下（`quality-checker` — lint・テスト・ビルドの品質チェック）
+- エージェント一覧: `.claude/agents/README.md`
