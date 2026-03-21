@@ -90,7 +90,7 @@ EnterPlanMode で以下を決定する:
 
 #### Step 11: 品質チェック
 
-`npm run lint` / `npm run test:run` / `npm run build` をすべてパスさせる
+`npm run lint` / `npm run test` / `npm run build` をすべてパスさせる
 
 #### Step 12: ドキュメント更新
 

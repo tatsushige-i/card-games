@@ -15,7 +15,7 @@ maxTurns: 8
 以下の3つを順に実行する:
 
 1. **ESLint**: `npm run lint`
-2. **テスト**: `npm run test:run`
+2. **テスト**: `npm run test`
 3. **ビルド**: `npm run build`
 
 ## 報告フォーマット

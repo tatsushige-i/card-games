@@ -11,7 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run dev` — 開発サーバー起動
 - `npm run build` — 本番ビルド
 - `npm run lint` — ESLint
-- `npm run test:run` — テスト一括実行
+- `npm run test` — テスト一括実行
 - 単一テスト実行: `npx vitest run src/lib/__tests__/<file>.test.ts`
 
 ## アーキテクチャ概要
