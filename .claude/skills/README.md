@@ -22,7 +22,8 @@ Audits games for adherence to project conventions and automatically refactors an
 
 ## Shared Skills (symlinks → shared-claude-rules)
 
-- `/config-shared-sync` — Syncs shared rules and skills symlinks from shared-claude-rules
+- `/config-claude-sync` — Syncs shared rules and skills symlinks from shared-claude-rules
+- `/config-github-sync` — Syncs GitHub repository settings (labels, milestones, etc.)
 - `/git-branch-cleanup` — Cleans up after a PR merge
 - `/git-issue-create` — Creates a GitHub Issue from conversation context
 - `/git-issue-start [issue-number]` — Fetches a GitHub Issue and creates a feature branch
