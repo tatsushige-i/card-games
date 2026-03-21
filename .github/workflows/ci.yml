@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  NODE_VERSION: 20
+
 jobs:
   eol-check:
     runs-on: ubuntu-latest
@@ -15,27 +18,25 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_VERSION }}
           cache: npm
 
       - run: npm ci
 
-      # Node.js ランタイムのサポート期限を確認
       - name: Check Node.js EOL
         run: |
-          NODE_MAJOR=$(node -v | cut -d'.' -f1 | tr -d 'v')
-          EOL_DATE=$(curl -s "https://endoflife.date/api/nodejs/${NODE_MAJOR}.json" | jq -r '.eol')
-          if [[ "$(date +%Y-%m-%d)" > "$EOL_DATE" ]]; then
-            echo "::error::Node.js ${NODE_MAJOR} reached EOL on ${EOL_DATE}"
+          eol=$(curl -sf https://endoflife.date/api/nodejs/$NODE_VERSION.json | jq -r '.eol')
+          today=$(date +%Y-%m-%d)
+          echo "Node.js $NODE_VERSION EOL: $eol / Today: $today"
+          if [[ "$today" > "$eol" ]]; then
+            echo "::error::Node.js $NODE_VERSION has reached EOL ($eol)"
             exit 1
           fi
-          echo "Node.js ${NODE_MAJOR} is supported (EOL: ${EOL_DATE})"
 
-      # 本番依存パッケージの既知の脆弱性を検出
       - name: Check npm audit
         run: npm audit --omit=dev --audit-level=moderate
 
-  build:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
@@ -43,10 +44,40 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_VERSION }}
           cache: npm
 
       - run: npm ci
+
       - run: npm run lint
-      - run: npm run test:run
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run test
+
+  build:
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - run: npm ci
+
       - run: npm run build
