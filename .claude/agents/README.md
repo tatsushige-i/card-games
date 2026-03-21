@@ -1,9 +1,9 @@
 # Agents
 
-Claude Code のサブエージェント定義。`.claude/agents/` 配下に配置する。
+Claude Code sub-agent definitions. Placed under `.claude/agents/`.
 
-## 一覧
+## List
 
-| エージェント | 説明 | モデル |
-|-------------|------|--------|
-| quality-checker | lint・テスト・ビルドを実行し結果を要約（修正は行わない） | haiku |
+| Agent | Description | Model |
+|-------|-------------|-------|
+| quality-checker | Runs lint, tests, and build, then summarizes results (no fixes) | haiku |

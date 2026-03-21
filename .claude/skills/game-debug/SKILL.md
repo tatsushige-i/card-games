@@ -1,34 +1,34 @@
 ---
 name: game-debug
-description: ゲームの reducer をインタラクティブに操作し、状態遷移をデバッグする。
-argument-hint: "[ゲーム名(英語kebab-case)]"
+description: Interactively operate a game's reducer and debug state transitions.
+argument-hint: "[game-name (English kebab-case)]"
 ---
 
-# Reducer プレイグラウンドスキル
+# Reducer Playground Skill
 
-引数 `$ARGUMENTS` で指定されたゲームの reducer を対話的に操作し、状態遷移を確認するデバッグツール。
+A debugging tool that interactively operates the reducer of the game specified by `$ARGUMENTS` and inspects state transitions.
 
-## 表記ルール
+## Notation Rules
 
-以下の表記を使用する:
+The following notation is used:
 
-- `<game>` — 引数のゲーム名そのまま（kebab-case、例: `high-and-low`）
-- `<Game>` — PascalCase に変換したゲーム名（例: `HighAndLow`）
+- `<game>` — the game name as-is from the argument (kebab-case, e.g., `high-and-low`)
+- `<Game>` — the game name converted to PascalCase (e.g., `HighAndLow`)
 
-## Step 1: ゲーム特定とファイル読み込み
+## Step 1: Identify game and load files
 
-`$ARGUMENTS` からゲーム名を特定し、以下のファイルを読み込む:
+Identify the game name from `$ARGUMENTS` and load the following files:
 
-| ファイル | 目的 |
-|---------|------|
-| `src/types/<game>.ts` | State 型、Action 型、Phase 型 |
-| `src/lib/<game>-reducer.ts` | `<game>Reducer` 関数、`initial<Game>State` |
-| `src/lib/<game>-cards.ts` | `createDeck()` / `createCards()`、ユーティリティ |
+| File | Purpose |
+|------|---------|
+| `src/types/<game>.ts` | State type, Action type, Phase type |
+| `src/lib/<game>-reducer.ts` | `<game>Reducer` function, `initial<Game>State` |
+| `src/lib/<game>-cards.ts` | `createDeck()` / `createCards()`, utilities |
 
-### 対応ゲームと export 名
+### Supported games and export names
 
-| ゲーム | reducer | initialState | デッキ生成 |
-|--------|---------|-------------|-----------|
+| Game | reducer | initialState | deck generation |
+|------|---------|-------------|-----------------|
 | concentration | `concentrationReducer` | `initialConcentrationState` | `createCards()` |
 | high-and-low | `highAndLowReducer` | `initialHighAndLowState` | `createDeck()` |
 | blackjack | `blackjackReducer` | `initialBlackjackState` | `createDeck()` |
@@ -37,21 +37,21 @@ argument-hint: "[ゲーム名(英語kebab-case)]"
 | pyramid | `pyramidReducer` | `initialPyramidState` | `createDeck()` |
 | spider | `spiderReducer` | `initialSpiderState` | `createDeck()` |
 
-指定されたゲームが上記に含まれない場合は、エラーを表示して終了する。
+If the specified game is not in the list above, display an error and exit.
 
-## Step 2: 初期状態の表示
+## Step 2: Display initial state
 
-1. `initial<Game>State` の内容を整形して表示する
-2. `src/types/<game>.ts` から Action 型を読み取り、利用可能なアクション一覧を表示する
-3. ユーザーにコマンド入力を促す
+1. Format and display the contents of `initial<Game>State`
+2. Read the Action type from `src/types/<game>.ts` and display the list of available actions
+3. Prompt the user for command input
 
-表示例:
+Display example:
 
 ```
 🎮 Poker Playground
 ━━━━━━━━━━━━━━━━━━━━━━━
 
-📋 現在の状態:
+📋 Current state:
   phase: "idle"
   hand: []
   deck: []
@@ -59,7 +59,7 @@ argument-hint: "[ゲーム名(英語kebab-case)]"
   score: 0
   ...
 
-🎯 利用可能なアクション:
+🎯 Available actions:
   START_GAME    — { deck: PlayingCard[] }
   DEAL_COMPLETE
   TOGGLE_HOLD   — { index: number }
@@ -71,62 +71,62 @@ argument-hint: "[ゲーム名(英語kebab-case)]"
   DISMISS_DIALOG
   RESET
 
-💡 コマンド: dispatch / state / set / trace / reset / help
+💡 Commands: dispatch / state / set / trace / reset / help
 ```
 
-## Step 3: 対話ループ
+## Step 3: Interactive loop
 
-ユーザーの入力を待ち、以下のコマンドを処理する。各コマンド実行後、次の入力を `AskUserQuestion` で促す。
+Wait for user input and process the following commands. After each command execution, prompt for the next input using `AskUserQuestion`.
 
-### コマンド一覧
+### Command reference
 
-#### `dispatch [ACTION]` または `d [ACTION]`
+#### `dispatch [ACTION]` or `d [ACTION]`
 
-アクションを reducer に適用し、**変化したフィールドのみ**を差分表示する。
+Apply an action to the reducer and display **only the changed fields** as a diff.
 
-- アクションにペイロードが必要な場合（例: `START_GAME` には `deck` が必要）、reducer の型定義に基づいて適切なデフォルト値を自動生成する
-  - `deck` / `cards` — `createDeck()` / `createCards()` で生成
-  - `index` — `0` をデフォルトにする
-  - `guess` — `"high"` をデフォルトにする
-  - `isNewBest` — `false` をデフォルトにする
-- ユーザーがペイロードを明示的に指定した場合はそちらを優先する（例: `dispatch TOGGLE_HOLD index=2`）
-- アクション名は大文字・小文字を区別しない（`start_game` も `START_GAME` も受け付ける）
+- If the action requires a payload (e.g., `START_GAME` requires `deck`), auto-generate appropriate default values based on the reducer's type definition
+  - `deck` / `cards` — generated with `createDeck()` / `createCards()`
+  - `index` — defaults to `0`
+  - `guess` — defaults to `"high"`
+  - `isNewBest` — defaults to `false`
+- If the user explicitly specifies a payload, that takes priority (e.g., `dispatch TOGGLE_HOLD index=2`)
+- Action names are case-insensitive (`start_game` and `START_GAME` are both accepted)
 
-表示例:
+Display example:
 
 ```
 ⚡ dispatch START_GAME
 
-📋 状態の変化:
+📋 State changes:
   phase: "idle" → "dealing"
-  deck: [] → [52枚]
+  deck: [] → [52 cards]
   hand: [] → [♠A, ♥K, ♦10, ♣5, ♠7]
   round: 0 → 1
 ```
 
-#### `state` または `s`
+#### `state` or `s`
 
-現在の全状態を整形して表示する。配列は要素数と先頭数件を表示する。
+Format and display the entire current state. For arrays, show the element count and first few items.
 
 #### `set [field] [value]`
 
-状態の特定フィールドを直接書き換える。ネストしたフィールドにはドット記法を使用する。
+Directly modify a specific field of the state. Use dot notation for nested fields.
 
-例:
-- `set phase "result"` — phase を直接変更
-- `set score 100` — score を変更
-- `set round 5` — round を変更
+Examples:
+- `set phase "result"` — directly change phase
+- `set score 100` — change score
+- `set round 5` — change round
 
-変更後、変更されたフィールドを表示する。
+Display the changed field after modification.
 
-#### `trace` または `t`
+#### `trace` or `t`
 
-これまでのアクション履歴と phase 遷移を時系列で表示する。
+Display the action history and phase transitions in chronological order.
 
-表示例:
+Display example:
 
 ```
-📜 アクション履歴:
+📜 Action history:
   1. START_GAME    → phase: idle → dealing
   2. DEAL_COMPLETE → phase: dealing → holding
   3. TOGGLE_HOLD(index=0)
@@ -134,21 +134,21 @@ argument-hint: "[ゲーム名(英語kebab-case)]"
   5. DRAW          → phase: holding → drawing
 ```
 
-#### `reset` または `r`
+#### `reset` or `r`
 
-状態を `initial<Game>State` に戻し、アクション履歴をクリアする。
+Reset the state to `initial<Game>State` and clear the action history.
 
-#### `help` または `h`
+#### `help` or `h`
 
-コマンド一覧と使い方を表示する。
+Display the command reference and usage instructions.
 
-### 対話の実装
+### Interaction implementation
 
-各コマンド実行後、`AskUserQuestion` を使って次のコマンド入力をユーザーに促す。選択肢として主要なアクション（`dispatch` の候補）を提示し、「Other」でユーザーが自由にコマンドを入力できるようにする。
+After each command execution, use `AskUserQuestion` to prompt the user for the next command. Present the main actions (candidates for `dispatch`) as choices, with an "Other" option for free-form command input.
 
-## 重要な制約
+## Important Constraints
 
-- **ファイルの変更は一切行わない** — このスキルは読み取り専用のデバッグツール
-- **状態はすべてスキルの説明テキスト内で管理する** — 実際のコード実行はしない
-- reducer の型定義とロジックを読み取り、Claude が reducer の動作を**シミュレーション**する
-- 状態遷移の正確性は reducer のコードに忠実に従う
+- **Do not modify any files** — this skill is a read-only debugging tool
+- **All state is managed within the skill's descriptive text** — no actual code execution
+- Read the reducer's type definitions and logic, and Claude **simulates** the reducer's behavior
+- State transition accuracy must faithfully follow the reducer code
