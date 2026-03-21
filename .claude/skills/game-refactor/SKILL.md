@@ -1,105 +1,105 @@
 ---
 name: game-refactor
-description: 指定ゲーム（または全ゲーム）の規約準拠をチェックし、違反があればリファクタリングを行う。
-argument-hint: "[ゲーム名(英語kebab-case)]"
+description: Checks convention compliance for specified game(s) (or all games) and refactors any violations found.
+argument-hint: "[game-name (English kebab-case)]"
 ---
 
-# ゲームリファクタリングスキル
+# Game Refactoring Skill
 
-プロジェクト規約に準拠しているか検査し、違反があれば修正する。
+Inspects compliance with project conventions and fixes any violations found.
 
-- **引数あり**: 指定されたゲームのみをチェックする
-- **引数なし**: `src/app/*/page.tsx` から全ゲームを動的に取得し、順次チェックする
+- **With argument**: Check only the specified game
+- **Without argument**: Dynamically retrieve all games from `src/app/*/page.tsx` and check them sequentially
 
-## 前提条件
+## Prerequisites
 
-- 対象ゲームが既に実装済みであること
+- The target game(s) must already be implemented
 
-## 表記ルール
+## Notation Rules
 
-以下の表記を使用する:
+The following notation is used:
 
-- `<game>` — ゲーム名そのまま（kebab-case、例: `high-and-low`）
-- `<Game>` — PascalCase に変換したゲーム名（例: `HighAndLow`）
+- `<game>` — the game name as-is (kebab-case, e.g., `high-and-low`)
+- `<Game>` — the game name converted to PascalCase (e.g., `HighAndLow`)
 
-## 実行プロセス
+## Execution Process
 
-### Step 0: ブランチ準備
+### Step 0: Branch preparation
 
-1. `main` ブランチで `git pull` を実行し、最新状態にする
-2. ブランチを作成して切り替える:
-   - 引数ありの場合: `feature/refactor-$ARGUMENTS`
-   - 引数なしの場合: `feature/refactor-all-games`
+1. Run `git pull` on the `main` branch to get the latest state
+2. Create and switch to a branch:
+   - With argument: `feature/refactor-$ARGUMENTS`
+   - Without argument: `feature/refactor-all-games`
 
-### Step 0.5: 対象ゲーム決定
+### Step 0.5: Determine target games
 
-1. `$ARGUMENTS` が指定されている場合、そのゲーム名を対象とする
-2. `$ARGUMENTS` が空の場合、`src/app/*/page.tsx` のディレクトリ名から全ゲーム一覧を取得する（ホームページの `src/app/page.tsx` は除外）
-3. 対象ゲーム一覧をユーザーに提示する
+1. If `$ARGUMENTS` is specified, use that game name as the target
+2. If `$ARGUMENTS` is empty, retrieve all game names from directory names of `src/app/*/page.tsx` (excluding the homepage `src/app/page.tsx`)
+3. Present the target game list to the user
 
-### Step 1: 規約の読み込み
+### Step 1: Load conventions
 
-以下のルールファイルを読み込み、**チェック基準を動的に構築する**:
+Load the following rule files and **dynamically build the check criteria**:
 
-1. `.claude/rules/architecture.md` — ファイル構成パターン・命名規則・共通パターンを把握する
-2. `.claude/rules/conventions.md` — コーディング規約・デザイン要件を把握する
-3. `.claude/rules/pitfalls.md` — 既知の注意点を把握する
+1. `.claude/rules/architecture.md` — understand file structure patterns, naming conventions, common patterns
+2. `.claude/rules/conventions.md` — understand coding conventions, design requirements
+3. `.claude/rules/pitfalls.md` — understand known pitfalls
 
-これらのファイルが**唯一の正（Single Source of Truth）**である。以下の Step 2 のチェック観点はカテゴリの指針であり、具体的なチェック項目は上記ルールファイルの記載内容から導出すること。
+These files are the **Single Source of Truth**. The check categories in Step 2 below are directional guidelines; specific check items must be derived from the content of the rule files above.
 
-### Step 2: 規約チェック
+### Step 2: Convention checks
 
-Step 1 で読み込んだルールに基づき、以下の観点で指定ゲームを検査し、違反を一覧化する。
+Based on the rules loaded in Step 1, inspect the specified game from the following perspectives and list any violations.
 
-#### 2.1 ファイル構成チェック
+#### 2.1 File structure check
 
-`architecture.md` の「ゲーム追加パターン」セクションに記載されたファイル構成に照らし、必須ファイル・テストファイルの存在を確認する。
+Verify the existence of required files and test files against the file structure defined in the "Game Addition Pattern" section of `architecture.md`.
 
-#### 2.2 命名規則チェック
+#### 2.2 Naming convention check
 
-`architecture.md` の「共通パターン」「ゲーム追加パターン」から導出される命名規則に照らし、以下を確認する:
+Verify the following against naming conventions derived from the "Common Patterns" and "Game Addition Pattern" sections of `architecture.md`:
 
-- 型名（`<Game>Phase`, `<Game>State` 等）
-- export 名（`initial<Game>State`, `<game>Reducer` 等）
-- Storage 関数名（`get<Game>BestScore` 等）・localStorage キー
-- フック名（`use<Game>`）
-- コンポーネント名・ファイル名のプレフィックス
+- Type names (`<Game>Phase`, `<Game>State`, etc.)
+- Export names (`initial<Game>State`, `<game>Reducer`, etc.)
+- Storage function names (`get<Game>BestScore`, etc.) and localStorage keys
+- Hook names (`use<Game>`)
+- Component names and file name prefixes
 
-具体的にどの名前が必要かは、`architecture.md` のパターン定義と、規約に準拠している既存ゲーム（`blackjack` 等）の実装を参考に判断する。
+Determine specific required names by referencing the pattern definitions in `architecture.md` and implementations of existing convention-compliant games (e.g., `blackjack`).
 
-#### 2.3 パターン準拠チェック
+#### 2.3 Pattern compliance check
 
-`architecture.md` の「共通パターン」と `pitfalls.md` に記載されたパターンに照らし、以下を確認する:
+Verify the following against patterns documented in the "Common Patterns" section of `architecture.md` and `pitfalls.md`:
 
-- Board コンポーネントの `"use client"` ディレクティブ
-- ページの Server Component（`"use client"` がないこと）
-- `useSyncExternalStore` + キャッシュ済みスナップショットパターン
-- その他、ルールファイルに記載された必須パターン
+- `"use client"` directive in Board components
+- Server Component pages (no `"use client"`)
+- `useSyncExternalStore` + cached snapshot pattern
+- Other required patterns documented in rule files
 
-#### 2.4 ホーム画面登録チェック
+#### 2.4 Home screen registration check
 
-`CLAUDE.md` の「ホーム画面へのゲーム登録」セクションに記載された登録要件を確認する。
+Verify registration requirements described in the "Home Screen Game Registration" section of `CLAUDE.md`.
 
-#### 2.5 コメント言語チェック
+#### 2.5 Comment language check
 
-`conventions.md` の規約に従い、コード内コメントが日本語で書かれているか確認する。
+Verify that code comments are written in Japanese per the conventions in `conventions.md`.
 
-**複数ゲームの場合**: Step 1〜2 を各ゲームに対して順次実行し、違反を全ゲーム分まとめて収集する。
+**For multiple games**: Execute Steps 1–2 for each game sequentially and collect violations across all games.
 
-### Step 3: 違反の報告と修正
+### Step 3: Report violations and fix
 
-1. Step 2 で検出した違反を一覧でユーザーに報告する
-   - 複数ゲームの場合はゲームごとにグループ化して表示する
-2. 違反がない場合は「すべての規約に準拠しています」と報告して終了する
-3. 違反がある場合は、以下の方針で修正する:
-   - ファイル名のリネーム → `git mv` を使用する
-   - 型名・export 名のリネーム → 定義元と全参照箇所を更新する
-   - import パスの更新 → 関連ファイルすべてを更新する
-   - 不足ファイルの作成 → 既存ゲーム（`blackjack` 等）のパターンを参考に作成する
+1. Report all violations detected in Step 2 to the user as a list
+   - For multiple games, group by game
+2. If no violations are found, report "All conventions are met" and finish
+3. If violations are found, fix them with the following approach:
+   - File renames → use `git mv`
+   - Type/export name renames → update both the definition and all reference sites
+   - Import path updates → update all related files
+   - Missing file creation → create following existing game patterns (e.g., `blackjack`)
 
-### Step 4: 品質チェック
+### Step 4: Quality checks
 
-修正後に以下をすべてパスさせる:
+After fixes, ensure all of the following pass:
 
 ```bash
 npm run lint
@@ -107,8 +107,8 @@ npm run test
 npm run build
 ```
 
-エラーが発生した場合は修正し、すべてパスするまで繰り返す。
+If errors occur, fix them and repeat until all checks pass.
 
-### Step 5: 完了報告
+### Step 5: Completion report
 
-検出した違反と修正内容をまとめてユーザーに報告する。複数ゲームの場合はゲームごとの結果サマリーを提示する。
+Summarize detected violations and fixes, then report to the user. For multiple games, present a per-game results summary.

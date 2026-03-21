@@ -1,63 +1,63 @@
 ---
 name: docs-sync
-description: ソースコードの実態とドキュメント（README.md, CLAUDE.md, architecture.md）の整合性を検証し、差分があれば更新する。
+description: Verifies consistency between source code and documentation (README.md, CLAUDE.md, architecture.md), updating any discrepancies found.
 ---
 
-# ドキュメント横展開スキル
+# Documentation Sync Skill
 
-ソースコードの実態をスキャンし、3つのドキュメントファイルとの整合性を検証・更新する。
+Scans the source code state and verifies/updates consistency with three documentation files.
 
-## 対象ドキュメント
+## Target Documents
 
 1. `README.md`
 2. `CLAUDE.md`
 3. `.claude/rules/architecture.md`
 
-## 実行プロセス
+## Execution Process
 
-### Step 1: ソースコードの実態をスキャンする
+### Step 1: Scan the source code state
 
-以下を調査し、プロジェクトの現状を把握する:
+Investigate the following to understand the current project state:
 
-1. **ゲーム一覧**: `src/app/*/page.tsx` を Glob で取得し、収録ゲームのルーティング一覧を確認する
-2. **コンポーネント構成**: `src/components/*/` のディレクトリとファイルを確認する
-3. **型・ライブラリ・フック**: `src/types/*.ts`, `src/lib/*.ts`, `src/hooks/*.ts` の実ファイルを確認する
-4. **スキル一覧**: `.claude/skills/*/SKILL.md` を Glob で取得し、各スキルの `name` と `description` を読み取る
-5. **エージェント一覧**: `.claude/agents/*.md` を Glob で取得する
-6. **ホーム画面登録**: `src/components/home/game-list.tsx` の `games` 配列を読み取る
+1. **Game list**: Use Glob to find `src/app/*/page.tsx` and check the routing list of included games
+2. **Component structure**: Check directories and files under `src/components/*/`
+3. **Types, libraries, hooks**: Check actual files in `src/types/*.ts`, `src/lib/*.ts`, `src/hooks/*.ts`
+4. **Skill list**: Use Glob to find `.claude/skills/*/SKILL.md` and read the `name` and `description` of each skill
+5. **Agent list**: Use Glob to find `.claude/agents/*.md`
+6. **Home screen registration**: Read the `games` array in `src/components/home/game-list.tsx`
 
-### Step 2: 各ドキュメントとの差分を検出する
+### Step 2: Detect differences against each document
 
-Step 1 で把握した実態と、各ドキュメントの記載内容を比較する。以下のセクションを重点的にチェックする:
+Compare the state identified in Step 1 with the contents of each document. Focus on the following sections:
 
 #### README.md
-- 「収録ゲーム」セクション — ゲームの過不足
-- 「Claude Code スキル」テーブル — スキルの過不足
-- 「Claude Code エージェント」テーブル — エージェントの過不足
-- 「プロジェクト構成」ツリー — ファイル・ディレクトリの過不足
+- "Games" section — missing or extra games
+- "Claude Code Skills" table — missing or extra skills
+- "Claude Code Agents" table — missing or extra agents
+- "Project Structure" tree — missing or extra files/directories
 
 #### CLAUDE.md
-- 「スキル」セクション — スキルの過不足
-- 「エージェント」セクション — エージェントの過不足
+- "Skills" section — missing or extra skills
+- "Agents" section — missing or extra agents
 
 #### .claude/rules/architecture.md
-- 「ルーティング」セクション — ルートの過不足
-- 「収録ゲーム」セクション — ゲームの過不足・コンポーネントツリーの正確性
-- 「スキル」テーブル — スキルの過不足
-- 「エージェント」テーブル — エージェントの過不足
+- "Routing" section — missing or extra routes
+- "Games" section — missing or extra games, accuracy of component trees
+- "Skills" table — missing or extra skills
+- "Agents" table — missing or extra agents
 
-### Step 3: 差分の報告と更新
+### Step 3: Report differences and update
 
-1. 検出した差分を一覧でユーザーに報告する
-2. 差分がない場合は「すべてのドキュメントは最新です」と報告して終了する
-3. 差分がある場合は、各ドキュメントを更新する
+1. Report all detected differences to the user as a list
+2. If no differences are found, report "All documents are up to date" and finish
+3. If differences are found, update each document
 
-### Step 4: 更新結果の報告
+### Step 4: Report update results
 
-更新したファイルと変更内容をまとめて報告する。
+Summarize the updated files and changes, then report to the user.
 
-## 注意事項
+## Notes
 
-- このスキルは**ドキュメントの更新のみ**を行う。ソースコードの変更は行わない
-- 既存のドキュメントの文体・フォーマットを維持する
-- ゲームの説明文や機能詳細は `.claude/tasks/<game>.md` やソースコードから読み取る
+- This skill **only updates documentation**. It does not modify source code
+- Maintain the existing document style and format
+- Read game descriptions and feature details from `.claude/tasks/<game>.md` or source code
