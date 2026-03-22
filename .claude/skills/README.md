@@ -29,3 +29,4 @@ Audits games for adherence to project conventions and automatically refactors an
 - `/git-issue-start [issue-number]` — Fetches a GitHub Issue and creates a feature branch
 - `/git-pr-create [commit-message]` — Commits, pushes, and creates a PR
 - `/git-review-respond [pr-number]` — Handles PR review comments end-to-end
+- `/tech-debt-audit-nextjs` — Audits Next.js (App Router) projects for technical debt and generates a prioritized report
