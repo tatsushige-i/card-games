@@ -1,3 +1,5 @@
+**Language:** English | [日本語](docs/ja-JP/README.md)
+
 # Card Games
 
 A web app where you can play various card games.
