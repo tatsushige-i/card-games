@@ -25,6 +25,21 @@ npm install
 npm run dev
 ```
 
+## Claude Code Setup
+
+This project shares Claude Code configuration (rules, skills, hooks) from [shared-claude-code](https://github.com/tatsushige-i/shared-claude-code).
+
+After cloning, sync the shared config by running the following slash command in Claude Code:
+
+```
+/config-claude-sync
+```
+
+This syncs:
+- **Rules** — `.claude/rules/shared/` (symlinks to shared rule files)
+- **Skills** — `.claude/skills/` (symlinks to shared skill directories)
+- **Hooks** — `.claude/settings.json` (shared hook commands)
+
 ## Docs
 
 - [Architecture](.claude/rules/architecture.md) — Game structure, routing, component trees
