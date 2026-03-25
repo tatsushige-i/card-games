@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { TenPlayBoard } from "../ten-play-board";
 import { useTenPlay } from "@/hooks/useTenPlay";
 
@@ -42,9 +42,10 @@ describe("TenPlayBoard", () => {
     mockUseTenPlay.mockReturnValue(createMockReturn());
   });
 
-  it("idle状態でボードを非表示にする", () => {
-    const { container } = render(<TenPlayBoard />);
-    expect(container.firstElementChild?.className).not.toContain("celebrate");
+  it("idle状態でタブローを非表示にする", () => {
+    render(<TenPlayBoard />);
+    // showBoard=falseのときカードボタンは描画されない（ヘッダーのボタンのみ存在）
+    expect(screen.queryByLabelText(/♠|♥|♦|♣/)).not.toBeInTheDocument();
   });
 
   it("cleared＋勝利時にcelebrateクラスを適用する", () => {

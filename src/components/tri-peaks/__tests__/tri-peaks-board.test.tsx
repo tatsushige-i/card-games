@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { TriPeaksBoard } from "../tri-peaks-board";
 import { useTriPeaks } from "@/hooks/useTriPeaks";
 
@@ -41,8 +41,10 @@ describe("TriPeaksBoard", () => {
   });
 
   it("idle状態でボードを非表示にする", () => {
-    const { container } = render(<TriPeaksBoard />);
-    expect(container.firstElementChild?.className).not.toContain("celebrate");
+    render(<TriPeaksBoard />);
+    // showBoard=falseのとき山札・捨て札エリアは描画されない
+    expect(screen.queryByText("山札")).not.toBeInTheDocument();
+    expect(screen.queryByText("捨て札")).not.toBeInTheDocument();
   });
 
   it("cleared＋勝利時にcelebrateクラスを適用する", () => {

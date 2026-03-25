@@ -52,9 +52,10 @@ describe("GolfBoard", () => {
     mockUseGolf.mockReturnValue(
       createMockReturn({ phase: "playing" })
     );
-    const { container } = render(<GolfBoard />);
-    // ボードがレンダリングされることを確認
-    expect(container.querySelector(".game-background")).toBeInTheDocument();
+    render(<GolfBoard />);
+    // showBoard=trueのときのみ描画される山札・捨て札エリアが存在する
+    expect(screen.getByText("山札")).toBeInTheDocument();
+    expect(screen.getByText("捨て札")).toBeInTheDocument();
   });
 
   it("クリア＋勝利時にcelebrateクラスを適用する", () => {

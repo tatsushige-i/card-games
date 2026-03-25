@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { PyramidBoard } from "../pyramid-board";
 import { usePyramid } from "@/hooks/usePyramid";
 
@@ -43,11 +43,10 @@ describe("PyramidBoard", () => {
   });
 
   it("idle状態でボードを非表示にする", () => {
-    const { container } = render(<PyramidBoard />);
-    // idle時はピラミッドグリッドがレンダリングされない
-    const gameArea = container.querySelector(".game-background");
-    expect(gameArea).toBeInTheDocument();
-    expect(container.firstElementChild?.className).not.toContain("celebrate");
+    render(<PyramidBoard />);
+    // showBoard=falseのとき山札・捨て札エリアは描画されない
+    expect(screen.queryByText("山札")).not.toBeInTheDocument();
+    expect(screen.queryByText("捨て札")).not.toBeInTheDocument();
   });
 
   it("complete＋勝利時にcelebrateクラスを適用する", () => {

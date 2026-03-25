@@ -37,9 +37,11 @@ describe("ConcentrationBoard", () => {
   });
 
   it("idle状態でカードグリッドを非表示にする", () => {
-    const { container } = render(<ConcentrationBoard />);
+    render(<ConcentrationBoard />);
     // idle時はConcentrationCardGridがレンダリングされない
-    expect(container.querySelectorAll("[data-testid]")).toHaveLength(0);
+    expect(
+      screen.queryByLabelText("裏向きのカード")
+    ).not.toBeInTheDocument();
   });
 
   it("playing状態でカードグリッドを表示する", () => {
@@ -52,9 +54,9 @@ describe("ConcentrationBoard", () => {
       createMockReturn({ phase: "playing", cards: testCards })
     );
     render(<ConcentrationBoard />);
-    // カードグリッドがレンダリングされることを確認（ボタン要素の存在で判定）
-    const buttons = screen.getAllByRole("button");
-    expect(buttons.length).toBeGreaterThan(0);
+    // カードグリッドがレンダリングされ、裏向きのカードが存在する
+    const cards = screen.getAllByLabelText("裏向きのカード");
+    expect(cards).toHaveLength(16);
   });
 
   it("complete時にcelebrateクラスを適用する", () => {
