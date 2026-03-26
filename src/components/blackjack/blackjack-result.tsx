@@ -1,5 +1,3 @@
-"use client";
-
 import { isBust } from "@/lib/blackjack-cards";
 import type { GameResult, PlayingCard } from "@/types/blackjack";
 

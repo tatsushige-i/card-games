@@ -1,5 +1,3 @@
-"use client";
-
 import type { RoundResult } from "@/types/war";
 
 type WarResultProps = {
