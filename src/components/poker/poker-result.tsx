@@ -1,5 +1,3 @@
-"use client";
-
 import { cn } from "@/lib/utils";
 import { HAND_NAMES, HAND_PAYOUTS } from "@/lib/poker-cards";
 import type { HandRank } from "@/types/poker";

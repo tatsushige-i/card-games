@@ -1,5 +1,3 @@
-"use client";
-
 import type { GuessResult } from "@/types/high-and-low";
 
 type HighAndLowResultProps = {
