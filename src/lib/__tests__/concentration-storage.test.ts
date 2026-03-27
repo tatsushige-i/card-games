@@ -51,6 +51,22 @@ describe("storage", () => {
       mockStorage.setItem("concentration-best-score", "invalid");
       expect(getConcentrationBestScore()).toBeNull();
     });
+
+    it("必須フィールドが欠損している場合はnullを返す", () => {
+      mockStorage.setItem(
+        "concentration-best-score",
+        JSON.stringify({ moves: 10 })
+      );
+      expect(getConcentrationBestScore()).toBeNull();
+    });
+
+    it("フィールドの型が不正な場合はnullを返す", () => {
+      mockStorage.setItem(
+        "concentration-best-score",
+        JSON.stringify({ moves: "10", time: 30 })
+      );
+      expect(getConcentrationBestScore()).toBeNull();
+    });
   });
 
   describe("saveConcentrationBestScore", () => {

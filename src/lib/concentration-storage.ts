@@ -8,7 +8,15 @@ export function getConcentrationBestScore(): ConcentrationBestScore | null {
   try {
     const data = localStorage.getItem(STORAGE_KEY);
     if (!data) return null;
-    return JSON.parse(data) as ConcentrationBestScore;
+    const parsed = JSON.parse(data);
+    // 必須フィールドの型を検証
+    if (
+      typeof parsed.moves !== "number" ||
+      typeof parsed.time !== "number"
+    ) {
+      return null;
+    }
+    return parsed as ConcentrationBestScore;
   } catch {
     return null;
   }

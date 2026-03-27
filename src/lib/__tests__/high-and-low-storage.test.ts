@@ -44,6 +44,22 @@ describe("getHighAndLowBestScore", () => {
     localStorageMock.getItem.mockReturnValueOnce("invalid");
     expect(getHighAndLowBestScore()).toBeNull();
   });
+
+  it("必須フィールドが欠損している場合はnullを返す", () => {
+    localStorageMock.setItem(
+      "high-and-low-best-score",
+      JSON.stringify({ maxStreak: 5 })
+    );
+    expect(getHighAndLowBestScore()).toBeNull();
+  });
+
+  it("フィールドの型が不正な場合はnullを返す", () => {
+    localStorageMock.setItem(
+      "high-and-low-best-score",
+      JSON.stringify({ maxStreak: "5", maxScore: 8 })
+    );
+    expect(getHighAndLowBestScore()).toBeNull();
+  });
 });
 
 describe("saveHighAndLowBestScore", () => {

@@ -44,6 +44,22 @@ describe("getBlackjackBestScore", () => {
     localStorageMock.getItem.mockReturnValueOnce("invalid");
     expect(getBlackjackBestScore()).toBeNull();
   });
+
+  it("必須フィールドが欠損している場合はnullを返す", () => {
+    localStorageMock.setItem(
+      "blackjack-best-score",
+      JSON.stringify({ unknown: 5 })
+    );
+    expect(getBlackjackBestScore()).toBeNull();
+  });
+
+  it("フィールドの型が不正な場合はnullを返す", () => {
+    localStorageMock.setItem(
+      "blackjack-best-score",
+      JSON.stringify({ maxWins: "5" })
+    );
+    expect(getBlackjackBestScore()).toBeNull();
+  });
 });
 
 describe("saveBlackjackBestScore", () => {

@@ -44,6 +44,22 @@ describe("getPokerBestScore", () => {
     localStorageMock.getItem.mockReturnValueOnce("invalid");
     expect(getPokerBestScore()).toBeNull();
   });
+
+  it("必須フィールドが欠損している場合はnullを返す", () => {
+    localStorageMock.setItem(
+      "poker-best-score",
+      JSON.stringify({ unknown: 50 })
+    );
+    expect(getPokerBestScore()).toBeNull();
+  });
+
+  it("フィールドの型が不正な場合はnullを返す", () => {
+    localStorageMock.setItem(
+      "poker-best-score",
+      JSON.stringify({ maxScore: "50" })
+    );
+    expect(getPokerBestScore()).toBeNull();
+  });
 });
 
 describe("savePokerBestScore", () => {

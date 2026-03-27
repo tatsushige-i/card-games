@@ -8,7 +8,12 @@ export function getPokerBestScore(): PokerBestScore | null {
   try {
     const data = localStorage.getItem(STORAGE_KEY);
     if (!data) return null;
-    return JSON.parse(data) as PokerBestScore;
+    const parsed = JSON.parse(data);
+    // 必須フィールドの型を検証
+    if (typeof parsed.maxScore !== "number") {
+      return null;
+    }
+    return parsed as PokerBestScore;
   } catch {
     return null;
   }

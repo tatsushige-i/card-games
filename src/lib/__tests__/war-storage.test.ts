@@ -44,6 +44,22 @@ describe("getWarBestScore", () => {
     localStorageMock.getItem.mockReturnValueOnce("invalid");
     expect(getWarBestScore()).toBeNull();
   });
+
+  it("必須フィールドが欠損している場合はnullを返す", () => {
+    localStorageMock.setItem(
+      "war-best-score",
+      JSON.stringify({ rounds: 30 })
+    );
+    expect(getWarBestScore()).toBeNull();
+  });
+
+  it("フィールドの型が不正な場合はnullを返す", () => {
+    localStorageMock.setItem(
+      "war-best-score",
+      JSON.stringify({ rounds: "30", date: "2026-01-01" })
+    );
+    expect(getWarBestScore()).toBeNull();
+  });
 });
 
 describe("saveWarBestScore", () => {

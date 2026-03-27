@@ -8,7 +8,15 @@ export function getGolfBestScore(): GolfBestScore | null {
   try {
     const data = localStorage.getItem(STORAGE_KEY);
     if (!data) return null;
-    return JSON.parse(data) as GolfBestScore;
+    const parsed = JSON.parse(data);
+    // 必須フィールドの型を検証
+    if (
+      typeof parsed.remainingCards !== "number" ||
+      typeof parsed.date !== "string"
+    ) {
+      return null;
+    }
+    return parsed as GolfBestScore;
   } catch {
     return null;
   }
