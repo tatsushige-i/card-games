@@ -47,6 +47,22 @@ describe("getGolfBestScore", () => {
     localStorageMock.getItem.mockReturnValueOnce("invalid");
     expect(getGolfBestScore()).toBeNull();
   });
+
+  it("必須フィールドが欠損している場合はnullを返す", () => {
+    localStorageMock.setItem(
+      "golf-best-score",
+      JSON.stringify({ remainingCards: 5 })
+    );
+    expect(getGolfBestScore()).toBeNull();
+  });
+
+  it("フィールドの型が不正な場合はnullを返す", () => {
+    localStorageMock.setItem(
+      "golf-best-score",
+      JSON.stringify({ remainingCards: "5", date: "2026-03-15" })
+    );
+    expect(getGolfBestScore()).toBeNull();
+  });
 });
 
 describe("saveGolfBestScore", () => {

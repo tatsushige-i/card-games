@@ -47,6 +47,22 @@ describe("getTriPeaksBestScore", () => {
     localStorageMock.getItem.mockReturnValueOnce("invalid");
     expect(getTriPeaksBestScore()).toBeNull();
   });
+
+  it("必須フィールドが欠損している場合はnullを返す", () => {
+    localStorageMock.setItem(
+      "tri-peaks-best-score",
+      JSON.stringify({ score: 42 })
+    );
+    expect(getTriPeaksBestScore()).toBeNull();
+  });
+
+  it("フィールドの型が不正な場合はnullを返す", () => {
+    localStorageMock.setItem(
+      "tri-peaks-best-score",
+      JSON.stringify({ score: "42", date: "2026-03-20" })
+    );
+    expect(getTriPeaksBestScore()).toBeNull();
+  });
 });
 
 describe("saveTriPeaksBestScore", () => {

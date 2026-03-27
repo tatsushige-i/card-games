@@ -47,6 +47,22 @@ describe("getTenPlayBestScore", () => {
     localStorageMock.getItem.mockReturnValueOnce("invalid");
     expect(getTenPlayBestScore()).toBeNull();
   });
+
+  it("必須フィールドが欠損している場合はnullを返す", () => {
+    localStorageMock.setItem(
+      "ten-play-best-score",
+      JSON.stringify({ bestTime: 120 })
+    );
+    expect(getTenPlayBestScore()).toBeNull();
+  });
+
+  it("フィールドの型が不正な場合はnullを返す", () => {
+    localStorageMock.setItem(
+      "ten-play-best-score",
+      JSON.stringify({ bestTime: "120", date: "2026-03-20" })
+    );
+    expect(getTenPlayBestScore()).toBeNull();
+  });
 });
 
 describe("saveTenPlayBestScore", () => {

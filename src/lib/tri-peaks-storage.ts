@@ -8,7 +8,15 @@ export function getTriPeaksBestScore(): TriPeaksBestScore | null {
   try {
     const data = localStorage.getItem(STORAGE_KEY);
     if (!data) return null;
-    return JSON.parse(data) as TriPeaksBestScore;
+    const parsed = JSON.parse(data);
+    // 必須フィールドの型を検証
+    if (
+      typeof parsed.score !== "number" ||
+      typeof parsed.date !== "string"
+    ) {
+      return null;
+    }
+    return parsed as TriPeaksBestScore;
   } catch {
     return null;
   }

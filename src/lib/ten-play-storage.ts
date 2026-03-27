@@ -8,7 +8,15 @@ export function getTenPlayBestScore(): TenPlayBestScore | null {
   try {
     const data = localStorage.getItem(STORAGE_KEY);
     if (!data) return null;
-    return JSON.parse(data) as TenPlayBestScore;
+    const parsed = JSON.parse(data);
+    // 必須フィールドの型を検証
+    if (
+      typeof parsed.bestTime !== "number" ||
+      typeof parsed.date !== "string"
+    ) {
+      return null;
+    }
+    return parsed as TenPlayBestScore;
   } catch {
     return null;
   }

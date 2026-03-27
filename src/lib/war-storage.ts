@@ -8,7 +8,15 @@ export function getWarBestScore(): WarBestScore | null {
   try {
     const data = localStorage.getItem(STORAGE_KEY);
     if (!data) return null;
-    return JSON.parse(data) as WarBestScore;
+    const parsed = JSON.parse(data);
+    // 必須フィールドの型を検証
+    if (
+      typeof parsed.rounds !== "number" ||
+      typeof parsed.date !== "string"
+    ) {
+      return null;
+    }
+    return parsed as WarBestScore;
   } catch {
     return null;
   }
