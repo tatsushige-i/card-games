@@ -11,7 +11,7 @@ import {
   tenPlayReducer,
   initialTenPlayState,
 } from "@/lib/ten-play-reducer";
-import { createDeck } from "@/lib/ten-play-cards";
+import { createDeck, TIMING } from "@/lib/ten-play-cards";
 import {
   getTenPlayBestScore,
   updateTenPlayBestScore,
@@ -108,7 +108,7 @@ export function useTenPlay() {
     if (state.invalidPair) {
       const timer = setTimeout(() => {
         dispatch({ type: "CLEAR_INVALID" });
-      }, 500);
+      }, TIMING.CLEAR_INVALID);
       return () => clearTimeout(timer);
     }
   }, [state.invalidPair]);

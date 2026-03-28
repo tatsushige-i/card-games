@@ -11,7 +11,7 @@ import {
   blackjackReducer,
   initialBlackjackState,
 } from "@/lib/blackjack-reducer";
-import { createDeck } from "@/lib/blackjack-cards";
+import { createDeck, TIMING } from "@/lib/blackjack-cards";
 import {
   getBlackjackBestScore,
   updateBlackjackBestScore,
@@ -85,7 +85,7 @@ export function useBlackjack() {
     if (state.phase === "dealing") {
       const timer = setTimeout(() => {
         dispatch({ type: "DEAL_COMPLETE" });
-      }, 600);
+      }, TIMING.DEAL);
       return () => clearTimeout(timer);
     }
   }, [state.phase]);
@@ -95,7 +95,7 @@ export function useBlackjack() {
     if (state.phase === "dealerTurn") {
       const timer = setTimeout(() => {
         dispatch({ type: "DEALER_DRAW" });
-      }, 800);
+      }, TIMING.DEALER_DRAW);
       return () => clearTimeout(timer);
     }
   }, [state.phase, state.dealerHand.length]);
@@ -105,7 +105,7 @@ export function useBlackjack() {
     if (state.phase === "result") {
       const timer = setTimeout(() => {
         dispatch({ type: "SHOW_RESULT" });
-      }, 1000);
+      }, TIMING.RESULT);
       return () => clearTimeout(timer);
     }
   }, [state.phase]);

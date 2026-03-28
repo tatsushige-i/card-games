@@ -8,7 +8,7 @@ import {
   useSyncExternalStore,
 } from "react";
 import { warReducer, initialWarState } from "@/lib/war-reducer";
-import { dealCards } from "@/lib/war-cards";
+import { dealCards, TIMING } from "@/lib/war-cards";
 import { getWarBestScore, updateWarBestScore } from "@/lib/war-storage";
 import type { WarBestScore, WarPhase } from "@/types/war";
 
@@ -83,7 +83,7 @@ export function useWar() {
     if (state.phase === "battle") {
       const timer = setTimeout(() => {
         dispatch({ type: "RESOLVE_BATTLE" });
-      }, 800);
+      }, TIMING.BATTLE);
       return () => clearTimeout(timer);
     }
   }, [state.phase]);
@@ -97,7 +97,7 @@ export function useWar() {
         } else {
           dispatch({ type: "COLLECT_CARDS" });
         }
-      }, 1000);
+      }, TIMING.RESULT);
       return () => clearTimeout(timer);
     }
   }, [state.phase, state.roundResult]);
@@ -107,7 +107,7 @@ export function useWar() {
     if (state.phase === "war") {
       const timer = setTimeout(() => {
         dispatch({ type: "REVEAL_WAR_CARDS" });
-      }, 800);
+      }, TIMING.WAR_REVEAL);
       return () => clearTimeout(timer);
     }
   }, [state.phase]);
@@ -117,7 +117,7 @@ export function useWar() {
     if (state.phase === "warReveal") {
       const timer = setTimeout(() => {
         dispatch({ type: "RESOLVE_BATTLE" });
-      }, 800);
+      }, TIMING.WAR_RESOLVE);
       return () => clearTimeout(timer);
     }
   }, [state.phase]);

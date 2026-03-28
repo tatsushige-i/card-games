@@ -11,7 +11,7 @@ import {
   pyramidReducer,
   initialPyramidState,
 } from "@/lib/pyramid-reducer";
-import { createDeck } from "@/lib/pyramid-cards";
+import { createDeck, TIMING } from "@/lib/pyramid-cards";
 import {
   getPyramidBestScore,
   updatePyramidBestScore,
@@ -108,7 +108,7 @@ export function usePyramid() {
     if (state.phase === "removing") {
       const timer = setTimeout(() => {
         dispatch({ type: "REMOVE_COMPLETE" });
-      }, 500);
+      }, TIMING.REMOVE);
       return () => clearTimeout(timer);
     }
   }, [state.phase]);
@@ -118,7 +118,7 @@ export function usePyramid() {
     if (state.invalidPair) {
       const timer = setTimeout(() => {
         dispatch({ type: "CLEAR_INVALID" });
-      }, 500);
+      }, TIMING.CLEAR_INVALID);
       return () => clearTimeout(timer);
     }
   }, [state.invalidPair]);

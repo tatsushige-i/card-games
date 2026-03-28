@@ -202,3 +202,9 @@ export function isStuck(
 export function getCardLabel(card: PlayingCard | PyramidCard): string {
   return `${SUIT_SYMBOLS[card.suit]}${card.rank}`;
 }
+
+/** アニメーションタイミング定数（ms） */
+export const TIMING = {
+  REMOVE: 500,        // removing → REMOVE_COMPLETE
+  CLEAR_INVALID: 500, // invalidPair → CLEAR_INVALID
+} as const;

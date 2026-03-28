@@ -228,3 +228,11 @@ function checkStraight(sortedValues: number[]): boolean {
 
   return isNormalStraight || isLowStraight;
 }
+
+/** アニメーションタイミング定数（ms） */
+export const TIMING = {
+  DEAL: 600,        // dealing → DEAL_COMPLETE
+  DRAW: 600,        // drawing → DRAW_COMPLETE
+  RESULT: 1000,     // result → SHOW_RESULT
+  NEXT_ROUND: 500,  // idle(中間ラウンド) → START_GAME
+} as const;
