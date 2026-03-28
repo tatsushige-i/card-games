@@ -8,7 +8,7 @@ import {
   useSyncExternalStore,
 } from "react";
 import { pokerReducer, initialPokerState } from "@/lib/poker-reducer";
-import { createDeck, MAX_ROUNDS } from "@/lib/poker-cards";
+import { createDeck, MAX_ROUNDS, TIMING } from "@/lib/poker-cards";
 import {
   getPokerBestScore,
   updatePokerBestScore,
@@ -76,7 +76,7 @@ export function usePoker() {
     if (state.phase === "dealing") {
       const timer = setTimeout(() => {
         dispatch({ type: "DEAL_COMPLETE" });
-      }, 600);
+      }, TIMING.DEAL);
       return () => clearTimeout(timer);
     }
   }, [state.phase]);
@@ -86,7 +86,7 @@ export function usePoker() {
     if (state.phase === "drawing") {
       const timer = setTimeout(() => {
         dispatch({ type: "DRAW_COMPLETE" });
-      }, 600);
+      }, TIMING.DRAW);
       return () => clearTimeout(timer);
     }
   }, [state.phase]);
@@ -96,7 +96,7 @@ export function usePoker() {
     if (state.phase === "result") {
       const timer = setTimeout(() => {
         dispatch({ type: "SHOW_RESULT" });
-      }, 1000);
+      }, TIMING.RESULT);
       return () => clearTimeout(timer);
     }
   }, [state.phase]);
@@ -110,7 +110,7 @@ export function usePoker() {
     ) {
       const timer = setTimeout(() => {
         dispatch({ type: "START_GAME", deck: createDeck() });
-      }, 500);
+      }, TIMING.NEXT_ROUND);
       return () => clearTimeout(timer);
     }
   }, [state.phase, state.round]);

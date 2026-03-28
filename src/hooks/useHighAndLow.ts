@@ -11,7 +11,7 @@ import {
   highAndLowReducer,
   initialHighAndLowState,
 } from "@/lib/high-and-low-reducer";
-import { createDeck } from "@/lib/high-and-low-cards";
+import { createDeck, TIMING } from "@/lib/high-and-low-cards";
 import {
   getHighAndLowBestScore,
   updateHighAndLowBestScore,
@@ -87,7 +87,7 @@ export function useHighAndLow() {
     if (state.phase === "revealing") {
       const timer = setTimeout(() => {
         dispatch({ type: "REVEAL_COMPLETE" });
-      }, 800);
+      }, TIMING.REVEAL);
       return () => clearTimeout(timer);
     }
   }, [state.phase]);

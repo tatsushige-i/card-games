@@ -2,7 +2,7 @@
 
 import { useReducer, useEffect, useCallback, useRef, useSyncExternalStore } from "react";
 import { concentrationReducer, initialConcentrationState } from "@/lib/concentration-reducer";
-import { createCards } from "@/lib/concentration-cards";
+import { createCards, TIMING } from "@/lib/concentration-cards";
 import { getConcentrationBestScore, updateConcentrationBestScore } from "@/lib/concentration-storage";
 import type { ConcentrationBestScore, ConcentrationPhase } from "@/types/concentration";
 
@@ -87,7 +87,7 @@ export function useConcentration() {
     if (state.flippedIds.length === 2) {
       const timer = setTimeout(() => {
         dispatch({ type: "CHECK_MATCH" });
-      }, 800);
+      }, TIMING.CHECK_MATCH);
       return () => clearTimeout(timer);
     }
   }, [state.flippedIds]);

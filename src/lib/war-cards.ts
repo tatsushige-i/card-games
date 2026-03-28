@@ -114,3 +114,11 @@ export function compareCards(
 export function getCardLabel(card: WarCard): string {
   return `${SUIT_SYMBOLS[card.suit]}${card.rank}`;
 }
+
+/** アニメーションタイミング定数（ms） */
+export const TIMING = {
+  BATTLE: 800,      // battle → RESOLVE_BATTLE
+  RESULT: 1000,     // result → START_WAR / COLLECT_CARDS
+  WAR_REVEAL: 800,  // war → REVEAL_WAR_CARDS
+  WAR_RESOLVE: 800, // warReveal → RESOLVE_BATTLE
+} as const;

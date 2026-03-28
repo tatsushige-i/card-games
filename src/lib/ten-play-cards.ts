@@ -193,3 +193,8 @@ export function refillTableau(
 export function getCardLabel(card: PlayingCard): string {
   return `${SUIT_SYMBOLS[card.suit]}${card.rank}`;
 }
+
+/** アニメーションタイミング定数（ms） */
+export const TIMING = {
+  CLEAR_INVALID: 500, // invalidPair → CLEAR_INVALID
+} as const;

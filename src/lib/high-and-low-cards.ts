@@ -85,3 +85,8 @@ export function createDeck(): PlayingCard[] {
 export function getCardLabel(card: PlayingCard): string {
   return `${SUIT_SYMBOLS[card.suit]}${card.rank}`;
 }
+
+/** アニメーションタイミング定数（ms） */
+export const TIMING = {
+  REVEAL: 800, // revealing → REVEAL_COMPLETE
+} as const;

@@ -126,3 +126,10 @@ export function isNaturalBlackjack(hand: PlayingCard[]): boolean {
 export function getCardLabel(card: PlayingCard): string {
   return `${SUIT_SYMBOLS[card.suit]}${card.rank}`;
 }
+
+/** アニメーションタイミング定数（ms） */
+export const TIMING = {
+  DEAL: 600,         // dealing → DEAL_COMPLETE
+  DEALER_DRAW: 800,  // dealerTurn → DEALER_DRAW
+  RESULT: 1000,      // result → SHOW_RESULT
+} as const;

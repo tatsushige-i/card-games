@@ -30,3 +30,8 @@ export function createCards(): ConcentrationCard[] {
 
 /** 総ペア数 */
 export const TOTAL_PAIRS = EMOJIS.length;
+
+/** アニメーションタイミング定数（ms） */
+export const TIMING = {
+  CHECK_MATCH: 800, // 2枚めくり後 → CHECK_MATCH
+} as const;
