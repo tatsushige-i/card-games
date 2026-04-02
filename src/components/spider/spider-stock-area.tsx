@@ -34,7 +34,7 @@ export function SpiderStockArea({
             )}
             onClick={canDeal ? onDeal : undefined}
             disabled={!canDeal}
-            aria-label={`山札（残り${remainingSets}回配布可能）`}
+            aria-label={`山札から各列にカードを配る（残り${remainingSets}回）`}
           >
             <div className="card-inner w-full h-full">
               <div
@@ -51,7 +51,10 @@ export function SpiderStockArea({
             </div>
           </button>
         ) : (
-          <div className="w-14 h-20 sm:w-16 sm:h-22 rounded-2xl border-2 border-dashed border-gray-200 flex items-center justify-center">
+          <div
+            className="w-14 h-20 sm:w-16 sm:h-22 rounded-2xl border-2 border-dashed border-gray-200 flex items-center justify-center"
+            aria-label="山札（空）"
+          >
             <span className="text-xs text-gray-300">空</span>
           </div>
         )}

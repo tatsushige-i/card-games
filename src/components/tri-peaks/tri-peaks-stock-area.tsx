@@ -34,7 +34,7 @@ export function TriPeaksStockArea({
             )}
             onClick={canDraw ? onDraw : undefined}
             disabled={!canDraw}
-            aria-label={`山札（残り${stock.length}枚）`}
+            aria-label={`山札からカードを引く（残り${stock.length}枚）`}
           >
             <div className="card-inner w-full h-full">
               <div
@@ -51,7 +51,10 @@ export function TriPeaksStockArea({
             </div>
           </button>
         ) : (
-          <div className="w-10 h-14 sm:w-12 sm:h-16 rounded-2xl border-2 border-dashed border-gray-200 flex items-center justify-center">
+          <div
+            className="w-10 h-14 sm:w-12 sm:h-16 rounded-2xl border-2 border-dashed border-gray-200 flex items-center justify-center"
+            aria-label="山札（空）"
+          >
             <span className="text-xs text-gray-300">空</span>
           </div>
         )}
@@ -63,7 +66,10 @@ export function TriPeaksStockArea({
         {wasteTop ? (
           <TriPeaksCard card={wasteTop} />
         ) : (
-          <div className="w-10 h-14 sm:w-12 sm:h-16 rounded-2xl border-2 border-dashed border-gray-200 flex items-center justify-center">
+          <div
+            className="w-10 h-14 sm:w-12 sm:h-16 rounded-2xl border-2 border-dashed border-gray-200 flex items-center justify-center"
+            aria-label="捨て札（空）"
+          >
             <span className="text-xs text-gray-300">空</span>
           </div>
         )}

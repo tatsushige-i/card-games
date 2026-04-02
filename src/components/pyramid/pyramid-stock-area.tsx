@@ -39,7 +39,7 @@ export function PyramidStockArea({
             type="button"
             className="card-container w-14 h-20 sm:w-16 sm:h-22 cursor-pointer select-none"
             onClick={onDrawStock}
-            aria-label={`山札（残り${stock.length}枚）`}
+            aria-label={`山札からカードを引く（残り${stock.length}枚）`}
           >
             <div className="card-inner w-full h-full">
               <div
@@ -60,12 +60,15 @@ export function PyramidStockArea({
             type="button"
             className="w-14 h-20 sm:w-16 sm:h-22 rounded-2xl border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer select-none hover:border-gray-400 transition-colors"
             onClick={onRecycleStock}
-            aria-label="山札をリサイクル"
+            aria-label="捨て札を山札にリサイクルする"
           >
             <span className="text-xl text-gray-400">↻</span>
           </button>
         ) : (
-          <div className="w-14 h-20 sm:w-16 sm:h-22 rounded-2xl border-2 border-dashed border-gray-200 flex items-center justify-center">
+          <div
+            className="w-14 h-20 sm:w-16 sm:h-22 rounded-2xl border-2 border-dashed border-gray-200 flex items-center justify-center"
+            aria-label="山札（空）"
+          >
             <span className="text-xs text-gray-300">空</span>
           </div>
         )}
@@ -83,7 +86,10 @@ export function PyramidStockArea({
             onClick={() => onSelectWaste(wasteTop.id)}
           />
         ) : (
-          <div className="w-14 h-20 sm:w-16 sm:h-22 rounded-2xl border-2 border-dashed border-gray-200 flex items-center justify-center">
+          <div
+            className="w-14 h-20 sm:w-16 sm:h-22 rounded-2xl border-2 border-dashed border-gray-200 flex items-center justify-center"
+            aria-label="捨て札（空）"
+          >
             <span className="text-xs text-gray-300">空</span>
           </div>
         )}
